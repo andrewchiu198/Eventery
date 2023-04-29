@@ -17,6 +17,7 @@
 		7BB599D429FC771300F74598 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D329FC771300F74598 /* CalendarViewController.swift */; };
 		7BB599D629FC772F00F74598 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D529FC772F00F74598 /* MapViewController.swift */; };
 		7BB599D829FC773C00F74598 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D729FC773C00F74598 /* ProfileViewController.swift */; };
+		7BB599DA29FC859400F74598 /* EventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		7BB599D329FC771300F74598 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		7BB599D529FC772F00F74598 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7BB599D729FC773C00F74598 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				7BB599D329FC771300F74598 /* CalendarViewController.swift */,
 				7BB599D529FC772F00F74598 /* MapViewController.swift */,
 				7BB599CF29FC67CC00F74598 /* EventsViewController.swift */,
+				7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */,
 				7BB599C429FC5EEE00F74598 /* Assets.xcassets */,
 				7BB599C629FC5EEE00F74598 /* LaunchScreen.storyboard */,
 				7BB599C929FC5EEE00F74598 /* Info.plist */,
@@ -154,6 +157,7 @@
 				7BB599D029FC67CC00F74598 /* EventsViewController.swift in Sources */,
 				7BB599BC29FC5EED00F74598 /* AppDelegate.swift in Sources */,
 				7BB599BE29FC5EED00F74598 /* SceneDelegate.swift in Sources */,
+				7BB599DA29FC859400F74598 /* EventsCollectionViewCell.swift in Sources */,
 				7BB599D229FC76F700F74598 /* PostViewController.swift in Sources */,
 				7BB599D829FC773C00F74598 /* ProfileViewController.swift in Sources */,
 				7BB599D629FC772F00F74598 /* MapViewController.swift in Sources */,
