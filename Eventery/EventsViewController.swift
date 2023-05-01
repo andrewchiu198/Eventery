@@ -32,7 +32,7 @@ class EventsViewController: UIViewController {
         eventsCollectionView.dataSource = self
         eventsCollectionView.delegate = self
         eventsCollectionView.tag = 1
-        eventsCollectionView.backgroundColor = .placeholderText
+        eventsCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
         eventsCollectionView.layer.cornerRadius = 10
         eventsCollectionView.clipsToBounds = true
         view.addSubview(eventsCollectionView)
@@ -86,6 +86,6 @@ extension EventsViewController: UICollectionViewDataSource {
 
 extension EventsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width/2.3, height: view.frame.width/2.3)
+        return CGSize(width: view.frame.width/2.25, height: view.frame.width/2.25)
     }
 }

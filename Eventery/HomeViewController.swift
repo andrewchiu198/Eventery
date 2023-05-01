@@ -13,6 +13,7 @@ class HomeViewController: UITabBarController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "BackgroundColor")
         UITabBar.appearance().barTintColor = .white
+        UITabBar.appearance().isTranslucent = false
         tabBar.backgroundColor = UIColor(named: "TabBarColor")
         tabBar.layer.borderWidth = 1
         tabBar.layer.borderColor = UIColor.separator.cgColor
