@@ -16,6 +16,7 @@ class HomeViewController: UITabBarController {
         UITabBar.appearance().isTranslucent = false
         tabBar.backgroundColor = UIColor(named: "TabBarColor")
         tabBar.layer.borderWidth = 1
+        tabBar.isTranslucent = false
         tabBar.layer.borderColor = UIColor.separator.cgColor
         tabBar.unselectedItemTintColor = .white
         tabBar.tintColor = UIColor(named: "HighlightColor")
@@ -40,6 +41,11 @@ class HomeViewController: UITabBarController {
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
+        let attributes: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font: UIFont(name: "Helvetica-Bold", size: 22) as Any
+            ]
+        UINavigationBar.appearance().titleTextAttributes = attributes
         rootViewController.navigationItem.title = title
         return navController
     }
