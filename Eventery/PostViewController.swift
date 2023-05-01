@@ -15,13 +15,17 @@ class PostViewController: UIViewController {
     let titleTextField = UITextField()
     let addressTextField = UITextField()
     let timeTextField = UITextField()
-    let descriptionTextField = UITextField()
+    let descriptionTextView = UITextView()
     let tagTextField = UITextField()
+    let postButton = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor(named: "BackgroundColor")
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
         
         backgroundImage.backgroundColor = UIColor(named: "CollectionViewBackground")
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
@@ -61,8 +65,56 @@ class PostViewController: UIViewController {
         addressTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(addressTextField)
         
+        timeTextField.layer.cornerRadius = 5
+        timeTextField.clipsToBounds = true
+        timeTextField.textColor = .black
+        timeTextField.backgroundColor = .white
+        timeTextField.attributedPlaceholder = NSAttributedString(
+            string: "00/00/0000 0:00p.m.",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+            )
+        timeTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(timeTextField)
+        
+        tagTextField.layer.cornerRadius = 5
+        tagTextField.clipsToBounds = true
+        tagTextField.textColor = .black
+        tagTextField.backgroundColor = .white
+        tagTextField.attributedPlaceholder = NSAttributedString(
+            string: "Tag",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
+            )
+        tagTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tagTextField)
+        
+        descriptionTextView.layer.cornerRadius = 5
+        descriptionTextView.clipsToBounds = true
+        descriptionTextView.textColor = .gray
+        descriptionTextView.backgroundColor = .white
+        descriptionTextView.font = UIFont(name: "Helvetica", size: view.frame.height * 0.02)
+        descriptionTextView.text = "Enter Description Here..."
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(descriptionTextView)
+        
+        postButton.clipsToBounds = true
+        postButton.backgroundColor = UIColor(named: "ButtonColor")
+        postButton.setTitleColor(.white, for: .normal)
+        postButton.setTitle("Post Event!", for: .normal)
+        postButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
+        postButton.layer.cornerRadius = 5
+        postButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.03)
+        postButton.addTarget(self, action: #selector(postEvent), for: .touchUpInside)
+        postButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(postButton)
+
+        
+        
         setupConstraints()
         
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     func setupConstraints() {
@@ -98,9 +150,35 @@ class PostViewController: UIViewController {
             addressTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
             addressTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
         ])
+        
+        NSLayoutConstraint.activate([
+            timeTextField.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 10),
+            timeTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            timeTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.65),
+            timeTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
+        ])
+        
+        NSLayoutConstraint.activate([
+            tagTextField.topAnchor.constraint(equalTo: timeTextField.bottomAnchor, constant: 10),
+            tagTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            tagTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.6),
+            tagTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
+        ])
+        
+        NSLayoutConstraint.activate([
+            descriptionTextView.topAnchor.constraint(equalTo: tagTextField.bottomAnchor, constant: 10),
+            descriptionTextView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95),
+            descriptionTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            descriptionTextView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
+        ])
+        
+        NSLayoutConstraint.activate([
+            postButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor,constant: 15),
+            postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
-    func postEvent() {
+    @objc func postEvent() {
         //blah blah check if text fields are empty here
         var eventToBePosted = Event(id: 999, title: "Sample", address: "sample", start: "sample", end: "samplke", description: "sample", host: "sample", host_email: "sample", image: "sample", free: true, attendees: [""], tags: [""])
     }

@@ -31,8 +31,13 @@ class LearnMoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UITabBar.appearance().barTintColor = .white
+        UITabBar.appearance().isTranslucent = false
         self.navigationController?.navigationBar.tintColor = .white
+
         
+        view.backgroundColor = UIColor(named: "CollectionViewBackground")
+
         eventImageView.image = UIImage(named: event.image)
         eventImageView.translatesAutoresizingMaskIntoConstraints = false
         eventImageView.clipsToBounds = true
@@ -88,6 +93,7 @@ class LearnMoreViewController: UIViewController {
     }
     
     func setupConstraints() {
+        
         NSLayoutConstraint.activate([
             eventImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             eventImageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1),
