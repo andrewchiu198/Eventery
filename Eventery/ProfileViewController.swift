@@ -9,8 +9,10 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    let backgroundImage = UIImageView()
 
+    let backgroundImage = UIImageView()
+    let nameLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,6 +21,10 @@ class ProfileViewController: UIViewController {
         backgroundImage.backgroundColor = UIColor(named: "CollectionViewBackground")
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundImage)
+        
+        nameLabel.text = "Name Here"
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(nameLabel)
         
         
         

@@ -15,14 +15,27 @@ class EventsViewController: UIViewController {
     var interestsTypes = ["Sports", "Business", "Social", "Art"]
     var activatedInterests = ["","","",""]
     
-    let events = DummyData.events
+    var events: [Event]
+    var filteredEvents: [Event] = []
     
-    var filteredEvents = DummyData.events
+    init(events: [Event]) {
+        self.events = events
+        self.filteredEvents = events
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     let itemPadding: CGFloat = 10
     let sectionPadding: CGFloat = 15
     let cellReuseID = "cellReuseID"
     let interestsReuseID = "interestReuseID"
+    
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

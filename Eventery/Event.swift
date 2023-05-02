@@ -14,10 +14,11 @@ struct Event: Codable {
     var start: String
     var end: String
     var description: String
-    var host: String
-    var host_email: String
-    var image: String
+    var host: String //remove (encapsulated in user)
+    var host_email: String //remove (encapsulated in user
+    //add user
+    var image: String //rename to imageType
     var free: Bool
-    var attendees: [String]
-    var tags: [String]
+    var attendees: [String] //get rid of this
+    var tags: [String] // for now we make this a single string (rename to category)
 }

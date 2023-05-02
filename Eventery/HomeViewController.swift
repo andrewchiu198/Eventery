@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  Eventery
 //
 //  Created by Andrew Chiu on 4/28/23.
@@ -8,6 +8,8 @@
 import UIKit
 
 class HomeViewController: UITabBarController {
+    
+    let events = DummyData.events
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +23,12 @@ class HomeViewController: UITabBarController {
         tabBar.unselectedItemTintColor = .white
         tabBar.tintColor = UIColor(named: "HighlightColor")
         setupVCs()
+        
     }
         
         func setupVCs() {
             viewControllers = [
-                createNavController(for: EventsViewController(), title: NSLocalizedString("Events", comment: ""), image: UIImage(systemName: "magnifyingglass")!),
+                createNavController(for: EventsViewController(events: events), title: NSLocalizedString("Events", comment: ""), image: UIImage(systemName: "magnifyingglass")!),
                 
                 createNavController(for: CalendarViewController(), title: NSLocalizedString("Calendar", comment: ""), image: UIImage(systemName: "calendar")!),
                 
