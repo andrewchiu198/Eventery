@@ -21,6 +21,8 @@ class MapViewController: UIViewController {
         
         mapView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.height)
         
+        //tabBarController!.tabBar.frame.height + 10
+        
         mapView.mapType = MKMapType.standard
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
@@ -33,18 +35,7 @@ class MapViewController: UIViewController {
         mapView.centerToLocation(initialLocation)
         
         view.addSubview(mapView)
-        
-        setupConstraints()
-        
-    }
-    
-    func setupConstraints() {
-        NSLayoutConstraint.activate([
-            mapView.topAnchor.constraint(equalTo: view.topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+                
     }
     
     func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?)-> Void) {

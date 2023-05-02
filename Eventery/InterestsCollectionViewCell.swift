@@ -22,7 +22,7 @@ class InterestsCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         interestsLabel.text = interest
         interestsLabel.textColor = .white
-        interestsLabel.font = UIFont(name: "Helvetica-Bold", size: contentView.frame.height * 0.65)
+        interestsLabel.font = UIFont(name: "Helvetica-Bold", size: contentView.frame.height * 0.6)
         interestsLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(interestsLabel)
         

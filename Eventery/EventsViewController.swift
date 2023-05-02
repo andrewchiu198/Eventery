@@ -9,6 +9,8 @@ import UIKit
 
 class EventsViewController: UIViewController {
     
+    //TODO make pretty
+    
     let label = UILabel()
     var interestsCollectionView: UICollectionView!
     var eventsCollectionView: UICollectionView!
@@ -53,12 +55,9 @@ class EventsViewController: UIViewController {
         interestsCollectionView.register(InterestsCollectionViewCell.self, forCellWithReuseIdentifier: interestsReuseID)
         interestsCollectionView.dataSource = self
         interestsCollectionView.delegate = self
+        interestsCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
         interestsCollectionView.tag = 0
-        interestsCollectionView.backgroundColor = UIColor(named: "InterestsBackgroundColor")
-        interestsCollectionView.layer.cornerRadius = 10
         interestsCollectionView.clipsToBounds = true
-        interestsCollectionView.layer.borderWidth = 3
-        interestsCollectionView.layer.borderColor = UIColor(white: 0, alpha: 0.1).cgColor
         view.addSubview(interestsCollectionView)
         
         let flowLayout = UICollectionViewFlowLayout()
@@ -74,8 +73,6 @@ class EventsViewController: UIViewController {
         eventsCollectionView.delegate = self
         eventsCollectionView.tag = 1
         eventsCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
-        eventsCollectionView.layer.cornerRadius = 10
-        eventsCollectionView.clipsToBounds = true
         view.addSubview(eventsCollectionView)
         
         setupConstraints()
@@ -85,7 +82,7 @@ class EventsViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             interestsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            interestsCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.1),
+            interestsCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
             interestsCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             interestsCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
@@ -104,7 +101,7 @@ class EventsViewController: UIViewController {
     
         for event in events {
             for interest in activatedInterests {
-                if(event.tags[0] == interest) {
+                if(event.category == interest) {
                     filteredEvents.append(event)
                 }
             }
@@ -119,6 +116,13 @@ class EventsViewController: UIViewController {
 extension EventsViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if collectionView.tag == 1 {
+            let cell: EventsCollectionViewCell = eventsCollectionView.cellForItem(at: indexPath) as! EventsCollectionViewCell
+            let vc = LearnMoreViewController(event: cell.event)
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
         if collectionView.tag == 0 {
             let cell:UICollectionViewCell = interestsCollectionView.cellForItem(at: indexPath)!
             
@@ -167,6 +171,7 @@ extension EventsViewController: UICollectionViewDelegate {
             eventsCollectionView.reloadData()
         }
     }
+    
 }
 
 extension EventsViewController: UICollectionViewDataSource {
@@ -207,7 +212,7 @@ extension EventsViewController: UICollectionViewDataSource {
 extension EventsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView.tag == 0 {
-            return CGSize(width: view.frame.width/2.5, height: view.frame.height/20)
+            return CGSize(width: view.frame.width/2.5, height: view.frame.height/27)
         }
         if collectionView.tag == 1 {
             return CGSize(width: view.frame.width/2.25, height: view.frame.width/2.25)

@@ -35,10 +35,12 @@ class LearnMoreViewController: UIViewController {
         UITabBar.appearance().isTranslucent = false
         self.navigationController?.navigationBar.tintColor = .white
 
+        //TODO fill in more here
+        
         
         view.backgroundColor = UIColor(named: "CollectionViewBackground")
 
-        eventImageView.image = UIImage(named: event.image)
+        eventImageView.image = UIImage(named: event.category + "Event")
         eventImageView.translatesAutoresizingMaskIntoConstraints = false
         eventImageView.clipsToBounds = true
         eventImageView.layer.cornerRadius = 5
@@ -62,7 +64,7 @@ class LearnMoreViewController: UIViewController {
         eventTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(eventTimeLabel)
         
-        eventHostLabel.text = event.host
+        eventHostLabel.text = event.user
         eventHostLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.025)
         eventHostLabel.textColor = .white
         eventHostLabel.translatesAutoresizingMaskIntoConstraints = false

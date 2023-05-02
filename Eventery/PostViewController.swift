@@ -21,6 +21,8 @@ class PostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //adjust the text fields
 
         view.backgroundColor = UIColor(named: "BackgroundColor")
         
@@ -180,6 +182,6 @@ class PostViewController: UIViewController {
     
     @objc func postEvent() {
         //blah blah check if text fields are empty here
-        var eventToBePosted = Event(id: 999, title: "Sample", address: "sample", start: "sample", end: "samplke", description: "sample", host: "sample", host_email: "sample", image: "sample", free: true, attendees: [""], tags: [""])
+        var eventToBePosted = Event(id: 99, title: "", address: "", start: "", end: "", user: "", userEmail: "", description: "", free: false, category: "")
     }
 }
