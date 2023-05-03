@@ -11,10 +11,11 @@
 		3BBA44D82A01CF3C00814F18 /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA44D72A01CF3C00814F18 /* CalendarHelper.swift */; };
 		3BBA44DA2A01CF5800814F18 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA44D92A01CF5800814F18 /* CalendarCell.swift */; };
 		3BBA44DC2A01CF7C00814F18 /* EventCalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBA44DB2A01CF7C00814F18 /* EventCalendarTableViewCell.swift */; };
+		7B8E01CC2A0219FB00F4DB64 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8E01CB2A0219FB00F4DB64 /* Categories.swift */; };
 		7BA86CC129FF5A820010DF7F /* LearnMoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA86CC029FF5A820010DF7F /* LearnMoreViewController.swift */; };
 		7BA86CC329FF77470010DF7F /* DummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA86CC229FF77470010DF7F /* DummyData.swift */; };
 		7BA86CC529FF77620010DF7F /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA86CC429FF77620010DF7F /* Event.swift */; };
-		7BA86CC72A0061B90010DF7F /* InterestsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA86CC62A0061B90010DF7F /* InterestsCollectionViewCell.swift */; };
+		7BA86CC72A0061B90010DF7F /* CategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA86CC62A0061B90010DF7F /* CategoriesCollectionViewCell.swift */; };
 		7BA86CC92A00A4BC0010DF7F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA86CC82A00A4BB0010DF7F /* User.swift */; };
 		7BB599BC29FC5EED00F74598 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599BB29FC5EED00F74598 /* AppDelegate.swift */; };
 		7BB599BE29FC5EED00F74598 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599BD29FC5EED00F74598 /* SceneDelegate.swift */; };
@@ -34,10 +35,11 @@
 		3BBA44D72A01CF3C00814F18 /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		3BBA44D92A01CF5800814F18 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		3BBA44DB2A01CF7C00814F18 /* EventCalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCalendarTableViewCell.swift; sourceTree = "<group>"; };
+		7B8E01CB2A0219FB00F4DB64 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		7BA86CC029FF5A820010DF7F /* LearnMoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnMoreViewController.swift; sourceTree = "<group>"; };
 		7BA86CC229FF77470010DF7F /* DummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyData.swift; sourceTree = "<group>"; };
 		7BA86CC429FF77620010DF7F /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		7BA86CC62A0061B90010DF7F /* InterestsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestsCollectionViewCell.swift; sourceTree = "<group>"; };
+		7BA86CC62A0061B90010DF7F /* CategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
 		7BA86CC82A00A4BB0010DF7F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7BB599B829FC5EED00F74598 /* Eventery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eventery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BB599BB29FC5EED00F74598 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				7BB599BB29FC5EED00F74598 /* AppDelegate.swift */,
+				7B8E01CB2A0219FB00F4DB64 /* Categories.swift */,
 				7BB599BD29FC5EED00F74598 /* SceneDelegate.swift */,
 				7BB599BF29FC5EED00F74598 /* HomeViewController.swift */,
 				7BB599D729FC773C00F74598 /* ProfileViewController.swift */,
@@ -92,8 +95,8 @@
 				7BB599D329FC771300F74598 /* CalendarViewController.swift */,
 				7BB599D529FC772F00F74598 /* MapViewController.swift */,
 				7BB599CF29FC67CC00F74598 /* EventsViewController.swift */,
-				7BA86CC62A0061B90010DF7F /* InterestsCollectionViewCell.swift */,
 				7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */,
+				7BA86CC62A0061B90010DF7F /* CategoriesCollectionViewCell.swift */,
 				7BA86CC229FF77470010DF7F /* DummyData.swift */,
 				7BA86CC82A00A4BB0010DF7F /* User.swift */,
 				7BA86CC429FF77620010DF7F /* Event.swift */,
@@ -184,10 +187,11 @@
 				7BB599C029FC5EED00F74598 /* HomeViewController.swift in Sources */,
 				7BA86CC129FF5A820010DF7F /* LearnMoreViewController.swift in Sources */,
 				7BB599D029FC67CC00F74598 /* EventsViewController.swift in Sources */,
-				7BA86CC72A0061B90010DF7F /* InterestsCollectionViewCell.swift in Sources */,
+				7BA86CC72A0061B90010DF7F /* CategoriesCollectionViewCell.swift in Sources */,
 				7BA86CC529FF77620010DF7F /* Event.swift in Sources */,
 				7BA86CC92A00A4BC0010DF7F /* User.swift in Sources */,
 				7BB599BC29FC5EED00F74598 /* AppDelegate.swift in Sources */,
+				7B8E01CC2A0219FB00F4DB64 /* Categories.swift in Sources */,
 				3BBA44D42A01CF0700814F18 /* CalendarDay.swift in Sources */,
 				3BBA44D82A01CF3C00814F18 /* CalendarHelper.swift in Sources */,
 				7BB599BE29FC5EED00F74598 /* SceneDelegate.swift in Sources */,

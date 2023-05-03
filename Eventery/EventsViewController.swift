@@ -12,10 +12,10 @@ class EventsViewController: UIViewController {
     //TODO make pretty
     
     let label = UILabel()
-    var interestsCollectionView: UICollectionView!
+    var categoriesCollectionView: UICollectionView!
     var eventsCollectionView: UICollectionView!
-    var interestsTypes = ["Sports", "Business", "Social", "Art"]
-    var activatedInterests = ["","","",""]
+    var categoryTypes = Categories.categories
+    var activatedCategories = ["","","",""]
     
     var events: [Event]
     var filteredEvents: [Event] = []
@@ -34,7 +34,7 @@ class EventsViewController: UIViewController {
     let itemPadding: CGFloat = 10
     let sectionPadding: CGFloat = 15
     let cellReuseID = "cellReuseID"
-    let interestsReuseID = "interestReuseID"
+    let categoriesReuseID = "categoriesReuseID"
     
 
     
@@ -44,21 +44,22 @@ class EventsViewController: UIViewController {
         
         view.backgroundColor = UIColor(named: "BackgroundColor")
         
-        let interestsFlowLayout = UICollectionViewFlowLayout()
-        interestsFlowLayout.minimumLineSpacing = itemPadding
-        interestsFlowLayout.minimumInteritemSpacing = itemPadding
-        interestsFlowLayout.scrollDirection = .horizontal
-        interestsFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        let categoriesFlowLayout = UICollectionViewFlowLayout()
+        categoriesFlowLayout.minimumLineSpacing = itemPadding
+        categoriesFlowLayout.minimumInteritemSpacing = itemPadding
+        categoriesFlowLayout.scrollDirection = .horizontal
+        categoriesFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
-        interestsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: interestsFlowLayout)
-        interestsCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        interestsCollectionView.register(InterestsCollectionViewCell.self, forCellWithReuseIdentifier: interestsReuseID)
-        interestsCollectionView.dataSource = self
-        interestsCollectionView.delegate = self
-        interestsCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
-        interestsCollectionView.tag = 0
-        interestsCollectionView.clipsToBounds = true
-        view.addSubview(interestsCollectionView)
+        categoriesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: categoriesFlowLayout)
+        categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        categoriesCollectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: categoriesReuseID)
+        categoriesCollectionView.dataSource = self
+        categoriesCollectionView.delegate = self
+        categoriesCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
+        categoriesCollectionView.tag = 0
+        categoriesCollectionView.clipsToBounds = true
+        categoriesCollectionView.flashScrollIndicators()
+        view.addSubview(categoriesCollectionView)
         
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.minimumInteritemSpacing = itemPadding
@@ -81,14 +82,14 @@ class EventsViewController: UIViewController {
     func setupConstraints() {
         
         NSLayoutConstraint.activate([
-            interestsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            interestsCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
-            interestsCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            interestsCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            categoriesCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
+            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            eventsCollectionView.topAnchor.constraint(equalTo: interestsCollectionView.bottomAnchor),
+            eventsCollectionView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor),
             eventsCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             eventsCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             eventsCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
@@ -100,14 +101,14 @@ class EventsViewController: UIViewController {
         //TODO add case for all de-activated
     
         for event in events {
-            for interest in activatedInterests {
-                if(event.category == interest) {
+            for category in activatedCategories {
+                if(event.category == category) {
                     filteredEvents.append(event)
                 }
             }
         }
         
-        if activatedInterests == ["","","",""] {
+        if activatedCategories == ["","","",""] {
             filteredEvents = events
         }
     }
@@ -124,7 +125,7 @@ extension EventsViewController: UICollectionViewDelegate {
         }
         
         if collectionView.tag == 0 {
-            let cell:UICollectionViewCell = interestsCollectionView.cellForItem(at: indexPath)!
+            let cell:UICollectionViewCell = categoriesCollectionView.cellForItem(at: indexPath)!
             
             
             if (cell.tag == 0) {
@@ -133,14 +134,14 @@ extension EventsViewController: UICollectionViewDelegate {
                 
                 var allEmpty = true
                 
-                for act in activatedInterests {
+                for act in activatedCategories {
                     if(act != "") {
                         allEmpty = false
                     }
                 }
                 
                 if(allEmpty == true) {
-                    activatedInterests = ["","","",""]
+                    activatedCategories = ["","","",""]
                 }
                 
                 var selection: String
@@ -157,16 +158,16 @@ extension EventsViewController: UICollectionViewDelegate {
                     selection = ""
                 }
                 
-                activatedInterests[indexPath.row] = selection
+                activatedCategories[indexPath.row] = selection
             }
             
             else {
                 cell.contentView.backgroundColor = UIColor(named: "ButtonColor")
                 cell.tag = 0
-                activatedInterests[indexPath.row] = ""
+                activatedCategories[indexPath.row] = ""
             }
             
-            print(activatedInterests)
+            print(activatedCategories)
             filterData()
             eventsCollectionView.reloadData()
         }
@@ -182,7 +183,7 @@ extension EventsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 0 {
-            return interestsTypes.count
+            return categoryTypes.count
         }
         if collectionView.tag == 1 {
             return filteredEvents.count
@@ -193,8 +194,8 @@ extension EventsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView.tag == 0 {
-            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: interestsReuseID, for: indexPath) as? InterestsCollectionViewCell {
-                cell.configureCell(interest: interestsTypes[indexPath.row])
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoriesReuseID, for: indexPath) as? CategoriesCollectionViewCell {
+                cell.configureCell(category: categoryTypes[indexPath.row])
                 return cell
             }
         }
