@@ -13,6 +13,21 @@ class MapViewController: UIViewController {
 
     @IBOutlet private var mapView: MKMapView! = MKMapView()
     
+    init(events: [Event]){
+        super.init(nibName: nil, bundle: nil)
+        
+        for i in events{
+            let arbEvent = MKPointAnnotation()
+            arbEvent.title = i.title
+            arbEvent.coordinate = CLLocationCoordinate2D(latitude: getLatitudeFromLoc(address: i.address), longitude: getLongitudeFromLoc(address: i.address))
+            mapView.addAnnotation(arbEvent)
+        }
+                    
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +43,11 @@ class MapViewController: UIViewController {
         mapView.isScrollEnabled = true
         mapView.delegate = self
         
-        let hoyRoad = MKPointAnnotation()
-        hoyRoad.title = "hoy road"
-        hoyRoad.coordinate = CLLocationCoordinate2D(latitude: 42.4428052, longitude: -76.4786648)
-        mapView.addAnnotation(hoyRoad)
+//        let hoyRoad = MKPointAnnotation()
+//        hoyRoad.title = "hoy road"
+//        hoyRoad.coordinate = CLLocationCoordinate2D(latitude: 42.4428052, longitude: -76.4786648)
+//        mapView.addAnnotation(hoyRoad)
+        
         mapView.centerToLocation(initialLocation)
         
         view.addSubview(mapView)

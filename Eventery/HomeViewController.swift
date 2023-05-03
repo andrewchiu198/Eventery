@@ -32,7 +32,7 @@ class HomeViewController: UITabBarController {
                 
                 createNavController(for: CalendarViewController(), title: NSLocalizedString("Calendar", comment: ""), image: UIImage(systemName: "calendar")!),
                 
-                createNavController(for: MapViewController(), title: NSLocalizedString("Map", comment: ""), image: UIImage(systemName: "map.fill")!),
+                createNavController(for: MapViewController(events: events), title: NSLocalizedString("Map", comment: ""), image: UIImage(systemName: "map.fill")!),
                 
                 createNavController(for: PostViewController(), title: NSLocalizedString("Post", comment: ""), image: UIImage(systemName: "square.and.pencil")!),
                 
