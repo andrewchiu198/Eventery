@@ -98,7 +98,6 @@ class DummyData {
               description: "Annual Cornell Festival, featuring performance by Coin",
               host: "Cornell Slope Day Committee",
               host_email: "CornellSlopeDayCommittee@cornll.edu",
-              
               free: false,
               category: "Social"),
 

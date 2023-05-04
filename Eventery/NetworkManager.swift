@@ -10,7 +10,7 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     
-    var url = URL(string: "http://34.85.177.184/events")!
+    var url = URL(string: "http://34.85.177.184/api/events/")!
     
     func getAllEvents(completion: @escaping ([Event]) -> Void) {
         //TODO: Get all Events
@@ -23,9 +23,10 @@ class NetworkManager {
             if let data = data {
                 do {
                     let decoder = JSONDecoder()
-                    print(String(data: data, encoding: .utf8)!)
+                    //print(String(data: data, encoding: .utf8)!)
                     let response = try decoder.decode(EventResponse.self, from: data)
                     //print(response)
+                    print(response.events)
                     completion(response.events)
                 }catch (let error){
                     print(error.localizedDescription)
@@ -72,27 +73,12 @@ class NetworkManager {
         var request = URLRequest(url: url)
         
       request.httpMethod = "POST"
-       request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         //set body
         var body: [String: Any] = [:]
         
         //if the id already exists
-        if let iDholder = id{
-            body = [
-                "id": iDholder,
-                "title": title,
-                "address": address,
-                "start": start,
-                 "end": end,
-                "description": description,
-                 "host": user,
-                 "host_email": userEmail,
-                 "free": free,
-                 "category": category
-            ]
-        //if it doesn't, we want to create a new id
-        }else{
             body = [
                 "title": title,
                 "address": address,
@@ -104,7 +90,6 @@ class NetworkManager {
                  "free": free,
                  "category": category
             ]
-        }
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
         
@@ -152,7 +137,7 @@ class NetworkManager {
                 do {
                     let decoder = JSONDecoder()
                     let response = try decoder.decode(Event.self, from: data)
-                   // completion(response)
+                    //completion(response)
                 }catch (let error){
                     print(error.localizedDescription)
                 }

@@ -21,6 +21,7 @@ class EventsViewController: UIViewController {
     var filteredEvents: [Event] = []
     
     init(events: [Event]) {
+        
         self.events = events
         self.filteredEvents = events
         super.init(nibName: nil, bundle: nil)
@@ -75,6 +76,12 @@ class EventsViewController: UIViewController {
         eventsCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
         view.addSubview(eventsCollectionView)
         
+        NetworkManager.shared.getAllEvents { events in
+            DispatchQueue.main.async {
+                self.events = events
+            }
+        }
+        
         setupConstraints()
     }
     
@@ -112,6 +119,7 @@ class EventsViewController: UIViewController {
         }
     }
 }
+
 
 extension EventsViewController: UICollectionViewDelegate {
     
