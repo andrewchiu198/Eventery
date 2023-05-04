@@ -182,6 +182,11 @@ class PostViewController: UIViewController {
     
     @objc func postEvent() {
         //blah blah check if text fields are empty here
-        var eventToBePosted = Event(id: 99, title: "", address: "", start: "", end: "", user: "", userEmail: "", description: "", free: false, category: "")
+        NetworkManager.shared.createEvent(id: nil, title: titleTextField.text!, address: addressTextField.text!, start: "0000-00-00000:00:00", end: "0000-00-00000:00:00", user: "udp3", userEmail: "udp3@cornell.edu", description: descriptionTextView.text!, free: true, category: "Sports"){
+            event in
+            print("Success posting!")
+            
+        }
+        //var eventToBePosted = Event(id: 99, title: "", address: "", start: "", end: "", description: "", host: "", host_email: "", free: false, category: "")
     }
 }

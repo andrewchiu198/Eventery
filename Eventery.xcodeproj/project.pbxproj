@@ -27,6 +27,7 @@
 		7BB599D629FC772F00F74598 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D529FC772F00F74598 /* MapViewController.swift */; };
 		7BB599D829FC773C00F74598 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D729FC773C00F74598 /* ProfileViewController.swift */; };
 		7BB599DA29FC859400F74598 /* EventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */; };
+		89BF23D62A022ABE006100B3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF23D52A022ABE006100B3 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		7BB599D529FC772F00F74598 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7BB599D729FC773C00F74598 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCollectionViewCell.swift; sourceTree = "<group>"; };
+		89BF23D52A022ABE006100B3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,10 +93,11 @@
 				7BB599D129FC76F700F74598 /* PostViewController.swift */,
 				7BB599D329FC771300F74598 /* CalendarViewController.swift */,
 				7BB599D529FC772F00F74598 /* MapViewController.swift */,
-				7BB599CF29FC67CC00F74598 /* EventsViewController.swift */,
 				7BA86CC62A0061B90010DF7F /* InterestsCollectionViewCell.swift */,
+				7BB599CF29FC67CC00F74598 /* EventsViewController.swift */,
 				7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */,
 				7BA86CC229FF77470010DF7F /* DummyData.swift */,
+				89BF23D52A022ABE006100B3 /* NetworkManager.swift */,
 				7BA86CC82A00A4BB0010DF7F /* User.swift */,
 				7BA86CC429FF77620010DF7F /* Event.swift */,
 				7BA86CC029FF5A820010DF7F /* LearnMoreViewController.swift */,
@@ -179,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89BF23D62A022ABE006100B3 /* NetworkManager.swift in Sources */,
 				7BB599D429FC771300F74598 /* CalendarViewController.swift in Sources */,
 				3BBA44DA2A01CF5800814F18 /* CalendarCell.swift in Sources */,
 				7BB599C029FC5EED00F74598 /* HomeViewController.swift in Sources */,
@@ -264,7 +268,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -318,7 +322,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -335,21 +339,23 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 235C89K4W8;
+				DEVELOPMENT_TEAM = 9L6Z3M9AT4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Eventery/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Eventery;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = AndrewChiu.Eventery;
+				PRODUCT_BUNDLE_IDENTIFIER = UmaPulugurthaID.Eventery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -367,21 +373,23 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 235C89K4W8;
+				DEVELOPMENT_TEAM = 9L6Z3M9AT4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Eventery/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Eventery;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = AndrewChiu.Eventery;
+				PRODUCT_BUNDLE_IDENTIFIER = UmaPulugurthaID.Eventery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

@@ -15,7 +15,7 @@ class EventsCollectionViewCell: UICollectionViewCell {
     let startTimeLabel = UILabel()
 //    let learnMoreButton = UIButton()
     
-    var event = Event(id: 0, title: "", address: "", start: "", end: "", user: "", userEmail: "", description: "", free: false, category: "")
+    var event = Event(id: 0, title: "", address: "", start: "", end: "", description: "", host: "", host_email: "", free: false, category: "")
     
     weak var parent: EventsViewController?
 
