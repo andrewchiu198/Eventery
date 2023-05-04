@@ -81,12 +81,14 @@ class CalendarViewController: UIViewController {
     var userSelectedDate = Date()
     var totalSquares = [CalendarDay]()
     var events: [Event] = []
-    
-    init(events: [Event]){
+    var userSelectedEvents: [Event] = []
+
+    init(events: [Event]) {
         self.events = events
         super.init(nibName: nil, bundle: nil)
     }
-    
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -247,7 +249,7 @@ class CalendarViewController: UIViewController {
                 calendarDay.day = String(count - startingSpaces)
                 calendarDay.month = CalendarDay.Month.current
             }
-            calendarDay.date = CalendarHelper().dayFrom(date: selectedDate, offset: count - startingSpaces)
+            calendarDay.date = CalendarHelper().dayFrom(date: CalendarHelper().firstOfMonth(date: selectedDate), offset: count - startingSpaces - 1)
 
             totalSquares.append(calendarDay)
             count += 1
@@ -296,7 +298,19 @@ class CalendarViewController: UIViewController {
     }
 
     // adding to events
-    func eventsForUserDay() {}
+    func eventsForUserDay() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        let userSelectedDateString = dateFormatter.string(from: userSelectedDate)
+        NetworkManager.shared.getAllEventsByDay(date: userSelectedDateString) {
+            events in
+            DispatchQueue.main.async {
+                self.userSelectedEvents = events
+            }
+        }
+        print(userSelectedDateString)
+        print(userSelectedEvents.count)
+    }
 
     // button actions
     @objc func previousMonth(sender: UIButton!) {
@@ -340,6 +354,8 @@ extension CalendarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         userSelectedDate = totalSquares[indexPath.item].date
         calendarCollectionView.reloadData()
+        eventsForUserDay()
+        eventCalendarTableView.reloadData()
     }
 }
 
@@ -349,69 +365,21 @@ extension CalendarViewController: UICollectionViewDataSource {
     }
 }
 
-extension CalendarViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let currentBrush = brushes[indexPath.row]
-//        self.currentIndex = indexPath
-//        let  vc = DetailViewController(brush: currentBrush)
-//        vc.del = self
-//
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
-//
-//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        return .delete
-//    }
-}
+extension CalendarViewController: UITableViewDelegate {}
 
 extension CalendarViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        return userSelectedEvents.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        NetworkManager.shared.getAllEventsByDay(date: "05-03-2023"){
-            events in
-            DispatchQueue.main.async {
-                self.events = events
-    
-            }
-        }
-        print(self.events)
+        let cell = eventCalendarTableView.dequeueReusableCell(withIdentifier: tableReuseID) as! EventCalendarTableViewCell
+        let event = userSelectedEvents[indexPath.row]
 
-        return UITableViewCell() // TODO: FIX THIS
-        
-        }
-        
+        cell.updateFrom(title: event.title, date: event.start)
+        return cell
     }
-
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return brushes.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? BrushTableViewCell {
-//            let currentBrush = brushes[indexPath.row]
-//
-//            cell.updateFrom(brush: currentBrush)
-//
-//            return cell
-//        } else {
-//            return UITableViewCell()
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            tableView.beginUpdates()
-//            brushes.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//
-//            tableView.endUpdates()
-//        }
-//    }
-
+}
 
 extension UIButton {
     func addImage(image: UIImage, offset: CGFloat) {
