@@ -17,6 +17,8 @@ class EventsViewController: UIViewController {
     var interestsTypes = ["Sports", "Business", "Social", "Art"]
     var activatedInterests = ["","","",""]
     
+    let refreshControl = UIRefreshControl()
+    
     var events: [Event]
     var filteredEvents: [Event] = []
     
@@ -44,6 +46,9 @@ class EventsViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "BackgroundColor")
+        
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        
         
         let interestsFlowLayout = UICollectionViewFlowLayout()
         interestsFlowLayout.minimumLineSpacing = itemPadding
@@ -82,6 +87,12 @@ class EventsViewController: UIViewController {
             }
         }
         
+        if #available(iOS 10.0, *) {
+            eventsCollectionView.refreshControl = refreshControl
+        } else {
+            eventsCollectionView.addSubview(refreshControl)
+        }
+        
         setupConstraints()
     }
     
@@ -100,6 +111,19 @@ class EventsViewController: UIViewController {
             eventsCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             eventsCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
+    }
+    
+    @objc func refreshData() {
+        
+        NetworkManager.shared.getAllEvents() { events in
+                DispatchQueue.main.async {
+                    self.events = events
+                    self.eventsCollectionView.reloadData()
+                    print("reloaded")
+                    self.refreshControl.endRefreshing()
+                }
+        }
+        
     }
     
     func filterData() {
