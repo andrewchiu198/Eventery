@@ -64,7 +64,7 @@ class LearnMoreViewController: UIViewController {
         eventTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(eventTimeLabel)
         
-        eventHostLabel.text = event.user
+        eventHostLabel.text = event.host
         eventHostLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.025)
         eventHostLabel.textColor = .white
         eventHostLabel.translatesAutoresizingMaskIntoConstraints = false

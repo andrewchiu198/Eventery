@@ -9,9 +9,17 @@ import UIKit
 
 class HomeViewController: UITabBarController {
     
-    let events = DummyData.events
+    //let refreshControl = UIRefreshControl()
+    
+    var events = DummyData.events
 
     override func viewDidLoad() {
+        
+        var url = URL(string: "https://34.85.172.228")!
+        let formatParameter = URLQueryItem(name: "format", value: "json")
+        url.append(queryItems: [formatParameter])
+        
+        
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "BackgroundColor")
         UITabBar.appearance().barTintColor = .white
@@ -52,6 +60,18 @@ class HomeViewController: UITabBarController {
         rootViewController.navigationItem.title = title
         return navController
     }
+    
+//    @objc func refreshData() {
+//
+//            NetworkManager.shared.getAllEvents { events in
+//                DispatchQueue.main.async {
+//                    self.events = events
+//                    //self.messageTableView.reloadData()
+//                    self.refreshControl.endRefreshing()
+//                }
+//            }
+//
+//    }
     
 }
 

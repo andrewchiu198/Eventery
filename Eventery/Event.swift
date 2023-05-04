@@ -13,9 +13,13 @@ struct Event: Codable {
     var address: String
     var start: String
     var end: String
-    var user: String
-    var userEmail: String
     var description: String
+    var host: String
+    var host_email: String
     var free: Bool
     var category: String
+}
+
+struct EventResponse: Codable {
+    var events: [Event]
 }
