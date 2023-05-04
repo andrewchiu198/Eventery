@@ -98,8 +98,6 @@ class EventsViewController: UIViewController {
     
     func filterData() {
         filteredEvents = []
-        //TODO add case for all de-activated
-    
         for event in events {
             for category in activatedCategories {
                 if(event.category == category) {

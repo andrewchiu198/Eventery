@@ -11,7 +11,6 @@ class PostViewController: UIViewController {
     
     let backgroundImage = UIImageView()
     let createLabel = UILabel()
-    let createLabelBackground = UIImageView()
     let titleTextField = UITextField()
     let addressTextField = UITextField()
     let startTimeTextField = UITextField()
@@ -35,12 +34,6 @@ class PostViewController: UIViewController {
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundImage)
         
-        createLabelBackground.layer.cornerRadius = 5
-        createLabelBackground.clipsToBounds = true
-        createLabelBackground.backgroundColor = UIColor(named: "ButtonColor")
-        createLabelBackground.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(createLabelBackground)
-        
         let interestsFlowLayout = UICollectionViewFlowLayout()
         interestsFlowLayout.minimumLineSpacing = 5
         interestsFlowLayout.minimumInteritemSpacing = 5
@@ -61,7 +54,7 @@ class PostViewController: UIViewController {
         createLabel.translatesAutoresizingMaskIntoConstraints = false
         createLabel.text = "Upload a Post!"
         createLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.03)
-        createLabel.textColor = .white
+        createLabel.textColor = .label
         view.addSubview(createLabel)
         
         titleTextField.layer.cornerRadius = 5
@@ -144,13 +137,6 @@ class PostViewController: UIViewController {
             backgroundImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             backgroundImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            createLabelBackground.topAnchor.constraint(equalTo: createLabel.topAnchor, constant: -10),
-            createLabelBackground.bottomAnchor.constraint(equalTo: createLabel.bottomAnchor, constant: 10),
-            createLabelBackground.leadingAnchor.constraint(equalTo: createLabel.leadingAnchor, constant: -10),
-            createLabelBackground.trailingAnchor.constraint(equalTo: createLabel.trailingAnchor, constant: 10)
         ])
         
         NSLayoutConstraint.activate([
