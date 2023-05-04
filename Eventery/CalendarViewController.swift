@@ -7,6 +7,9 @@
 
 import UIKit
 
+// cornell color
+let carnelliam = UIColor(red: 179 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
+
 class CalendarViewController: UIViewController {
     // Outlet collection of labels
     @IBOutlet var headerLabels: [UILabel]!
@@ -18,9 +21,6 @@ class CalendarViewController: UIViewController {
     let subheaderRelativeFontConstant: CGFloat = 0.046 * (2 / 3)
     let textRelativeFontConstant: CGFloat = 0.046 * (1 / 2)
 
-    // cornell color
-    let carnelliam = UIColor(red: 179 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
-
     // distance of arrows from edges
     let arrowOffset = 30.0
 
@@ -29,6 +29,7 @@ class CalendarViewController: UIViewController {
     let calPadding = 2.0
     let itemPadding: CGFloat = 2.0
     let sectionPadding: CGFloat = 2.0
+    let belowCalPadding = 100.0
 
     // height of weekday stackview
     let weekdayHeight = 50.0
@@ -77,8 +78,9 @@ class CalendarViewController: UIViewController {
 
     // model stuff
     var selectedDate = Date()
+    var userSelectedDate = Date()
     var totalSquares = [CalendarDay]()
-    var events: [String] = []
+    var events: [Event] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +113,7 @@ class CalendarViewController: UIViewController {
         if let heady = headerLabels {
             for label in heady {
                 label.font = label.font.withSize(view.frame.height * headerRelativeFontConstant)
-                label.textColor = .black
+                label.textColor = UIColor.label
             }
         }
 
@@ -119,7 +121,7 @@ class CalendarViewController: UIViewController {
         if let subby = subheaderLabels {
             for label in subby {
                 label.font = label.font.withSize(view.frame.height * subheaderRelativeFontConstant)
-                label.textColor = .darkGray
+                label.textColor = UIColor.secondaryLabel
             }
         }
 
@@ -127,7 +129,7 @@ class CalendarViewController: UIViewController {
         if let texty = textLabels {
             for label in texty {
                 label.font = label.font.withSize(view.frame.height * textRelativeFontConstant)
-                label.textColor = .darkGray
+                label.textColor = UIColor.secondaryLabel
             }
         }
 
@@ -183,7 +185,7 @@ class CalendarViewController: UIViewController {
         eventCalendarTableView.dataSource = self
         eventCalendarTableView.register(EventCalendarTableViewCell.self, forCellReuseIdentifier: tableReuseID)
         eventCalendarTableView.rowHeight = eventRowHeight
-        eventCalendarTableView.backgroundColor = .lightGray
+        eventCalendarTableView.backgroundColor = .blue
 
         // add to view
         view.addSubview(monthLabel)
@@ -236,6 +238,8 @@ class CalendarViewController: UIViewController {
                 calendarDay.day = String(count - startingSpaces)
                 calendarDay.month = CalendarDay.Month.current
             }
+            calendarDay.date = CalendarHelper().dayFrom(date: selectedDate, offset: count - startingSpaces)
+
             totalSquares.append(calendarDay)
             count += 1
         }
@@ -271,8 +275,7 @@ class CalendarViewController: UIViewController {
         NSLayoutConstraint.activate([
             calendarCollectionView.topAnchor.constraint(equalTo: weekdayStackView.bottomAnchor, constant: padding),
             calendarCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            calendarCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            calendarCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            calendarCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor), calendarCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: belowCalPadding),
         ])
 
         NSLayoutConstraint.activate([
@@ -282,6 +285,9 @@ class CalendarViewController: UIViewController {
             eventCalendarTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
         ])
     }
+
+    // adding to events
+    func eventsForUserDay() {}
 
     // button actions
     @objc func previousMonth(sender: UIButton!) {
@@ -312,7 +318,19 @@ extension CalendarViewController: UICollectionViewDelegate {
             cell.dayOfTheMonth.textColor = .lightGray
         }
 
+        let calendarDayDate = totalSquares[indexPath.item].date
+        if calendarDayDate == userSelectedDate {
+            cell.backgroundColor = carnelliam
+        } else {
+            cell.backgroundColor = .systemBackground
+        }
+
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        userSelectedDate = totalSquares[indexPath.item].date
+        calendarCollectionView.reloadData()
     }
 }
 
