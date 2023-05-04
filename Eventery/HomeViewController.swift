@@ -12,6 +12,17 @@ class HomeViewController: UITabBarController {
     let events = DummyData.events
 
     override func viewDidLoad() {
+<<<<<<< Updated upstream
+=======
+        
+        var url = URL(string: "https://34.85.172.228")!
+        let formatParameter = URLQueryItem(name: "format", value: "json")
+        url.append(queryItems: [formatParameter])
+        
+        selectedIndex = 0
+        
+        
+>>>>>>> Stashed changes
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "BackgroundColor")
         UITabBar.appearance().barTintColor = .white
