@@ -39,6 +39,42 @@ class NetworkManager {
         
     }
     
+    
+    func getAllEventsByDay(date: String, completion: @escaping ([Event]) -> Void) {
+        //TODO: Get all Events
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        let body: [String: Any] = [
+            "day": date
+        ]
+        
+        //note may 3rd 2023
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
+
+        let task = URLSession.shared.dataTask(with: request){ data, response, err in
+            
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    //print(String(data: data, encoding: .utf8)!)
+                    let response = try decoder.decode(EventResponse.self, from: data)
+                    //print(response)
+                    print(response.events)
+                    completion(response.events)
+                }catch (let error){
+                    print(error.localizedDescription)
+                   
+                }
+            }
+            
+        }
+        task.resume()
+    }
+    
+    
     func getAllSentEvents(sender: String, completion: @escaping ([Event]) -> Void) {
         //TODO: Get all Events
         

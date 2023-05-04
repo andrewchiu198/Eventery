@@ -81,6 +81,15 @@ class CalendarViewController: UIViewController {
     var userSelectedDate = Date()
     var totalSquares = [CalendarDay]()
     var events: [Event] = []
+    
+    init(events: [Event]){
+        self.events = events
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -361,7 +370,20 @@ extension CalendarViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        NetworkManager.shared.getAllEventsByDay(date: "05-03-2023"){
+            events in
+            DispatchQueue.main.async {
+                self.events = events
+    
+            }
+        }
+        print(self.events)
+
         return UITableViewCell() // TODO: FIX THIS
+        
+        }
+        
     }
 
 //    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -389,7 +411,7 @@ extension CalendarViewController: UITableViewDataSource {
 //            tableView.endUpdates()
 //        }
 //    }
-}
+
 
 extension UIButton {
     func addImage(image: UIImage, offset: CGFloat) {

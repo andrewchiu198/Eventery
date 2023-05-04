@@ -15,10 +15,9 @@ class HomeViewController: UITabBarController {
 
     override func viewDidLoad() {
         
-        var url = URL(string: "https://34.85.172.228")!
+        var url = URL(string: "https://34.85.177.184")!
         let formatParameter = URLQueryItem(name: "format", value: "json")
         url.append(queryItems: [formatParameter])
-        
         
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "BackgroundColor")
@@ -43,7 +42,7 @@ class HomeViewController: UITabBarController {
                     self.viewControllers = [
                         self.createNavController(for: EventsViewController(events: self.events), title: NSLocalizedString("Events", comment: ""), image: UIImage(systemName: "magnifyingglass")!),
                         
-                        self.createNavController(for: CalendarViewController(), title: NSLocalizedString("Calendar", comment: ""), image: UIImage(systemName: "calendar")!),
+                        self.createNavController(for: CalendarViewController(events: self.events), title: NSLocalizedString("Calendar", comment: ""), image: UIImage(systemName: "calendar")!),
                         
                         self.createNavController(for: MapViewController(events: self.events), title: NSLocalizedString("Map", comment: ""), image: UIImage(systemName: "map.fill")!),
                         
