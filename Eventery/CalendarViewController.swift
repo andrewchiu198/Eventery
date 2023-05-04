@@ -7,6 +7,9 @@
 
 import UIKit
 
+// cornell color
+let carnelliam = UIColor(red: 179 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
+
 class CalendarViewController: UIViewController {
     // Outlet collection of labels
     @IBOutlet var headerLabels: [UILabel]!
@@ -17,9 +20,6 @@ class CalendarViewController: UIViewController {
     let headerRelativeFontConstant: CGFloat = 0.046
     let subheaderRelativeFontConstant: CGFloat = 0.046 * (2 / 3)
     let textRelativeFontConstant: CGFloat = 0.046 * (1 / 2)
-
-    // cornell color
-    let carnelliam = UIColor(red: 179 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
 
     // distance of arrows from edges
     let arrowOffset = 30.0
@@ -78,8 +78,9 @@ class CalendarViewController: UIViewController {
 
     // model stuff
     var selectedDate = Date()
+    var userSelectedDate = Date()
     var totalSquares = [CalendarDay]()
-    var events: [String] = []
+    var events: [Event] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -237,6 +238,8 @@ class CalendarViewController: UIViewController {
                 calendarDay.day = String(count - startingSpaces)
                 calendarDay.month = CalendarDay.Month.current
             }
+            calendarDay.date = CalendarHelper().dayFrom(date: selectedDate, offset: count - startingSpaces)
+
             totalSquares.append(calendarDay)
             count += 1
         }
@@ -283,6 +286,9 @@ class CalendarViewController: UIViewController {
         ])
     }
 
+    // adding to events
+    func eventsForUserDay() {}
+
     // button actions
     @objc func previousMonth(sender: UIButton!) {
         selectedDate = CalendarHelper().minusMonth(date: selectedDate)
@@ -312,7 +318,19 @@ extension CalendarViewController: UICollectionViewDelegate {
             cell.dayOfTheMonth.textColor = .lightGray
         }
 
+        let calendarDayDate = totalSquares[indexPath.item].date
+        if calendarDayDate == userSelectedDate {
+            cell.backgroundColor = carnelliam
+        } else {
+            cell.backgroundColor = .systemBackground
+        }
+
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        userSelectedDate = totalSquares[indexPath.item].date
+        calendarCollectionView.reloadData()
     }
 }
 
