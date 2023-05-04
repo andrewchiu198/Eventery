@@ -29,6 +29,7 @@ class CalendarViewController: UIViewController {
     let calPadding = 2.0
     let itemPadding: CGFloat = 2.0
     let sectionPadding: CGFloat = 2.0
+    let belowCalPadding = 100.0
 
     // height of weekday stackview
     let weekdayHeight = 50.0
@@ -111,7 +112,7 @@ class CalendarViewController: UIViewController {
         if let heady = headerLabels {
             for label in heady {
                 label.font = label.font.withSize(view.frame.height * headerRelativeFontConstant)
-                label.textColor = .black
+                label.textColor = UIColor.label
             }
         }
 
@@ -119,7 +120,7 @@ class CalendarViewController: UIViewController {
         if let subby = subheaderLabels {
             for label in subby {
                 label.font = label.font.withSize(view.frame.height * subheaderRelativeFontConstant)
-                label.textColor = .darkGray
+                label.textColor = UIColor.secondaryLabel
             }
         }
 
@@ -127,7 +128,7 @@ class CalendarViewController: UIViewController {
         if let texty = textLabels {
             for label in texty {
                 label.font = label.font.withSize(view.frame.height * textRelativeFontConstant)
-                label.textColor = .darkGray
+                label.textColor = UIColor.secondaryLabel
             }
         }
 
@@ -183,7 +184,7 @@ class CalendarViewController: UIViewController {
         eventCalendarTableView.dataSource = self
         eventCalendarTableView.register(EventCalendarTableViewCell.self, forCellReuseIdentifier: tableReuseID)
         eventCalendarTableView.rowHeight = eventRowHeight
-        eventCalendarTableView.backgroundColor = .lightGray
+        eventCalendarTableView.backgroundColor = .blue
 
         // add to view
         view.addSubview(monthLabel)
@@ -271,8 +272,7 @@ class CalendarViewController: UIViewController {
         NSLayoutConstraint.activate([
             calendarCollectionView.topAnchor.constraint(equalTo: weekdayStackView.bottomAnchor, constant: padding),
             calendarCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            calendarCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            calendarCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            calendarCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor), calendarCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: belowCalPadding),
         ])
 
         NSLayoutConstraint.activate([
