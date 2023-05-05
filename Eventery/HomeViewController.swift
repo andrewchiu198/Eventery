@@ -13,26 +13,29 @@ class HomeViewController: UITabBarController {
     
     static let shared = HomeViewController()
     
-    var events: [Event] = []
+    var events: [Event] = DummyData.events
+    
     
     var user: User = User(username: "udp3", password: "Password", email: "udp3@cornell.edu", name: "Deepa Pulugurtha")
     
-    init(user: User) {
-        self.user = user
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    init(){
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    init(user: User) {
+//        self.user = user
+//        super.init(nibName: nil, bundle: nil)
+//        viewDidLoad()
+//    }
+//
+//    init(){
+//        super.init(nibName: nil, bundle: nil)
+//        viewDidLoad()
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         
-        var url = URL(string: "https://34.85.177.184")!
+        var url = URL(string: "https://35.194.86.169")!
         let formatParameter = URLQueryItem(name: "format", value: "json")
         url.append(queryItems: [formatParameter])
         

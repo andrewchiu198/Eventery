@@ -67,7 +67,8 @@ class SignUpViewController: UIViewController {
                     if let email = emailTextField.text{
             NetworkManager.shared.createUser(username: username, password: password, email: email, name: name){
                 user in
-                let vc = HomeViewController(user: user)
+                //let vc = HomeViewController(user: user)
+                let vc = HomeViewController()
                 self.present(vc, animated: true, completion: nil)
             }
         }
