@@ -11,6 +11,8 @@ class HomeViewController: UITabBarController {
     
     //let refreshControl = UIRefreshControl()
     
+    static let shared = HomeViewController()
+    
     var events: [Event] = []
 
     override func viewDidLoad() {

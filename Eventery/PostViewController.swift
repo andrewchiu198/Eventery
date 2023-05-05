@@ -199,6 +199,7 @@ class PostViewController: UIViewController {
             print("Success posting!")
             
         }
+        HomeViewController.shared.setupVCs()
         //var eventToBePosted = Event(id: 99, title: "", address: "", start: "", end: "", description: "", host: "", host_email: "", free: false, category: "")
     }
 }
