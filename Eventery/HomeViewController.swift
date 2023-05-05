@@ -13,25 +13,25 @@ class HomeViewController: UITabBarController {
     
     static let shared = HomeViewController()
     
-    var events: [Event] = DummyData.events
+    var events: [Event] = []
     
     
-    var user: User = User(username: "udp3", password: "Password", email: "udp3@cornell.edu", name: "Deepa Pulugurtha")
+    var user: User = User(id: 9089809, name: "udp3", netid: "udp3@cornell.edu", email: "Deepa Pulugurtha")
     
-//    init(user: User) {
-//        self.user = user
-//        super.init(nibName: nil, bundle: nil)
-//        viewDidLoad()
-//    }
-//
-//    init(){
-//        super.init(nibName: nil, bundle: nil)
-//        viewDidLoad()
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    init(user: User) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+        viewDidLoad()
+    }
+
+    init(){
+        super.init(nibName: nil, bundle: nil)
+        viewDidLoad()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         
@@ -52,7 +52,10 @@ class HomeViewController: UITabBarController {
         tabBar.layer.borderColor = UIColor.separator.cgColor
         tabBar.unselectedItemTintColor = .white
         tabBar.tintColor = UIColor(named: "HighlightColor")
+        
         setupVCs()
+        
+        
         
     }
         
@@ -69,7 +72,7 @@ class HomeViewController: UITabBarController {
                         
                         self.createNavController(for: MapViewController(events: self.events), title: NSLocalizedString("Map", comment: ""), image: UIImage(systemName: "map.fill")!),
                         
-                        self.createNavController(for: PostViewController(), title: NSLocalizedString("Post", comment: ""), image: UIImage(systemName: "square.and.pencil")!),
+                        self.createNavController(for: PostViewController(user: self.user), title: NSLocalizedString("Post", comment: ""), image: UIImage(systemName: "square.and.pencil")!),
                         
                         self.createNavController(for: ProfileViewController(user: self.user), title: NSLocalizedString("Profile", comment: ""), image: UIImage(systemName: "person.fill")!),
                 ]

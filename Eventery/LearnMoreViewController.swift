@@ -17,7 +17,7 @@ class LearnMoreViewController: UIViewController {
     let descriptionTextView = UITextView()
     let deleteButton = UIButton()
     
-    var currentUser: User = User(username: "udp3", password: "Password", email: "udp3@cornell.edu" , name: "Deepa Pulugurtha")
+    var currentUser: User = User(id: 9089809, name: "udp3", netid: "udp3@cornell.edu", email: "Deepa Pulugurtha")
     
     var event: Event
     

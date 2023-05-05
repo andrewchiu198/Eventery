@@ -14,7 +14,7 @@ class LoginViewController: UIViewController {
     let nameTextField = UITextField()
     let passwordTextField = UITextField()
     
-    var users : [User] = [User(username: "", password: "", email: "", name: "")]
+    var users : [User] = [User(id: 809809890, name: "", netid: "", email: "")]
 
 
     override func viewDidLoad() {
@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
         signupButton.addTarget(self, action: #selector(signUpButtonClicked), for: .touchUpInside)
         view.addSubview(signupButton)
         
-        nameTextField.placeholder = "Username"
+        nameTextField.placeholder = "Email"
         nameTextField.backgroundColor = .white
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameTextField)
@@ -51,13 +51,39 @@ class LoginViewController: UIViewController {
         let vc = SignUpViewController()
         self.present(vc, animated: true, completion: nil)
     }
-    
     @objc func loginButtonClicked() {
+        var isLoggedIn = false
         
-        let vc = HomeViewController()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        if let username = nameTextField.text{
+            if let password = passwordTextField.text{
+                print(username)
+                print(password)
+                
+                NetworkManager.shared.postLogin(username: username, password: password){
+                    error in
+                    DispatchQueue.main.async {
+                        isLoggedIn = true
+                        //print(error)
+                        NetworkManager.shared.getUser(email: username){
+                            user in
+                            DispatchQueue.main.async {
+                                let vc = HomeViewController(user: user)
+                                self.present(vc, animated: true, completion: nil)
+                                print("why")
+                                return
+                            }
+                        }
+                        // isLoggedIn = true
+                    }
+                }
+            }
+        }
+        nameTextField.placeholder = "Email"
+        passwordTextField.placeholder = "Password"
+        
     }
+            
+        
     
     func setupConstraints() {
         NSLayoutConstraint.activate([

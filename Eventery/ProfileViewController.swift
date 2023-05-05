@@ -13,6 +13,7 @@ class ProfileViewController: UIViewController {
     let nameLabel = UILabel()
     let emailLabel = UILabel()
     let currentUser: User
+    let profileImageView = UIImageView()
     
     init( user: User) {
         
@@ -44,6 +45,11 @@ class ProfileViewController: UIViewController {
         emailLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height/26)
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emailLabel)
+        
+        profileImageView.image = UIImage(named: "profileImage")
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(profileImageView)
+        //profileImageView.addSubview(profileImageView)
 
         //Add buttons with delegation
         
@@ -66,8 +72,15 @@ class ProfileViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 20),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            //image is aligned with the center axis of the view
+            profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        
         ])
         
         NSLayoutConstraint.activate([

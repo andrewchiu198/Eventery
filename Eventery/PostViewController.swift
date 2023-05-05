@@ -23,7 +23,18 @@ class PostViewController: UIViewController {
     let datePicker = UIDatePicker()
     var selectedCategory: String?
     let errorLabel = UILabel()
+    
+    var user: User = User(id: 9089809, name: "udp3", netid: "udp3@cornell.edu", email: "Deepa Pulugurtha")
 
+    init(user: User) {
+        self.user = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

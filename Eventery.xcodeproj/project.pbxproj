@@ -30,6 +30,8 @@
 		7BB599D629FC772F00F74598 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D529FC772F00F74598 /* MapViewController.swift */; };
 		7BB599D829FC773C00F74598 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D729FC773C00F74598 /* ProfileViewController.swift */; };
 		7BB599DA29FC859400F74598 /* EventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */; };
+		89A7AF392A0592A400FD0B43 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A7AF382A0592A400FD0B43 /* Error.swift */; };
+		89A7AF3B2A05B22F00FD0B43 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A7AF3A2A05B22F00FD0B43 /* SuccessResponse.swift */; };
 		89BF23D62A022ABE006100B3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF23D52A022ABE006100B3 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,8 @@
 		7BB599D529FC772F00F74598 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7BB599D729FC773C00F74598 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCollectionViewCell.swift; sourceTree = "<group>"; };
+		89A7AF382A0592A400FD0B43 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		89A7AF3A2A05B22F00FD0B43 /* SuccessResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessResponse.swift; sourceTree = "<group>"; };
 		89BF23D52A022ABE006100B3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +111,8 @@
 				7BA86CC62A0061B90010DF7F /* CategoriesCollectionViewCell.swift */,
 				7BA86CC229FF77470010DF7F /* DummyData.swift */,
 				89BF23D52A022ABE006100B3 /* NetworkManager.swift */,
+				89A7AF382A0592A400FD0B43 /* Error.swift */,
+				89A7AF3A2A05B22F00FD0B43 /* SuccessResponse.swift */,
 				7BA86CC82A00A4BB0010DF7F /* User.swift */,
 				7BA86CC429FF77620010DF7F /* Event.swift */,
 				7BA86CC029FF5A820010DF7F /* LearnMoreViewController.swift */,
@@ -198,6 +204,7 @@
 				7BA86CC129FF5A820010DF7F /* LearnMoreViewController.swift in Sources */,
 				7BB599D029FC67CC00F74598 /* EventsViewController.swift in Sources */,
 				7BA86CC72A0061B90010DF7F /* CategoriesCollectionViewCell.swift in Sources */,
+				89A7AF392A0592A400FD0B43 /* Error.swift in Sources */,
 				7BA86CC529FF77620010DF7F /* Event.swift in Sources */,
 				7B7D8ADB2A0453CC00A1A988 /* LoginViewController.swift in Sources */,
 				7BA86CC92A00A4BC0010DF7F /* User.swift in Sources */,
@@ -206,6 +213,7 @@
 				3BBA44D82A01CF3C00814F18 /* CalendarHelper.swift in Sources */,
 				7BB599BE29FC5EED00F74598 /* SceneDelegate.swift in Sources */,
 				7BB599DA29FC859400F74598 /* EventsCollectionViewCell.swift in Sources */,
+				89A7AF3B2A05B22F00FD0B43 /* SuccessResponse.swift in Sources */,
 				7B7D8ADD2A04583000A1A988 /* SignUpViewController.swift in Sources */,
 				7BB599D229FC76F700F74598 /* PostViewController.swift in Sources */,
 				7B7D8ADF2A048B5900A1A988 /* Categories.swift in Sources */,
