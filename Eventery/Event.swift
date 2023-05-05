@@ -17,7 +17,7 @@ struct Event: Codable {
     var host: String
     var host_email: String
     var free: Bool
-    var category: String?
+    var category: String
 }
 
 struct EventResponse: Codable {

@@ -8,7 +8,6 @@
 import UIKit
 
 class LearnMoreViewController: UIViewController {
-    
     let eventImageView = UIImageView()
     let eventNameLabel = UILabel()
     let eventLocationLabel = UILabel()
@@ -27,6 +26,7 @@ class LearnMoreViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -34,14 +34,13 @@ class LearnMoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UITabBar.appearance().barTintColor = .white
+        UITabBar.appearance().barTintColor = carnellian
         UITabBar.appearance().isTranslucent = false
-        self.navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = carnellian
 
-        //TODO fill in more here
+        // TODO: fill in more here
         
-        
-        view.backgroundColor = UIColor(named: "CollectionViewBackground")
+        view.backgroundColor = .systemBackground
 
         eventImageView.image = UIImage(named: "Sports" + "Event")
         eventImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,32 +50,32 @@ class LearnMoreViewController: UIViewController {
         
         eventNameLabel.text = event.title
         eventNameLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.03)
-        eventNameLabel.textColor = .white
+        eventNameLabel.textColor = .label
         eventNameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(eventNameLabel)
         
         eventLocationLabel.text = event.address
         eventLocationLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.02)
-        eventLocationLabel.textColor = .white
+        eventLocationLabel.textColor = carnellian
         eventLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(eventLocationLabel)
         
         eventTimeLabel.text = event.start
         eventTimeLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.025)
-        eventTimeLabel.textColor = .white
+        eventTimeLabel.textColor = carnellian
         eventTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(eventTimeLabel)
         
         eventHostLabel.text = event.host
         eventHostLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.025)
-        eventHostLabel.textColor = .white
+        eventHostLabel.textColor = carnellian
         eventHostLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(eventHostLabel)
         
         descriptionTextView.isEditable = false
         descriptionTextView.font = UIFont(name: "Helvetica", size: view.frame.height * 0.02)
-        descriptionTextView.backgroundColor = UIColor(named: "ButtonColor")
-        descriptionTextView.textColor = .white
+        descriptionTextView.backgroundColor = .systemBackground
+        descriptionTextView.textColor = .label
         descriptionTextView.text = event.description
         descriptionTextView.layer.cornerRadius = 5
         descriptionTextView.clipsToBounds = true
@@ -85,58 +84,66 @@ class LearnMoreViewController: UIViewController {
         
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.setTitle("delete Event", for: .normal)
-        deleteButton.setTitleColor(.white, for: .normal)
-        deleteButton.backgroundColor = UIColor(named: "ButtonColor")
+        deleteButton.setTitleColor(carnellian, for: .normal)
+        deleteButton.backgroundColor = .secondarySystemBackground
         deleteButton.clipsToBounds = true
         deleteButton.layer.cornerRadius = 3
         deleteButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.02)
         deleteButton.isHidden = true
-        if eventHostLabel.text == self.currentUser.name{
+        if eventHostLabel.text == currentUser.name {
             deleteButton.isHidden = false
         }
         
         deleteButton.addTarget(self, action: #selector(deleteAction), for: .touchUpInside)
-        //deleteButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
+        // deleteButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
         view.addSubview(deleteButton)
-        //TODO add hyperlink functionality to this button
+        // TODO: add hyperlink functionality to this button
 
         setupConstraints()
     }
     
     @objc func deleteAction() {
-
-        NetworkManager.shared.deleteEvent(id: self.event.id)
+        NetworkManager.shared.deleteEvent(id: event.id)
         HomeViewController.shared.setupVCs()
         navigationController?.popViewController(animated: true)
     }
     
     func setupConstraints() {
-        
         NSLayoutConstraint.activate([
-            eventImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            eventImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             eventImageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1),
-            eventImageView.heightAnchor.constraint(equalTo: eventImageView.widthAnchor, multiplier: 3/6),
+            eventImageView.heightAnchor.constraint(equalTo: eventImageView.widthAnchor, multiplier: 3 / 6),
+            eventImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            eventImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             eventImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
             eventNameLabel.topAnchor.constraint(equalTo: eventImageView.bottomAnchor, constant: 10),
-            eventNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
+            eventNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            eventNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            eventNameLabel.widthAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width)
         ])
         
         NSLayoutConstraint.activate([
             eventLocationLabel.topAnchor.constraint(equalTo: eventNameLabel.bottomAnchor, constant: 10),
-            eventLocationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
+            eventLocationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            eventLocationLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            eventLocationLabel.widthAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width)
         ])
         
         NSLayoutConstraint.activate([
             eventTimeLabel.topAnchor.constraint(equalTo: eventLocationLabel.bottomAnchor, constant: 10),
-            eventTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
+            eventTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            eventTimeLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            eventTimeLabel.widthAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width)
         ])
         
         NSLayoutConstraint.activate([
             eventHostLabel.topAnchor.constraint(equalTo: eventTimeLabel.bottomAnchor, constant: 10),
-            eventHostLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10)
+            eventHostLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            eventHostLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            eventHostLabel.widthAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width)
         ])
         
         NSLayoutConstraint.activate([

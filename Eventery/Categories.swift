@@ -12,7 +12,8 @@ class Categories {
         "Sports",
         "Art",
         "Business",
-        "Social"
+        "Social",
+        "Other"
     ]
 
 }

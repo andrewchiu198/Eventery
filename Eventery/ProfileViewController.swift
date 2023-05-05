@@ -8,19 +8,18 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
     let backgroundImage = UIImageView()
     let nameLabel = UILabel()
     let emailLabel = UILabel()
     let currentUser: User
     let profileImageView = UIImageView()
     
-    init( user: User) {
-        
+    init(user: User) {
         self.currentUser = user
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -30,7 +29,8 @@ class ProfileViewController: UIViewController {
         
         view.backgroundColor = UIColor(named: "BackgroundColor")
         
-        backgroundImage.backgroundColor = UIColor(named: "CollectionViewBackground")
+//        backgroundImage.backgroundColor = UIColor(named: "CollectionViewBackground")
+        view.backgroundColor = .systemBackground
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundImage)
         
@@ -51,16 +51,12 @@ class ProfileViewController: UIViewController {
         view.addSubview(profileImageView)
         //profileImageView.addSubview(profileImageView)
 
-        //Add buttons with delegation
-        
-        
+        // Add buttons with delegation
         
         setupConstraints()
         
-
-        
-        //TODO
-        //add Delegation here because this where it makes sense
+        // TODO:
+        // add Delegation here because this where it makes sense
     }
     
     func setupConstraints() {
