@@ -11,7 +11,7 @@ class NetworkManager {
     static let shared = NetworkManager()
     
 
-    var url = URL(string: "http://34.85.177.184/api/events/")!
+    var url = URL(string: "http://35.194.86.169/api/events/")!
     
     func getAllEvents(completion: @escaping ([Event]) -> Void) {
         //TODO: Get all Events
@@ -148,7 +148,7 @@ class NetworkManager {
     
     
     func createUser(username: String, password: String, email: String,name: String, completion: @escaping (User) -> Void) {
-        let userURL = URL(string: "http://34.85.177.184/api/users/")!
+        let userURL = URL(string: "http://35.194.86.169/api/users/")!
         var request = URLRequest(url: userURL)
         
       request.httpMethod = "POST"
@@ -223,7 +223,7 @@ class NetworkManager {
     
     func getAllUsers(completion: @escaping ([User]) -> Void) {
         
-        let userURL = URL(string: "http://34.85.177.184/api/users/")!
+        let userURL = URL(string: "http://35.194.86.169/api/users/")!
         var request = URLRequest(url: userURL)
         
         request.httpMethod = "GET"
@@ -250,7 +250,7 @@ class NetworkManager {
     
     func getUser(completion: @escaping ([User]) -> Void) {
         
-        let userURL = URL(string: "http://34.85.177.184/api/users/")!
+        let userURL = URL(string: "http://35.194.86.169/api/users/")!
         var request = URLRequest(url: userURL)
         
         request.httpMethod = "GET"
