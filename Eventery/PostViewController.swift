@@ -8,7 +8,6 @@
 import UIKit
 
 class PostViewController: UIViewController {
-    
     let backgroundImage = UIImageView()
     let createLabel = UILabel()
     let titleTextField = UITextField()
@@ -27,14 +26,14 @@ class PostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //adjust the text fields
+        // adjust the text fields
 
-        view.backgroundColor = UIColor(named: "BackgroundColor")
+        view.backgroundColor = .systemBackground
         
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
 //        view.addGestureRecognizer(tap)
         
-        backgroundImage.backgroundColor = UIColor(named: "CollectionViewBackground")
+        backgroundImage.backgroundColor = .systemBackground
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundImage)
         
@@ -44,21 +43,22 @@ class PostViewController: UIViewController {
         categoriesFlowLayout.scrollDirection = .horizontal
         categoriesFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
-        freeButton.backgroundColor = .gray
+        freeButton.backgroundColor = carnellian
         freeButton.translatesAutoresizingMaskIntoConstraints = false
         freeButton.setTitle("Free", for: .normal)
+        freeButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.03)
         view.addSubview(freeButton)
-        
         
         categoriesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: categoriesFlowLayout)
         categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         categoriesCollectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: categoriesReuseID)
         categoriesCollectionView.dataSource = self
         categoriesCollectionView.delegate = self
-        categoriesCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
+        categoriesCollectionView.backgroundColor = .secondaryLabel
         categoriesCollectionView.clipsToBounds = true
         categoriesCollectionView.flashScrollIndicators()
         categoriesCollectionView.allowsMultipleSelection = false
+        categoriesCollectionView.backgroundColor = .secondarySystemBackground
         view.addSubview(categoriesCollectionView)
         
         createLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -70,50 +70,50 @@ class PostViewController: UIViewController {
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
         errorLabel.text = ""
         errorLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.017)
-        errorLabel.textColor = .red
+        errorLabel.textColor = carnellian
         view.addSubview(errorLabel)
         
         titleTextField.layer.cornerRadius = 5
         titleTextField.clipsToBounds = true
-        titleTextField.textColor = .black
-        titleTextField.backgroundColor = .white
+        titleTextField.textColor = .label
+        titleTextField.backgroundColor = .secondarySystemBackground
         titleTextField.attributedPlaceholder = NSAttributedString(
             string: "Title",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
-            )
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
+        )
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleTextField)
         
         addressTextField.layer.cornerRadius = 5
         addressTextField.clipsToBounds = true
-        addressTextField.textColor = .black
-        addressTextField.backgroundColor = .white
+        addressTextField.textColor = .label
+        addressTextField.backgroundColor = .secondarySystemBackground
         addressTextField.attributedPlaceholder = NSAttributedString(
             string: "Address",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
-            )
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
+        )
         addressTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(addressTextField)
         
         startTimeTextField.layer.cornerRadius = 5
         startTimeTextField.clipsToBounds = true
-        startTimeTextField.textColor = .black
-        startTimeTextField.backgroundColor = .white
+        startTimeTextField.textColor = .label
+        startTimeTextField.backgroundColor = .secondarySystemBackground
         startTimeTextField.attributedPlaceholder = NSAttributedString(
             string: "Start Time: ",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
-            )
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
+        )
         startTimeTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(startTimeTextField)
         
         endTimeTextField.layer.cornerRadius = 5
         endTimeTextField.clipsToBounds = true
-        endTimeTextField.textColor = .black
-        endTimeTextField.backgroundColor = .white
+        endTimeTextField.textColor = .label
+        endTimeTextField.backgroundColor = .secondarySystemBackground
         endTimeTextField.attributedPlaceholder = NSAttributedString(
             string: "End Time:",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
-            )
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
+        )
         endTimeTextField.translatesAutoresizingMaskIntoConstraints = false
         endTimeTextField.inputView = datePicker
         endTimeTextField.inputAccessoryView = createToolBar()
@@ -121,19 +121,19 @@ class PostViewController: UIViewController {
         
         descriptionTextView.layer.cornerRadius = 5
         descriptionTextView.clipsToBounds = true
-        descriptionTextView.textColor = .gray
+        descriptionTextView.textColor = .secondaryLabel
         descriptionTextView.isEditable = true
-        descriptionTextView.backgroundColor = .white
+        descriptionTextView.backgroundColor = .secondarySystemBackground
         descriptionTextView.font = UIFont(name: "Helvetica", size: view.frame.height * 0.02)
         descriptionTextView.text = "Enter Description Here..."
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionTextView)
         
         postButton.clipsToBounds = true
-        postButton.backgroundColor = UIColor(named: "ButtonColor")
+        postButton.backgroundColor = carnellian
         postButton.setTitleColor(.white, for: .normal)
         postButton.setTitle("Post Event!", for: .normal)
-        //postButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
+        // postButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
         postButton.layer.cornerRadius = 5
         postButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.03)
         postButton.addTarget(self, action: #selector(postEvent), for: .touchUpInside)
@@ -146,7 +146,6 @@ class PostViewController: UIViewController {
         startTimeTextField.inputAccessoryView = createToolBar()
         
         setupConstraints()
-        
     }
     
     func createToolBar() -> UIToolbar {
@@ -162,8 +161,8 @@ class PostViewController: UIViewController {
         
         let formattedDate = ""
         
-        self.startTimeTextField.text = "\(datePicker.date)"
-        self.view.endEditing(true)
+        startTimeTextField.text = "\(datePicker.date)"
+        view.endEditing(true)
     }
     
     @objc func dismissKeyboard() {
@@ -238,13 +237,13 @@ class PostViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            postButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor,constant: 15),
+            postButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 15),
             postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
     @objc func postEvent() {
-        //blah blah check if text fields are empty here
+        // blah blah check if text fields are empty here
         
         var lastID = 0
         
@@ -259,7 +258,7 @@ class PostViewController: UIViewController {
                 if let descriptionText = descriptionTextView.text {
                     if let chosenCategory = selectedCategory {
                         NetworkManager.shared.createEvent(id: lastID, title: titleText, address: addressText, start: "2023-05-03T14:00:00", end: "2023-05-03T14:00:00", user: "udp3", userEmail: "udp3@cornell.edu", description: descriptionText, free: true, category: chosenCategory) {
-                            event in
+                            _ in
                         }
                         errorLabel.text = ""
                         return
@@ -271,32 +270,28 @@ class PostViewController: UIViewController {
         errorLabel.text = "No Upload, Invalid Formatting"
        
         HomeViewController.shared.setupVCs()
-        //var eventToBePosted = Event(id: 99, title: "", address: "", start: "", end: "", description: "", host: "", host_email: "", free: false, category: "")
+        // var eventToBePosted = Event(id: 99, title: "", address: "", start: "", end: "", description: "", host: "", host_email: "", free: false, category: "")
     }
 }
 
 extension PostViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
         let cell: CategoriesCollectionViewCell = categoriesCollectionView.cellForItem(at: indexPath) as! CategoriesCollectionViewCell
         
         selectedCategory = cell.category
-        for row in 0..<collectionView.numberOfItems(inSection: 0) {
+        for row in 0 ..< collectionView.numberOfItems(inSection: 0) {
             let indexPath = NSIndexPath(row: row, section: 0)
             
             let cell: UICollectionViewCell = collectionView.cellForItem(at: indexPath as IndexPath) ?? cell
-            cell.contentView.backgroundColor = UIColor(named: "ButtonColor")
+            cell.contentView.backgroundColor = carnellian
         }
-        cell.contentView.backgroundColor = .black
-        
-        
+        cell.contentView.backgroundColor = vermilion
     }
 }
 
 extension PostViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Categories.categories.count
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -306,8 +301,6 @@ extension PostViewController: UICollectionViewDataSource {
         }
         return UICollectionViewCell()
     }
-    
-    
 }
 
 extension PostViewController: UICollectionViewDelegateFlowLayout {

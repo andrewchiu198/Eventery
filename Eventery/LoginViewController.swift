@@ -7,21 +7,30 @@
 
 import UIKit
 
+let buttonConfig = UIImage.SymbolConfiguration(scale: .large)
+
+let config = UIImage.SymbolConfiguration(textStyle: .largeTitle)
+
 class LoginViewController: UIViewController {
-    
     let loginButton = UIButton()
     let signupButton = UIButton()
     let nameTextField = UITextField()
     let passwordTextField = UITextField()
     
-    var users : [User] = [User(username: "", password: "", email: "", name: "")]
-
+    let loginButtonImage = UIImage(systemName: "person.fill.checkmark", withConfiguration: config) // ?.withConfiguration(buttonConfig)
+    
+    var users: [User] = [User(username: "", password: "", email: "", name: "")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        loginButton.setTitle("Login", for: .normal)
-        loginButton.backgroundColor = UIColor(named: "ButtonColor")
+        loginButton.titleLabel?.text = "Login"
+        loginButton.tintColor = carnellian
+        loginButton.titleLabel?.textColor = carnellian
+        loginButton.imageView?.image = UIImage(named: "person.fill.checkmark")
+        loginButton.addImage(image: loginButtonImage!, offset: 0.0)
+        loginButton.imageView?.tintColor = carnellian
+        loginButton.tintColor = carnellian
+        loginButton.backgroundColor = .secondarySystemBackground
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
         view.addSubview(loginButton)
@@ -42,21 +51,18 @@ class LoginViewController: UIViewController {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(passwordTextField)
         
-
         setupConstraints()
-        
     }
     
     @objc func signUpButtonClicked() {
         let vc = SignUpViewController()
-        self.present(vc, animated: true, completion: nil)
+        present(vc, animated: true, completion: nil)
     }
     
     @objc func loginButtonClicked() {
-        
         let vc = HomeViewController()
         vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        present(vc, animated: true, completion: nil)
     }
     
     func setupConstraints() {

@@ -8,15 +8,14 @@
 import UIKit
 
 class EventsViewController: UIViewController {
-    
-    //TODO make pretty
+    // TODO: make pretty
     
     let label = UILabel()
     var categoriesCollectionView: UICollectionView!
     var eventsCollectionView: UICollectionView!
     var categoryTypes = Categories.categories
     
-    var activatedCategories = ["","","",""]
+    var activatedCategories = ["", "", "", ""]
     
     let refreshControl = UIRefreshControl()
     
@@ -25,33 +24,28 @@ class EventsViewController: UIViewController {
     var user: User
     
     init(events: [Event], user: User) {
-        
         self.events = events
         self.filteredEvents = events
         self.user = user
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     let itemPadding: CGFloat = 10
     let sectionPadding: CGFloat = 15
     let cellReuseID = "cellReuseID"
     let categoriesReuseID = "categoriesReuseID"
     
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(named: "BackgroundColor")
+        view.backgroundColor = .systemBackground
 
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-        
         
         let categoriesFlowLayout = UICollectionViewFlowLayout()
         categoriesFlowLayout.minimumLineSpacing = itemPadding
@@ -64,7 +58,7 @@ class EventsViewController: UIViewController {
         categoriesCollectionView.register(CategoriesCollectionViewCell.self, forCellWithReuseIdentifier: categoriesReuseID)
         categoriesCollectionView.dataSource = self
         categoriesCollectionView.delegate = self
-        categoriesCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
+        categoriesCollectionView.backgroundColor = .systemBackground
         categoriesCollectionView.tag = 0
         categoriesCollectionView.clipsToBounds = true
         categoriesCollectionView.flashScrollIndicators()
@@ -82,7 +76,7 @@ class EventsViewController: UIViewController {
         eventsCollectionView.dataSource = self
         eventsCollectionView.delegate = self
         eventsCollectionView.tag = 1
-        eventsCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
+        eventsCollectionView.backgroundColor = .systemBackground
         view.addSubview(eventsCollectionView)
         
         NetworkManager.shared.getAllEvents { events in
@@ -101,7 +95,6 @@ class EventsViewController: UIViewController {
     }
     
     func setupConstraints() {
-        
         NSLayoutConstraint.activate([
             categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             categoriesCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.06),
@@ -118,39 +111,34 @@ class EventsViewController: UIViewController {
     }
     
     @objc func refreshData() {
-        
-        NetworkManager.shared.getAllEvents() { events in
-                DispatchQueue.main.async {
-                    self.filteredEvents = events
-                    self.eventsCollectionView.reloadData()
-                    //print("reloaded")
-                    self.refreshControl.endRefreshing()
-                }
+        NetworkManager.shared.getAllEvents { events in
+            DispatchQueue.main.async {
+                self.filteredEvents = events
+                self.eventsCollectionView.reloadData()
+                // print("reloaded")
+                self.refreshControl.endRefreshing()
+            }
         }
-        
     }
     
     func filterData() {
         filteredEvents = []
         for event in events {
             for category in activatedCategories {
-                if(event.category == category) {
+                if event.category == category {
                     filteredEvents.append(event)
                 }
             }
         }
         
-        if activatedCategories == ["","","",""] {
+        if activatedCategories == ["", "", "", ""] {
             filteredEvents = events
         }
     }
 }
 
-
 extension EventsViewController: UICollectionViewDelegate {
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         if collectionView.tag == 1 {
             let cell: EventsCollectionViewCell = eventsCollectionView.cellForItem(at: indexPath) as! EventsCollectionViewCell
             let vc = LearnMoreViewController(event: cell.event, user: user)
@@ -158,23 +146,22 @@ extension EventsViewController: UICollectionViewDelegate {
         }
         
         if collectionView.tag == 0 {
-            let cell:UICollectionViewCell = categoriesCollectionView.cellForItem(at: indexPath)!
+            let cell: UICollectionViewCell = categoriesCollectionView.cellForItem(at: indexPath)!
             
-            
-            if (cell.tag == 0) {
-                cell.contentView.backgroundColor = UIColor(named: "SelectedColor")
+            if cell.tag == 0 {
+                cell.contentView.backgroundColor = vermilion
                 cell.tag = 1
                 
                 var allEmpty = true
                 
                 for act in activatedCategories {
-                    if(act != "") {
+                    if act != "" {
                         allEmpty = false
                     }
                 }
                 
-                if(allEmpty == true) {
-                    activatedCategories = ["","","",""]
+                if allEmpty == true {
+                    activatedCategories = ["", "", "", ""]
                 }
                 
                 var selection: String
@@ -192,10 +179,8 @@ extension EventsViewController: UICollectionViewDelegate {
                 }
                 
                 activatedCategories[indexPath.row] = selection
-            }
-            
-            else {
-                cell.contentView.backgroundColor = UIColor(named: "ButtonColor")
+            } else {
+                cell.contentView.backgroundColor = carnellian
                 cell.tag = 0
                 activatedCategories[indexPath.row] = ""
             }
@@ -203,11 +188,9 @@ extension EventsViewController: UICollectionViewDelegate {
             eventsCollectionView.reloadData()
         }
     }
-    
 }
 
 extension EventsViewController: UICollectionViewDataSource {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -222,7 +205,6 @@ extension EventsViewController: UICollectionViewDataSource {
         return 0
     }
         
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView.tag == 0 {
             if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: categoriesReuseID, for: indexPath) as? CategoriesCollectionViewCell {
