@@ -117,7 +117,7 @@ class EventsViewController: UIViewController {
         
         NetworkManager.shared.getAllEvents() { events in
                 DispatchQueue.main.async {
-                    self.events = events
+                    self.filteredEvents = events
                     self.eventsCollectionView.reloadData()
                     print("reloaded")
                     self.refreshControl.endRefreshing()
