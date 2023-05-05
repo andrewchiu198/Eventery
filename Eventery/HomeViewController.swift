@@ -65,15 +65,15 @@ class HomeViewController: UITabBarController {
                 self.events = events
                     
                     self.viewControllers = [
-                        self.createNavController(for: EventsViewController(events: self.events, user: self.user), title: NSLocalizedString("Events", comment: ""), image: UIImage(systemName: "magnifyingglass")!),
+                        createNavController(for: EventsViewController(events: self.events, user: self.user), title: NSLocalizedString("Events", comment: ""), image: UIImage(systemName: "magnifyingglass")!),
                         
-                        self.createNavController(for: CalendarViewController(events: self.events), title: NSLocalizedString("Calendar", comment: ""), image: UIImage(systemName: "calendar")!),
+                        createNavController(for: CalendarViewController(events: self.events), title: NSLocalizedString("Calendar", comment: ""), image: UIImage(systemName: "calendar")!),
                         
-                        self.createNavController(for: MapViewController(events: self.events), title: NSLocalizedString("Map", comment: ""), image: UIImage(systemName: "map.fill")!),
+                        createNavController(for: MapViewController(events: self.events), title: NSLocalizedString("Map", comment: ""), image: UIImage(systemName: "map.fill")!),
                         
-                        self.createNavController(for: PostViewController(user: self.user), title: NSLocalizedString("Post", comment: ""), image: UIImage(systemName: "square.and.pencil")!),
+                        createNavController(for: PostViewController(user: self.user), title: NSLocalizedString("Post", comment: ""), image: UIImage(systemName: "square.and.pencil")!),
                         
-                        self.createNavController(for: ProfileViewController(user: self.user), title: NSLocalizedString("Profile", comment: ""), image: UIImage(systemName: "person.fill")!),
+                        createNavController(for: ProfileViewController(user: self.user), title: NSLocalizedString("Profile", comment: ""), image: UIImage(systemName: "person.fill")!),
                 ]
                     
                 }
@@ -107,4 +107,4 @@ class HomeViewController: UITabBarController {
 //            }
 //
 //    }
-}
+
