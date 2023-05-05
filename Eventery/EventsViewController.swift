@@ -15,6 +15,7 @@ class EventsViewController: UIViewController {
     var categoriesCollectionView: UICollectionView!
     var eventsCollectionView: UICollectionView!
     var categoryTypes = Categories.categories
+    
     var activatedCategories = ["","","",""]
     
     let refreshControl = UIRefreshControl()
@@ -50,11 +51,11 @@ class EventsViewController: UIViewController {
         refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
         
-        let interestsFlowLayout = UICollectionViewFlowLayout()
-        interestsFlowLayout.minimumLineSpacing = itemPadding
-        interestsFlowLayout.minimumInteritemSpacing = itemPadding
-        interestsFlowLayout.scrollDirection = .horizontal
-        interestsFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        let categoriesFlowLayout = UICollectionViewFlowLayout()
+        categoriesFlowLayout.minimumLineSpacing = itemPadding
+        categoriesFlowLayout.minimumInteritemSpacing = itemPadding
+        categoriesFlowLayout.scrollDirection = .horizontal
+        categoriesFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         categoriesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: categoriesFlowLayout)
         categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false

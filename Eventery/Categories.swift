@@ -2,7 +2,7 @@
 //  Categories.swift
 //  Eventery
 //
-//  Created by Andrew Chiu on 5/3/23.
+//  Created by Andrew Chiu on 5/4/23.
 //
 
 import Foundation
@@ -14,4 +14,5 @@ class Categories {
         "Business",
         "Social"
     ]
+
 }
