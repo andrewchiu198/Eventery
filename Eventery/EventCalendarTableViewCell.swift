@@ -27,12 +27,12 @@ class EventCalendarTableViewCell: UITableViewCell {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             name.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            name.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            name.topAnchor.constraint(equalTo: contentView.topAnchor)
         ])
         
         NSLayoutConstraint.activate([
             time.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            time.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            time.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
