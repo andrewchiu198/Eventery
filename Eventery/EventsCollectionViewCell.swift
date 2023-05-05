@@ -23,8 +23,9 @@ class EventsCollectionViewCell: UICollectionViewCell {
         contentView.backgroundColor = .secondarySystemBackground
         contentView.layer.cornerRadius = 5
         contentView.clipsToBounds = true
-        
-        eventImageView.image = UIImage(named: "Sports" + "Event")
+        if let e = event.category {
+            eventImageView.image = UIImage(named: e + "Event")
+        }
         eventImageView.clipsToBounds = true
         eventImageView.layer.cornerRadius = 5
         eventImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +70,10 @@ class EventsCollectionViewCell: UICollectionViewCell {
     
     func configureCell(event: Event) {
         self.event = event
-        eventImageView.image = UIImage(named: "Sports" + "Event")
+        if let e = event.category {
+            eventImageView.image = UIImage(named: e + "Event")
+
+        }
         eventNameLabel.text = event.title
         eventLocationLabel.text = event.address
         startTimeLabel.text = event.start
