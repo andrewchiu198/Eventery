@@ -354,8 +354,10 @@ extension CalendarViewController: UICollectionViewDelegate {
         let calendarDayDate = totalSquares[indexPath.item].date
         if calendarDayDate == userSelectedDate {
             cell.backgroundColor = carnelliam
+            cell.dayOfTheMonth.textColor = .white
         } else {
             cell.backgroundColor = .systemBackground
+            cell.dayOfTheMonth.textColor = .label
         }
 
         return cell
