@@ -45,16 +45,12 @@ class NetworkManager {
     func getAllEventsByDay(date: String, completion: @escaping ([Event]) -> Void) {
         //TODO: Get all Events
         
-        var request = URLRequest(url: url)
+        var request = URLRequest(url: URL(string:"http://34.85.177.184/api/events/\(date)")!)
         request.httpMethod = "GET"
         
-        let body: [String: Any] = [
-            "day": date
-        ]
         
         //note may 3rd 2023
         
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
 
         let task = URLSession.shared.dataTask(with: request){ data, response, err in
             

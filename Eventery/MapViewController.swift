@@ -66,7 +66,7 @@ class MapViewController: UIViewController {
                 completion(nil)
                 return
             }
-            completion(location)
+            completion((location))
         }
     }
     
@@ -95,37 +95,38 @@ class MapViewController: UIViewController {
         mapView.addAnnotation(arbEvent)
     }
     
-    func getLatitudeFromLoc(address: String) -> CLLocationDegrees{
+    func getLatitudeFromLoc(address: String) -> CLLocationDegrees {
         let group = DispatchGroup()
-        group.enter()
+        //group.enter()
         var latitude: CLLocationDegrees = 0.0
         DispatchQueue.global(qos: .default).async {
             // Function call here
             self.getLocation(from: address) { location in
                 latitude = location?.latitude ?? 0.0
                 //print(latitude)
-                group.leave()
+                //group.leave()
             }
             //group.leave()
         }
-        group.wait()
+        //group.wait()
         print(latitude)
         return latitude
     }
     
+    
     func getLongitudeFromLoc(address: String) -> CLLocationDegrees{
         let group = DispatchGroup()
-        group.enter()
+        //group.enter()
         var longitude: CLLocationDegrees = 0.0
         DispatchQueue.global(qos: .default).async {
             // Function call here
             self.getLocation(from: address) { location in
                 longitude = location?.longitude ?? 0.0
-                group.leave()
+                //group.leave()
             }
-            group.leave()
+            //group.leave()
         }
-        group.wait()
+        //group.wait()
         print(longitude)
         return longitude
     }
