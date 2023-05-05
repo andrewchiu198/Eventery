@@ -114,7 +114,7 @@ class PostViewController: UIViewController {
         postButton.backgroundColor = UIColor(named: "ButtonColor")
         postButton.setTitleColor(.white, for: .normal)
         postButton.setTitle("Post Event!", for: .normal)
-        postButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
+        //postButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
         postButton.layer.cornerRadius = 5
         postButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.03)
         postButton.addTarget(self, action: #selector(postEvent), for: .touchUpInside)
@@ -194,7 +194,12 @@ class PostViewController: UIViewController {
     
     @objc func postEvent() {
         //blah blah check if text fields are empty here
-        var eventToBePosted = Event(id: 99, title: "", address: "", start: "", end: "", user: "", userEmail: "", description: "", free: false, category: "")
+        NetworkManager.shared.createEvent(id: nil, title: titleTextField.text!, address: addressTextField.text!, start: "0000-00-00T00:00:00", end: "0000-00-00T00:00:00", user: "udp3", userEmail: "udp3@cornell.edu", description: descriptionTextView.text!, free: true, category: "Sports"){
+            event in
+            print("Success posting!")
+            
+        }
+        //var eventToBePosted = Event(id: 99, title: "", address: "", start: "", end: "", description: "", host: "", host_email: "", free: false, category: "")
     }
 }
 

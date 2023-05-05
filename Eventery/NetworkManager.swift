@@ -10,7 +10,8 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     
-    var url = URL(string: "http://34.85.177.184/events")!
+
+    var url = URL(string: "http://34.85.177.184/api/events/")!
     
     func getAllEvents(completion: @escaping ([Event]) -> Void) {
         //TODO: Get all Events
@@ -23,9 +24,11 @@ class NetworkManager {
             if let data = data {
                 do {
                     let decoder = JSONDecoder()
-                    print(String(data: data, encoding: .utf8)!)
+
+                    //print(String(data: data, encoding: .utf8)!)
                     let response = try decoder.decode(EventResponse.self, from: data)
                     //print(response)
+                    print(response.events)
                     completion(response.events)
                 }catch (let error){
                     print(error.localizedDescription)
@@ -37,6 +40,42 @@ class NetworkManager {
         task.resume()
         
     }
+    
+    
+    func getAllEventsByDay(date: String, completion: @escaping ([Event]) -> Void) {
+        //TODO: Get all Events
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        let body: [String: Any] = [
+            "day": date
+        ]
+        
+        //note may 3rd 2023
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
+
+        let task = URLSession.shared.dataTask(with: request){ data, response, err in
+            
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    //print(String(data: data, encoding: .utf8)!)
+                    let response = try decoder.decode(EventResponse.self, from: data)
+                    //print(response)
+                    print(response.events)
+                    completion(response.events)
+                }catch (let error){
+                    print(error.localizedDescription)
+                   
+                }
+            }
+            
+        }
+        task.resume()
+    }
+    
     
     func getAllSentEvents(sender: String, completion: @escaping ([Event]) -> Void) {
         //TODO: Get all Events
@@ -72,39 +111,20 @@ class NetworkManager {
         var request = URLRequest(url: url)
         
       request.httpMethod = "POST"
-       request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         //set body
-        var body: [String: Any] = [:]
-        
-        //if the id already exists
-        if let iDholder = id{
-            body = [
-                "id": iDholder,
-                "title": title,
-                "address": address,
-                "start": start,
-                 "end": end,
-                "description": description,
-                 "host": user,
-                 "host_email": userEmail,
-                 "free": free,
-                 "category": category
-            ]
-        //if it doesn't, we want to create a new id
-        }else{
-            body = [
-                "title": title,
-                "address": address,
-                "start": start,
-                 "end": end,
-                "description": description,
-                 "host": user,
-                 "host_email": userEmail,
-                 "free": free,
-                 "category": category
-            ]
-        }
+        var body: [String : Any] = [
+            "title": "Surgery Club Rounds with Dr. Selena Tinga",
+            "address": "Cornell University Hospital for Animals",
+            "start": "2023-05-03T14:00:00",
+            "end": "2023-05-03T17:00:00",
+            "description": "Dr. Tinga will be presenting an orthopedic case involving an angular limb deformity.",
+            "host": "American Red Cross",
+            "host_email": "arc@cornell.edu",
+            "free": false,
+            "category": "Health"
+        ]
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
         
@@ -152,7 +172,9 @@ class NetworkManager {
                 do {
                     let decoder = JSONDecoder()
                     let response = try decoder.decode(Event.self, from: data)
-                   // completion(response)
+
+                    //completion(response)
+
                 }catch (let error){
                     print(error.localizedDescription)
                 }

@@ -64,7 +64,7 @@ class LearnMoreViewController: UIViewController {
         eventTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(eventTimeLabel)
         
-        eventHostLabel.text = event.user
+        eventHostLabel.text = event.host
         eventHostLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.025)
         eventHostLabel.textColor = .white
         eventHostLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +87,7 @@ class LearnMoreViewController: UIViewController {
         goToPageButton.clipsToBounds = true
         goToPageButton.layer.cornerRadius = 3
         goToPageButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.02)
-        goToPageButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
+        //goToPageButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
         view.addSubview(goToPageButton)
         //TODO add hyperlink functionality to this button
 

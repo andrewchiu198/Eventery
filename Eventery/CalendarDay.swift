@@ -10,6 +10,7 @@ import Foundation
 class CalendarDay {
     var day: String!
     var month: Month!
+    var date: Date!
 
     enum Month {
         case previous

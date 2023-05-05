@@ -19,6 +19,10 @@ class CalendarHelper {
         return calendar.date(byAdding: .month, value: -1, to: date)!
     }
 
+    func dayFrom(date: Date, offset: Int) -> Date {
+        return calendar.date(byAdding: .day, value: offset, to: date)!
+    }
+
     func monthString(date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "LLLL"

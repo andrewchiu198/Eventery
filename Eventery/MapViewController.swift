@@ -12,27 +12,46 @@ import CoreLocation
 class MapViewController: UIViewController {
 
     @IBOutlet private var mapView: MKMapView! = MKMapView()
+    let refreshControl = UIRefreshControl()
     
+    var events: [Event]
+    
+    init(events: [Event]){
+        self.events = events
+        super.init(nibName: nil, bundle: nil)
+                    
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let initialLocation = CLLocation(latitude: 42.447464, longitude: -76.482592)
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+
+//        if #available(iOS 10.0, *) {
+//            //contentView = mapView
+//            //contentView.refreshControl = refreshControl
+//        } else {
+//            //mapView.addSubview(refreshControl)
+//        }
+
         
         mapView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.height)
-        
-        //tabBarController!.tabBar.frame.height + 10
+    
         
         mapView.mapType = MKMapType.standard
         mapView.isZoomEnabled = true
         mapView.isScrollEnabled = true
         mapView.delegate = self
         
-        let hoyRoad = MKPointAnnotation()
-        hoyRoad.title = "hoy road"
-        hoyRoad.coordinate = CLLocationCoordinate2D(latitude: 42.4428052, longitude: -76.4786648)
-        mapView.addAnnotation(hoyRoad)
+        let initialLocation = CLLocation(latitude: 42.447464, longitude: -76.482592)
+              
         mapView.centerToLocation(initialLocation)
+        
+        addAllEvents()
         
         view.addSubview(mapView)
                 
@@ -41,6 +60,7 @@ class MapViewController: UIViewController {
     func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?)-> Void) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarks, error) in
+            print("in the geocoder")
             guard let placemarks = placemarks,
             let location = placemarks.first?.location?.coordinate else {
                 completion(nil)
@@ -50,23 +70,94 @@ class MapViewController: UIViewController {
         }
     }
     
-    func getLatitudeFromLoc(address: String) -> Double{
-        var latitude = 0.0
-        getLocation(from: address) { location in
-            latitude = location?.latitude ?? 0.0
-            
+//    func getLocation(from address: String){
+//        let geoCoder = CLGeocoder()
+//        var geocoder = CLGeocoder()
+//        geocoder.geocodeAddressString("your address") {
+//            placemarks, error in
+//            let placemark = placemarks?.first
+//            let lat = placemark?.location?.coordinate.latitude
+//            let lon = placemark?.location?.coordinate.longitude
+//            print("Lat: \(lat), Lon: \(lon)")
+//        }
+//    }
+    
+    func addAllEvents(){
+        for event in self.events{
+           addEvent(event: event)
         }
+    }
+    
+    func addEvent(event: Event){
+        let arbEvent = MKPointAnnotation()
+        arbEvent.title = event.title
+        arbEvent.coordinate = CLLocationCoordinate2D(latitude: getLatitudeFromLoc(address: event.address), longitude: getLongitudeFromLoc(address: event.address))
+        mapView.addAnnotation(arbEvent)
+    }
+    
+    func getLatitudeFromLoc(address: String) -> CLLocationDegrees{
+        let group = DispatchGroup()
+        group.enter()
+        var latitude: CLLocationDegrees = 0.0
+        DispatchQueue.global(qos: .default).async {
+            // Function call here
+            self.getLocation(from: address) { location in
+                latitude = location?.latitude ?? 0.0
+                //print(latitude)
+                group.leave()
+            }
+            //group.leave()
+        }
+        group.wait()
+        print(latitude)
         return latitude
     }
     
-    func getLongitudeFromLoc(address: String)-> Double{
-        var longitude = 0.0
-        getLocation(from: address) { location in
-            longitude = location?.latitude ?? 0.0
-            
+    func getLongitudeFromLoc(address: String) -> CLLocationDegrees{
+        let group = DispatchGroup()
+        group.enter()
+        var longitude: CLLocationDegrees = 0.0
+        DispatchQueue.global(qos: .default).async {
+            // Function call here
+            self.getLocation(from: address) { location in
+                longitude = location?.longitude ?? 0.0
+                group.leave()
+            }
+            group.leave()
         }
+        group.wait()
+        print(longitude)
         return longitude
     }
+    
+//    func getLongitudeFromLoc(address: String)-> CLLocationDegrees{
+//        let group = DispatchGroup()
+//        group.enter()
+//        var longitude: CLLocationDegrees = 0.0
+//        print(address)
+//        getLocation(from: address) { location in
+//            longitude = location?.longitude ?? 0.0
+//            print("in the get location funx")
+//            print(longitude)
+//            group.leave()
+//        }
+//        group.wait()
+//        print("outside the get loc func")
+//        print(longitude)
+//        return longitude
+//    }
+    
+    @objc func refreshData() {
+        
+            NetworkManager.shared.getAllEvents { events in
+                DispatchQueue.main.async {
+                    self.events = events
+                    //self.mapView.reloadData()
+                    self.refreshControl.endRefreshing()
+                }
+            }
+        }
+        
     
 }
 

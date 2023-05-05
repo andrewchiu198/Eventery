@@ -7,6 +7,9 @@
 
 import UIKit
 
+// cornell color
+let carnelliam = UIColor(red: 179 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
+
 class CalendarViewController: UIViewController {
     // Outlet collection of labels
     @IBOutlet var headerLabels: [UILabel]!
@@ -18,9 +21,6 @@ class CalendarViewController: UIViewController {
     let subheaderRelativeFontConstant: CGFloat = 0.046 * (2 / 3)
     let textRelativeFontConstant: CGFloat = 0.046 * (1 / 2)
 
-    // cornell color
-    let carnelliam = UIColor(red: 179 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
-
     // distance of arrows from edges
     let arrowOffset = 30.0
 
@@ -29,6 +29,7 @@ class CalendarViewController: UIViewController {
     let calPadding = 2.0
     let itemPadding: CGFloat = 2.0
     let sectionPadding: CGFloat = 2.0
+    let belowCalPadding = 100.0
 
     // height of weekday stackview
     let weekdayHeight = 50.0
@@ -77,8 +78,20 @@ class CalendarViewController: UIViewController {
 
     // model stuff
     var selectedDate = Date()
+    var userSelectedDate = Date()
     var totalSquares = [CalendarDay]()
-    var events: [String] = []
+    var events: [Event] = []
+    var userSelectedEvents: [Event] = []
+
+    init(events: [Event]) {
+        self.events = events
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,7 +124,7 @@ class CalendarViewController: UIViewController {
         if let heady = headerLabels {
             for label in heady {
                 label.font = label.font.withSize(view.frame.height * headerRelativeFontConstant)
-                label.textColor = .black
+                label.textColor = UIColor.label
             }
         }
 
@@ -119,7 +132,7 @@ class CalendarViewController: UIViewController {
         if let subby = subheaderLabels {
             for label in subby {
                 label.font = label.font.withSize(view.frame.height * subheaderRelativeFontConstant)
-                label.textColor = .darkGray
+                label.textColor = UIColor.secondaryLabel
             }
         }
 
@@ -127,7 +140,7 @@ class CalendarViewController: UIViewController {
         if let texty = textLabels {
             for label in texty {
                 label.font = label.font.withSize(view.frame.height * textRelativeFontConstant)
-                label.textColor = .darkGray
+                label.textColor = UIColor.secondaryLabel
             }
         }
 
@@ -183,7 +196,7 @@ class CalendarViewController: UIViewController {
         eventCalendarTableView.dataSource = self
         eventCalendarTableView.register(EventCalendarTableViewCell.self, forCellReuseIdentifier: tableReuseID)
         eventCalendarTableView.rowHeight = eventRowHeight
-        eventCalendarTableView.backgroundColor = .lightGray
+        eventCalendarTableView.backgroundColor = .blue
 
         // add to view
         view.addSubview(monthLabel)
@@ -236,6 +249,8 @@ class CalendarViewController: UIViewController {
                 calendarDay.day = String(count - startingSpaces)
                 calendarDay.month = CalendarDay.Month.current
             }
+            calendarDay.date = CalendarHelper().dayFrom(date: CalendarHelper().firstOfMonth(date: selectedDate), offset: count - startingSpaces - 1)
+
             totalSquares.append(calendarDay)
             count += 1
         }
@@ -271,8 +286,7 @@ class CalendarViewController: UIViewController {
         NSLayoutConstraint.activate([
             calendarCollectionView.topAnchor.constraint(equalTo: weekdayStackView.bottomAnchor, constant: padding),
             calendarCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            calendarCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            calendarCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
+            calendarCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor), calendarCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: belowCalPadding),
         ])
 
         NSLayoutConstraint.activate([
@@ -281,6 +295,21 @@ class CalendarViewController: UIViewController {
             eventCalendarTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             eventCalendarTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
         ])
+    }
+
+    // adding to events
+    func eventsForUserDay() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        let userSelectedDateString = dateFormatter.string(from: userSelectedDate)
+        NetworkManager.shared.getAllEventsByDay(date: userSelectedDateString) {
+            events in
+            DispatchQueue.main.async {
+                self.userSelectedEvents = events
+            }
+        }
+        print(userSelectedDateString)
+        print(userSelectedEvents.count)
     }
 
     // button actions
@@ -312,7 +341,21 @@ extension CalendarViewController: UICollectionViewDelegate {
             cell.dayOfTheMonth.textColor = .lightGray
         }
 
+        let calendarDayDate = totalSquares[indexPath.item].date
+        if calendarDayDate == userSelectedDate {
+            cell.backgroundColor = carnelliam
+        } else {
+            cell.backgroundColor = .systemBackground
+        }
+
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        userSelectedDate = totalSquares[indexPath.item].date
+        calendarCollectionView.reloadData()
+        eventsForUserDay()
+        eventCalendarTableView.reloadData()
     }
 }
 
@@ -322,55 +365,20 @@ extension CalendarViewController: UICollectionViewDataSource {
     }
 }
 
-extension CalendarViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let currentBrush = brushes[indexPath.row]
-//        self.currentIndex = indexPath
-//        let  vc = DetailViewController(brush: currentBrush)
-//        vc.del = self
-//
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
-//
-//    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-//        return .delete
-//    }
-}
+extension CalendarViewController: UITableViewDelegate {}
 
 extension CalendarViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        return userSelectedEvents.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell() // TODO: FIX THIS
-    }
+        let cell = eventCalendarTableView.dequeueReusableCell(withIdentifier: tableReuseID) as! EventCalendarTableViewCell
+        let event = userSelectedEvents[indexPath.row]
 
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return brushes.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if let cell = tableView.dequeueReusableCell(withIdentifier: reuseID, for: indexPath) as? BrushTableViewCell {
-//            let currentBrush = brushes[indexPath.row]
-//
-//            cell.updateFrom(brush: currentBrush)
-//
-//            return cell
-//        } else {
-//            return UITableViewCell()
-//        }
-//    }
-//
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            tableView.beginUpdates()
-//            brushes.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//
-//            tableView.endUpdates()
-//        }
-//    }
+        cell.updateFrom(title: event.title, date: event.start)
+        return cell
+    }
 }
 
 extension UIButton {

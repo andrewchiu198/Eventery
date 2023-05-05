@@ -17,10 +17,13 @@ class EventsViewController: UIViewController {
     var categoryTypes = Categories.categories
     var activatedCategories = ["","","",""]
     
+    let refreshControl = UIRefreshControl()
+    
     var events: [Event]
     var filteredEvents: [Event] = []
     
     init(events: [Event]) {
+        
         self.events = events
         self.filteredEvents = events
         super.init(nibName: nil, bundle: nil)
@@ -43,12 +46,15 @@ class EventsViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "BackgroundColor")
+
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         
-        let categoriesFlowLayout = UICollectionViewFlowLayout()
-        categoriesFlowLayout.minimumLineSpacing = itemPadding
-        categoriesFlowLayout.minimumInteritemSpacing = itemPadding
-        categoriesFlowLayout.scrollDirection = .horizontal
-        categoriesFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        
+        let interestsFlowLayout = UICollectionViewFlowLayout()
+        interestsFlowLayout.minimumLineSpacing = itemPadding
+        interestsFlowLayout.minimumInteritemSpacing = itemPadding
+        interestsFlowLayout.scrollDirection = .horizontal
+        interestsFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         categoriesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: categoriesFlowLayout)
         categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +82,18 @@ class EventsViewController: UIViewController {
         eventsCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
         view.addSubview(eventsCollectionView)
         
+        NetworkManager.shared.getAllEvents { events in
+            DispatchQueue.main.async {
+                self.events = events
+            }
+        }
+        
+        if #available(iOS 10.0, *) {
+            eventsCollectionView.refreshControl = refreshControl
+        } else {
+            eventsCollectionView.addSubview(refreshControl)
+        }
+        
         setupConstraints()
     }
     
@@ -96,6 +114,19 @@ class EventsViewController: UIViewController {
         ])
     }
     
+    @objc func refreshData() {
+        
+        NetworkManager.shared.getAllEvents() { events in
+                DispatchQueue.main.async {
+                    self.filteredEvents = events
+                    self.eventsCollectionView.reloadData()
+                    print("reloaded")
+                    self.refreshControl.endRefreshing()
+                }
+        }
+        
+    }
+    
     func filterData() {
         filteredEvents = []
         for event in events {
@@ -111,6 +142,7 @@ class EventsViewController: UIViewController {
         }
     }
 }
+
 
 extension EventsViewController: UICollectionViewDelegate {
     

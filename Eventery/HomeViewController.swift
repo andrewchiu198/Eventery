@@ -9,20 +9,19 @@ import UIKit
 
 class HomeViewController: UITabBarController {
     
-    let events = DummyData.events
+    //let refreshControl = UIRefreshControl()
+    
+    var events: [Event] = []
 
     override func viewDidLoad() {
-<<<<<<< Updated upstream
-=======
         
-        var url = URL(string: "https://34.85.172.228")!
+        var url = URL(string: "https://34.85.177.184")!
         let formatParameter = URLQueryItem(name: "format", value: "json")
         url.append(queryItems: [formatParameter])
         
         selectedIndex = 0
+
         
-        
->>>>>>> Stashed changes
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "BackgroundColor")
         UITabBar.appearance().barTintColor = .white
@@ -38,17 +37,25 @@ class HomeViewController: UITabBarController {
     }
         
         func setupVCs() {
-            viewControllers = [
-                createNavController(for: EventsViewController(events: events), title: NSLocalizedString("Events", comment: ""), image: UIImage(systemName: "magnifyingglass")!),
-                
-                createNavController(for: CalendarViewController(), title: NSLocalizedString("Calendar", comment: ""), image: UIImage(systemName: "calendar")!),
-                
-                createNavController(for: MapViewController(), title: NSLocalizedString("Map", comment: ""), image: UIImage(systemName: "map.fill")!),
-                
-                createNavController(for: PostViewController(), title: NSLocalizedString("Post", comment: ""), image: UIImage(systemName: "square.and.pencil")!),
-                
-                createNavController(for: ProfileViewController(), title: NSLocalizedString("Profile", comment: ""), image: UIImage(systemName: "person.fill")!),
-        ]
+            
+            NetworkManager.shared.getAllEvents { events in
+                DispatchQueue.main.async {
+                    self.events = events
+                    
+                    self.viewControllers = [
+                        self.createNavController(for: EventsViewController(events: self.events), title: NSLocalizedString("Events", comment: ""), image: UIImage(systemName: "magnifyingglass")!),
+                        
+                        self.createNavController(for: CalendarViewController(events: self.events), title: NSLocalizedString("Calendar", comment: ""), image: UIImage(systemName: "calendar")!),
+                        
+                        self.createNavController(for: MapViewController(events: self.events), title: NSLocalizedString("Map", comment: ""), image: UIImage(systemName: "map.fill")!),
+                        
+                        self.createNavController(for: PostViewController(), title: NSLocalizedString("Post", comment: ""), image: UIImage(systemName: "square.and.pencil")!),
+                        
+                        self.createNavController(for: ProfileViewController(), title: NSLocalizedString("Profile", comment: ""), image: UIImage(systemName: "person.fill")!),
+                ]
+                    
+                }
+            }
     }
     
     fileprivate func createNavController(for rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
@@ -63,6 +70,18 @@ class HomeViewController: UITabBarController {
         rootViewController.navigationItem.title = title
         return navController
     }
+    
+//    @objc func refreshData() {
+//
+//            NetworkManager.shared.getAllEvents { events in
+//                DispatchQueue.main.async {
+//                    self.events = events
+//                    //self.messageTableView.reloadData()
+//                    self.refreshControl.endRefreshing()
+//                }
+//            }
+//
+//    }
     
 }
 

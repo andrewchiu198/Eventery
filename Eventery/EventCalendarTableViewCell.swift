@@ -36,11 +36,10 @@ class EventCalendarTableViewCell: UITableViewCell {
         ])
     }
     
-    //    func updateFrom(brush: Brush){
-    //        name.text = brush.brushName
-    //        size.text = String(brush.brushSize)
-    //        color.backgroundColor = brush.brushColor
-    //    }
+    func updateFrom(title: String, date: String) {
+        name.text = title
+        time.text = date
+    }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
