@@ -42,7 +42,10 @@ class LearnMoreViewController: UIViewController {
         
         view.backgroundColor = .systemBackground
 
-        eventImageView.image = UIImage(named: "Sports" + "Event")
+        if let e = event.category {
+            eventImageView.image = UIImage(named: e + "Event")
+
+        }
         eventImageView.translatesAutoresizingMaskIntoConstraints = false
         eventImageView.clipsToBounds = true
         eventImageView.layer.cornerRadius = 5

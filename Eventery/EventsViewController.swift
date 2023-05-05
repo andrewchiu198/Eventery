@@ -131,8 +131,8 @@ class EventsViewController: UIViewController {
             }
         }
         
-        if activatedCategories == ["", "", "", ""] {
-            filteredEvents = events
+        if activatedCategories == ["", "", "", "", ""] {
+            self.filteredEvents = events
         }
     }
 }

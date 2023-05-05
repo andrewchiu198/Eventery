@@ -82,6 +82,7 @@ class PostViewController: UIViewController {
             string: "Title",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
         )
+        titleTextField.inputAccessoryView = createOtherToolBar()
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleTextField)
         
@@ -94,6 +95,7 @@ class PostViewController: UIViewController {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
         )
         addressTextField.translatesAutoresizingMaskIntoConstraints = false
+        addressTextField.inputAccessoryView = createOtherToolBar()
         view.addSubview(addressTextField)
         
         startTimeTextField.layer.cornerRadius = 5
@@ -113,6 +115,7 @@ class PostViewController: UIViewController {
         descriptionTextView.clipsToBounds = true
         descriptionTextView.textColor = .secondaryLabel
         descriptionTextView.isEditable = true
+        descriptionTextView.inputAccessoryView = createOtherToolBar()
         descriptionTextView.backgroundColor = .secondarySystemBackground
         descriptionTextView.font = UIFont(name: "Helvetica", size: view.frame.height * 0.02)
         descriptionTextView.text = "Enter Description Here..."
@@ -153,7 +156,7 @@ class PostViewController: UIViewController {
         }
         else {
             freeButton.isSelected = false
-            freeButton.backgroundColor = UIColor(named: "ButtonColor")
+            freeButton.backgroundColor = carnellian
         }
     }
 
@@ -251,6 +254,12 @@ class PostViewController: UIViewController {
         
         var lastID = 1
         
+        if let dateText2 = startTimeTextField.text {
+            if (dateText2 == "") {
+                return
+            }
+        }
+        
         NetworkManager.shared.getAllEvents {
             events in DispatchQueue.main.async {
 //                lastID = events[events.count - 1].id
@@ -267,13 +276,13 @@ class PostViewController: UIViewController {
                             if(freeButton.isSelected == true) {
                                 free = true
                             }
-                            NetworkManager.shared.createEvent(id: lastID, title: titleText, address: addressText, start: dateText, end: "0000-00-00 00:00:00", user: "udp3", userEmail: "udp3@cornell.edu", description: descriptionText, free: free, category: chosenCategory) {
+                            print(chosenCategory)
+                            NetworkManager.shared.createEvent(id: lastID, title: titleText, address: addressText, start: dateText, end: "2023-05-05 19:33:48", user: "udp3", userEmail: "udp3@cornell.edu", description: descriptionText, free: free, category: chosenCategory) {
                                 event in
                             }
                             errorLabel.text = "Success, Uploaded!"
                             errorLabel.textColor = .green
                             return
-
                         }
                     }
                 }
