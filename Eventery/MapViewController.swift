@@ -80,7 +80,7 @@ class MapViewController: UIViewController {
                         return
                     }
                     annotation.coordinate = location.coordinate
-                    annotation.title = placemark.name
+                    //annotation.title = placemark.name
                 }
                 
                 return annotation
@@ -108,13 +108,14 @@ class MapViewController: UIViewController {
     
     //adds event to map
     func addEvent(event: Event){
-        
+        var group = DispatchGroup()
+        group.enter()
         let arbEvent = getAnnotationsFromLocation(address: event.address)
         arbEvent.title = event.title
+        group.leave()
 //        arbEvent.coordinate = CLLocationCoordinate2D(latitude: getLatitudeFromLoc(address: event.address), longitude: getLongitudeFromLoc(address: event.address))
         print(arbEvent.coordinate)
         mapView.addAnnotation(arbEvent)
-        
     }
     
 //    func getLatitudeFromLoc(address: String) -> CLLocationDegrees {
@@ -243,6 +244,8 @@ private extension MKMapView {
 extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("I was clicked")
+        //let vc = LearnMoreViewController(event: cell.event)
+        //navigationController?.pushViewController(vc, animated: true)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
