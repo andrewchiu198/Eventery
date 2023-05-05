@@ -22,11 +22,13 @@ class EventsViewController: UIViewController {
     
     var events: [Event]
     var filteredEvents: [Event] = []
+    var user: User
     
-    init(events: [Event]) {
+    init(events: [Event], user: User) {
         
         self.events = events
         self.filteredEvents = events
+        self.user = user
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -151,7 +153,7 @@ extension EventsViewController: UICollectionViewDelegate {
         
         if collectionView.tag == 1 {
             let cell: EventsCollectionViewCell = eventsCollectionView.cellForItem(at: indexPath) as! EventsCollectionViewCell
-            let vc = LearnMoreViewController(event: cell.event)
+            let vc = LearnMoreViewController(event: cell.event, user: user)
             navigationController?.pushViewController(vc, animated: true)
         }
         

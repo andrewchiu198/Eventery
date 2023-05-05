@@ -21,7 +21,8 @@ class LearnMoreViewController: UIViewController {
     
     var event: Event
     
-    init(event: Event) {
+    init(event: Event, user: User) {
+        self.currentUser = user
         self.event = event
         super.init(nibName: nil, bundle: nil)
     }

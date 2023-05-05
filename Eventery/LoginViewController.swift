@@ -49,14 +49,11 @@ class LoginViewController: UIViewController {
     
     @objc func signUpButtonClicked() {
         let vc = SignUpViewController()
-        NetworkManager.shared.getAllUsers(){
-            users in
-            self.users = users
-        }
         self.present(vc, animated: true, completion: nil)
     }
     
     @objc func loginButtonClicked() {
+        
         let vc = HomeViewController()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)

@@ -11,6 +11,9 @@ class SignUpViewController: UIViewController {
     
     let titleButton = UILabel()
     let nameTextField = UITextField()
+    let usernameTextField = UITextField()
+    let passwordTextField = UITextField()
+    let emailTextField = UITextField()
     
     
     override func viewDidLoad() {
@@ -22,10 +25,25 @@ class SignUpViewController: UIViewController {
         titleButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleButton)
         
-        nameTextField.placeholder = "Username"
+        usernameTextField.placeholder = "Username"
+        usernameTextField.backgroundColor = .white
+        usernameTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(usernameTextField)
+        
+        passwordTextField.placeholder = "Username"
+        passwordTextField.backgroundColor = .white
+        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(passwordTextField)
+        
+        nameTextField.placeholder = "Name"
         nameTextField.backgroundColor = .white
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameTextField)
+        
+        emailTextField.placeholder = "Name"
+        emailTextField.backgroundColor = .white
+        emailTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emailTextField)
         
         setupConstraints()
     }
@@ -41,6 +59,23 @@ class SignUpViewController: UIViewController {
         ])
     }
     
+    //when sign up is clicked
+    func signUpClicked(){
+        if let username = usernameTextField.text{
+            if let password = passwordTextField.text{
+                if let name = nameTextField.text{
+                    if let email = emailTextField.text{
+            NetworkManager.shared.createUser(username: username, password: password, email: email, name: name){
+                user in
+                let vc = HomeViewController(user: user)
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
+    }
+}
+}
+        
+    }
 
     /*
     // MARK: - Navigation
