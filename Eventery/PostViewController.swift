@@ -269,9 +269,8 @@ class PostViewController: UIViewController {
         }
         
         errorLabel.text = "No Upload, Invalid Formatting"
-        
-        
-        
+       
+        HomeViewController.shared.setupVCs()
         //var eventToBePosted = Event(id: 99, title: "", address: "", start: "", end: "", description: "", host: "", host_email: "", free: false, category: "")
     }
 }

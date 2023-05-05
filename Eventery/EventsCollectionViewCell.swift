@@ -65,7 +65,7 @@ class EventsCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func learnMoreButtonClicked() {
-        let vc = LearnMoreViewController(event: event)
+        let vc = LearnMoreViewController(event: event, user: parent!.user)
         parent?.navigationController?.pushViewController(vc, animated: true)
     }
     

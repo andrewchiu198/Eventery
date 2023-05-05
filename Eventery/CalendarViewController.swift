@@ -196,7 +196,6 @@ class CalendarViewController: UIViewController {
         eventCalendarTableView.dataSource = self
         eventCalendarTableView.register(EventCalendarTableViewCell.self, forCellReuseIdentifier: tableReuseID)
         eventCalendarTableView.rowHeight = eventRowHeight
-        eventCalendarTableView.backgroundColor = .blue
 
         // add to view
         view.addSubview(monthLabel)
@@ -304,17 +303,18 @@ class CalendarViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"
         let userSelectedDateString = dateFormatter.string(from: userSelectedDate)
-        NetworkManager.shared.getAllEventsByDay(date: "05-03-2023") {
-            events in
+        NetworkManager.shared.getAllEventsByDay(date: userSelectedDateString) {
+            eventies in
             DispatchQueue.main.async {
-                self.userSelectedEvents = events
-                print("events.count:")
-                print(events.count)
+                print("events:")
+                print(eventies.count)
+                self.userSelectedEvents = eventies
             }
         }
         print(userSelectedDateString)
         print("selected:")
         print(userSelectedEvents.count)
+        eventCalendarTableView.reloadData()
     }
 
     // button actions
@@ -386,7 +386,8 @@ extension CalendarViewController: UITableViewDataSource {
         let cell = eventCalendarTableView.dequeueReusableCell(withIdentifier: tableReuseID) as! EventCalendarTableViewCell
         let event = userSelectedEvents[indexPath.row]
 
-        cell.updateFrom(title: event.title, date: event.start)
+        let time = event.start.suffix(8)
+        cell.updateFrom(title: event.title, date: String(time))
         return cell
     }
 }

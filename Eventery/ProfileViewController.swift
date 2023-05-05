@@ -9,10 +9,20 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-
     let backgroundImage = UIImageView()
     let nameLabel = UILabel()
     let emailLabel = UILabel()
+    let currentUser: User
+    
+    init( user: User) {
+        
+        self.currentUser = user
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,13 +33,13 @@ class ProfileViewController: UIViewController {
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundImage)
         
-        nameLabel.text = "Name Here"
+        nameLabel.text = currentUser.name
         nameLabel.textColor = .label
         nameLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height/23)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameLabel)
         
-        emailLabel.text = "Email Here"
+        emailLabel.text = currentUser.email
         emailLabel.textColor = .label
         emailLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height/26)
         emailLabel.translatesAutoresizingMaskIntoConstraints = false

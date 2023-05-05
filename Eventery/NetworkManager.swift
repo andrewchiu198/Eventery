@@ -50,6 +50,9 @@ class NetworkManager {
         
         request.setValue(date, forHTTPHeaderField: "day")
         
+        request.url?.append(queryItems: [
+            URLQueryItem(name: "day", value: date)
+        ])
         //note may 3rd 2023
         
 
@@ -144,9 +147,45 @@ class NetworkManager {
     }
     
     
+    func createUser(username: String, password: String, email: String,name: String, completion: @escaping (User) -> Void) {
+        let userURL = URL(string: "http://34.85.177.184/api/users/")!
+        var request = URLRequest(url: userURL)
+        
+      request.httpMethod = "POST"
+      request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        //set body
+        let body: [String : Any] = [
+            "username": username,
+            "password": password,
+            "email": email,
+            "name": name
+        ]
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, err in
+            
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    print(data)
+                    let response = try decoder.decode(User.self, from: data)
+                    completion(response)
+                }catch (let error){
+                    print(error.localizedDescription)
+                }
+            }
+            
+        }
+        task.resume()
+        
+    }
+    
     
     func deleteEvent(id: Int) {
         var request = URLRequest(url: url)
+        
         
         request.httpMethod = "DELETE"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -183,10 +222,12 @@ class NetworkManager {
     }
     
     func getAllUsers(completion: @escaping ([User]) -> Void) {
-        var userURL = URL(string: "http://34.85.177.184/api/users/")!
+        
+        let userURL = URL(string: "http://34.85.177.184/api/users/")!
         var request = URLRequest(url: userURL)
         
         request.httpMethod = "GET"
+        
         
         let task = URLSession.shared.dataTask(with: request){ data, response, err in
             
@@ -195,7 +236,6 @@ class NetworkManager {
                     let decoder = JSONDecoder()
                     print(String(data: data, encoding: .utf8)!)
                     let response = try decoder.decode(UserResponse.self, from: data)
-                    //print(response)
                     completion(response.users)
                 }catch (let error){
                     print(error.localizedDescription)
@@ -206,7 +246,35 @@ class NetworkManager {
         }
         task.resume()
         
+    }
+    
+    func getUser(completion: @escaping ([User]) -> Void) {
+        
+        let userURL = URL(string: "http://34.85.177.184/api/users/")!
+        var request = URLRequest(url: userURL)
+        
+        request.httpMethod = "GET"
+        
+        
+        let task = URLSession.shared.dataTask(with: request){ data, response, err in
+            
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    print(String(data: data, encoding: .utf8)!)
+                    let response = try decoder.decode(UserResponse.self, from: data)
+                    completion(response.users)
+                }catch (let error){
+                    print(error.localizedDescription)
+                   
+                }
+            }
+            
+        }
+        task.resume()
         
     }
+    
+    
 
 }
