@@ -7,47 +7,60 @@
 
 import UIKit
 
-let buttonConfig = UIImage.SymbolConfiguration(scale: .large)
-
 let config = UIImage.SymbolConfiguration(textStyle: .largeTitle)
 
 class LoginViewController: UIViewController {
+    let titleLabel = UILabel()
+    let logoImage = UIImage()
+    
     let loginButton = UIButton()
+    let loginLabel = UILabel()
     let signupButton = UIButton()
+    let signupLabel = UILabel()
     let nameTextField = UITextField()
     let passwordTextField = UITextField()
     
-    let loginButtonImage = UIImage(systemName: "person.fill.checkmark", withConfiguration: config) // ?.withConfiguration(buttonConfig)
+    let loginButtonImage = UIImage(systemName: "person.fill.checkmark", withConfiguration: config)
+    let signupButtonImage = UIImage(systemName: "person.fill.badge.plus", withConfiguration: config)
     
     var users: [User] = [User(username: "", password: "", email: "", name: "")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginButton.titleLabel?.text = "Login"
+        
+        view.backgroundColor = .systemBackground
+        
+//        loginButton.setTitle("Login", for: .normal)
+//        loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+//        loginButton.setTitleColor(carnellian, for: .normal)
         loginButton.tintColor = carnellian
-        loginButton.titleLabel?.textColor = carnellian
-        loginButton.imageView?.image = UIImage(named: "person.fill.checkmark")
         loginButton.addImage(image: loginButtonImage!, offset: 0.0)
-        loginButton.imageView?.tintColor = carnellian
-        loginButton.tintColor = carnellian
-        loginButton.backgroundColor = .secondarySystemBackground
+        loginButton.backgroundColor = .systemBackground
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
         view.addSubview(loginButton)
         
-        signupButton.setTitle("Signup", for: .normal)
-        signupButton.backgroundColor = UIColor(named: "ButtonColor")
+//        signupButton.setTitle("Signup", for: .normal)
+        signupButton.tintColor = carnellian
+        signupButton.addImage(image: signupButtonImage!, offset: 0.0)
+        signupButton.backgroundColor = .systemBackground
         signupButton.translatesAutoresizingMaskIntoConstraints = false
         signupButton.addTarget(self, action: #selector(signUpButtonClicked), for: .touchUpInside)
         view.addSubview(signupButton)
         
+        loginLabel.text = "Login"
+        loginLabel.font = UIFont(name: "Helvetica-Bold", size: 20)
+        loginLabel.textColor = carnellian
+        loginLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loginLabel)
+        
         nameTextField.placeholder = "Username"
-        nameTextField.backgroundColor = .white
+        nameTextField.backgroundColor = .systemBackground
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameTextField)
         
         passwordTextField.placeholder = "Password"
-        passwordTextField.backgroundColor = .white
+        passwordTextField.backgroundColor = .systemBackground
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(passwordTextField)
         
@@ -67,8 +80,13 @@ class LoginViewController: UIViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            loginButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            loginLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor),
+            loginLabel.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
