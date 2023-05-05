@@ -10,6 +10,7 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     
+
     var url = URL(string: "http://34.85.177.184/api/events/")!
     
     func getAllEvents(completion: @escaping ([Event]) -> Void) {
@@ -23,6 +24,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let decoder = JSONDecoder()
+
                     //print(String(data: data, encoding: .utf8)!)
                     let response = try decoder.decode(EventResponse.self, from: data)
                     //print(response)
@@ -170,7 +172,9 @@ class NetworkManager {
                 do {
                     let decoder = JSONDecoder()
                     let response = try decoder.decode(Event.self, from: data)
+
                     //completion(response)
+
                 }catch (let error){
                     print(error.localizedDescription)
                 }
@@ -181,4 +185,31 @@ class NetworkManager {
         
     }
     
+    func getAllUsers(completion: @escaping ([User]) -> Void) {
+        var userURL = URL(string: "http://34.85.177.184/api/users/")!
+        var request = URLRequest(url: userURL)
+        
+        request.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: request){ data, response, err in
+            
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    print(String(data: data, encoding: .utf8)!)
+                    let response = try decoder.decode(UserResponse.self, from: data)
+                    //print(response)
+                    completion(response.users)
+                }catch (let error){
+                    print(error.localizedDescription)
+                   
+                }
+            }
+            
+        }
+        task.resume()
+        
+        
+    }
+
 }

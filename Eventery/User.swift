@@ -14,3 +14,6 @@ struct User: Codable {
     var name: String
 }
 
+struct UserResponse: Codable {
+    var users : [User]
+}
