@@ -15,7 +15,9 @@ class LearnMoreViewController: UIViewController {
     let eventTimeLabel = UILabel()
     let eventHostLabel = UILabel()
     let descriptionTextView = UITextView()
-    let goToPageButton = UIButton()
+    let deleteButton = UIButton()
+    
+    var currentUser: User = User(username: "udp3", password: "Password", email: "udp3@cornell.edu" , name: "Deepa Pulugurtha")
     
     var event: Event
     
@@ -80,18 +82,30 @@ class LearnMoreViewController: UIViewController {
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionTextView)
         
-        goToPageButton.translatesAutoresizingMaskIntoConstraints = false
-        goToPageButton.setTitle("Go To Page!", for: .normal)
-        goToPageButton.setTitleColor(.white, for: .normal)
-        goToPageButton.backgroundColor = UIColor(named: "ButtonColor")
-        goToPageButton.clipsToBounds = true
-        goToPageButton.layer.cornerRadius = 3
-        goToPageButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.02)
-        //goToPageButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
-        view.addSubview(goToPageButton)
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.setTitle("delete Event", for: .normal)
+        deleteButton.setTitleColor(.white, for: .normal)
+        deleteButton.backgroundColor = UIColor(named: "ButtonColor")
+        deleteButton.clipsToBounds = true
+        deleteButton.layer.cornerRadius = 3
+        deleteButton.titleLabel?.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.02)
+        deleteButton.isHidden = true
+        if eventHostLabel.text == self.currentUser.name{
+            deleteButton.isHidden = false
+        }
+        
+        deleteButton.addTarget(self, action: #selector(deleteAction), for: .touchUpInside)
+        //deleteButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
+        view.addSubview(deleteButton)
         //TODO add hyperlink functionality to this button
 
         setupConstraints()
+    }
+    
+    @objc func deleteAction() {
+
+        NetworkManager.shared.deleteEvent(id: self.event.id)
+        navigationController?.popViewController(animated: true)
     }
     
     func setupConstraints() {
@@ -125,14 +139,14 @@ class LearnMoreViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             descriptionTextView.topAnchor.constraint(equalTo: eventHostLabel.bottomAnchor, constant: 10),
-            descriptionTextView.bottomAnchor.constraint(equalTo: goToPageButton.topAnchor, constant: -10),
+            descriptionTextView.bottomAnchor.constraint(equalTo: deleteButton.topAnchor, constant: -10),
             descriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             descriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
         
         NSLayoutConstraint.activate([
-            goToPageButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
-            goToPageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            deleteButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            deleteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 }
