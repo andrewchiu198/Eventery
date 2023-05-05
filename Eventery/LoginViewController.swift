@@ -38,6 +38,7 @@ class LoginViewController: UIViewController {
         loginButton.backgroundColor = .systemBackground
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
+
         view.addSubview(loginButton)
         
 //        signupButton.setTitle("Signup", for: .normal)
@@ -57,6 +58,7 @@ class LoginViewController: UIViewController {
         nameTextField.placeholder = "Email"
         nameTextField.backgroundColor = .systemBackground
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
+        nameTextField.inputAccessoryView = createOtherToolBar()
         view.addSubview(nameTextField)
         
         passwordTextField.placeholder = "Password"
@@ -65,6 +67,18 @@ class LoginViewController: UIViewController {
         view.addSubview(passwordTextField)
         
         setupConstraints()
+    }
+    
+    func createOtherToolBar() -> UIToolbar {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton2 = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(otherDonePressed))
+        toolbar.setItems([doneButton2], animated: true)
+        return toolbar
+    }
+    
+    @objc func otherDonePressed() {
+        self.view.endEditing(true)
     }
     
     @objc func signUpButtonClicked() {
