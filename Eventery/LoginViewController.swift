@@ -88,6 +88,7 @@ class LoginViewController: UIViewController {
                             user in
                             DispatchQueue.main.async {
                                 let vc = HomeViewController(user: user)
+                                vc.modalPresentationStyle = .fullScreen
                                 self.present(vc, animated: true, completion: nil)
                                 print("why")
                                 return
