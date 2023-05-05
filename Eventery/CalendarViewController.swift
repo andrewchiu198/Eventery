@@ -258,6 +258,8 @@ class CalendarViewController: UIViewController {
         monthLabel.text = CalendarHelper().monthString(date: selectedDate) + " " + CalendarHelper().yearString(date: selectedDate)
         calendarCollectionView.reloadData()
         monthLabel.textAlignment = .center
+
+        eventCalendarTableView.reloadData()
     }
 
     func setupConstrains() {
@@ -326,6 +328,11 @@ class CalendarViewController: UIViewController {
     // don't turn the calendar!
     override open var shouldAutorotate: Bool {
         return false
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        eventCalendarTableView.reloadData()
     }
 }
 
