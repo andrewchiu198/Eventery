@@ -121,7 +121,7 @@ class EventsViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.filteredEvents = events
                     self.eventsCollectionView.reloadData()
-                    print("reloaded")
+                    //print("reloaded")
                     self.refreshControl.endRefreshing()
                 }
         }
@@ -198,7 +198,7 @@ extension EventsViewController: UICollectionViewDelegate {
                 activatedCategories[indexPath.row] = ""
             }
             
-            print(activatedCategories)
+            //print(activatedCategories)
             filterData()
             eventsCollectionView.reloadData()
         }

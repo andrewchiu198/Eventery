@@ -45,9 +45,10 @@ class NetworkManager {
     func getAllEventsByDay(date: String, completion: @escaping ([Event]) -> Void) {
         //TODO: Get all Events
         
-        var request = URLRequest(url: URL(string:"http://34.85.177.184/api/events/\(date)")!)
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
+        request.setValue(date, forHTTPHeaderField: "day")
         
         //note may 3rd 2023
         

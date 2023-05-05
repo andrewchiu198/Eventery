@@ -29,7 +29,7 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        //refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
 
 //        if #available(iOS 10.0, *) {
 //            //contentView = mapView
@@ -57,18 +57,36 @@ class MapViewController: UIViewController {
                 
     }
     
-    func getLocation(from address: String, completion: @escaping (_ location: CLLocationCoordinate2D?)-> Void) {
+    func getLocation(from address: String, completion: (_ location: Result<CLLocationCoordinate2D?, Error>) async throws -> [CLPlacemark]) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarks, error) in
             print("in the geocoder")
             guard let placemarks = placemarks,
             let location = placemarks.first?.location?.coordinate else {
-                completion(nil)
+                //completion(.failure(error!))
                 return
             }
-            completion((location))
+            //completion(.success(location))
         }
     }
+    
+    func getAnnotationsFromLocation(address: String)-> MKPointAnnotation {
+            //return locations.map { location in
+                let geocoder = CLGeocoder()
+                let annotation = MKPointAnnotation()
+                
+                geocoder.geocodeAddressString(address) { placemarks, error in
+                    guard let placemark = placemarks?.first, let location = placemark.location else {
+                        return
+                    }
+                    annotation.coordinate = location.coordinate
+                    annotation.title = placemark.name
+                }
+                
+                return annotation
+            }
+        
+    
     
 //    func getLocation(from address: String){
 //        let geoCoder = CLGeocoder()
@@ -88,48 +106,95 @@ class MapViewController: UIViewController {
         }
     }
     
+    //adds event to map
     func addEvent(event: Event){
-        let arbEvent = MKPointAnnotation()
+        
+        let arbEvent = getAnnotationsFromLocation(address: event.address)
         arbEvent.title = event.title
-        arbEvent.coordinate = CLLocationCoordinate2D(latitude: getLatitudeFromLoc(address: event.address), longitude: getLongitudeFromLoc(address: event.address))
+//        arbEvent.coordinate = CLLocationCoordinate2D(latitude: getLatitudeFromLoc(address: event.address), longitude: getLongitudeFromLoc(address: event.address))
+        print(arbEvent.coordinate)
         mapView.addAnnotation(arbEvent)
+        
     }
     
-    func getLatitudeFromLoc(address: String) -> CLLocationDegrees {
-        let group = DispatchGroup()
-        //group.enter()
-        var latitude: CLLocationDegrees = 0.0
-        DispatchQueue.global(qos: .default).async {
-            // Function call here
-            self.getLocation(from: address) { location in
-                latitude = location?.latitude ?? 0.0
-                //print(latitude)
-                //group.leave()
-            }
-            //group.leave()
-        }
-        //group.wait()
-        print(latitude)
-        return latitude
-    }
-    
-    
-    func getLongitudeFromLoc(address: String) -> CLLocationDegrees{
-        let group = DispatchGroup()
-        //group.enter()
-        var longitude: CLLocationDegrees = 0.0
-        DispatchQueue.global(qos: .default).async {
-            // Function call here
-            self.getLocation(from: address) { location in
-                longitude = location?.longitude ?? 0.0
-                //group.leave()
-            }
-            //group.leave()
-        }
-        //group.wait()
-        print(longitude)
-        return longitude
-    }
+//    func getLatitudeFromLoc(address: String) -> CLLocationDegrees {
+//        let group = DispatchGroup()
+//        //group.enter()
+//        var latitude: CLLocationDegrees = 0.0
+////        DispatchQueue.global(qos: .default).async {
+//            // Function call here
+//            self.getLocation(from: address) { result in
+//
+//                switch result {
+//                    case .failure(let error):
+//                        print("fail")
+//
+//
+//                    // update UI to report error, if any
+//                    case .success(let location):
+//                    latitude = location!.latitude
+//                    //return latitude
+//                    // update UI to show address
+//                    }
+//
+//                //latitude = location?.latitude ?? 0.0
+//                //print(latitude)
+//                //group.leave()
+//            }
+//            //group.leave()
+////        }
+//        //group.notify
+//        print(latitude)
+//        return latitude
+//    }
+//
+//    func getLongitudeFromLoc(address: String) -> CLLocationDegrees {
+//        let group = DispatchGroup()
+//        //group.enter()
+//        var latitude: CLLocationDegrees = 0.0
+////        DispatchQueue.global(qos: .default).async {
+//            // Function call here
+//            self.getLocation(from: address) { result in
+//
+//                switch result {
+//                    case .failure(let error):
+//                        print("fail")
+//
+//
+//                    // update UI to report error, if any
+//                    case .success(let location):
+//                    latitude = location!.longitude
+//                    //return latitude
+//                    // update UI to show address
+//                    }
+//
+//                //latitude = location?.latitude ?? 0.0
+//                //print(latitude)
+//                //group.leave()
+//            }
+//            //group.leave()
+////        }
+//        //group.notify
+//        print(latitude)
+//        return latitude
+//    }
+//
+//    func getLongitudeFromLoc(address: String) -> CLLocationDegrees {
+//        let group = DispatchGroup()
+//        //group.enter()
+//        var longitude: CLLocationDegrees = 0.0
+//        DispatchQueue.global(qos: .default).async {
+//            // Function call here
+//            self.getLocation(from: address) { location in
+//                longitude = location?.longitude ?? 0.0
+//                //group.leave()
+//            }
+//            //group.leave()
+//        }
+//        //group.wait()
+//        print(longitude)
+//        return longitude
+//    }
     
 //    func getLongitudeFromLoc(address: String)-> CLLocationDegrees{
 //        let group = DispatchGroup()
