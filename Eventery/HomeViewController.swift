@@ -35,7 +35,7 @@ class HomeViewController: UITabBarController {
     
     override func viewDidLoad() {
         
-        var url = URL(string: "https://35.194.86.169")!
+        var url = URL(string: "http://35.194.86.169")!
         let formatParameter = URLQueryItem(name: "format", value: "json")
         url.append(queryItems: [formatParameter])
         
