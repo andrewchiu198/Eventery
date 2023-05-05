@@ -199,8 +199,6 @@ extension EventsViewController: UICollectionViewDelegate {
                 cell.tag = 0
                 activatedCategories[indexPath.row] = ""
             }
-            
-            //print(activatedCategories)
             filterData()
             eventsCollectionView.reloadData()
         }
