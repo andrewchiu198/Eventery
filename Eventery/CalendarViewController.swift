@@ -8,18 +8,19 @@
 import UIKit
 
 // cornell color
-let carnelliam = UIColor(red: 179 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
+let carnellian = UIColor(red: 179 / 255.0, green: 27 / 255.0, blue: 27 / 255.0, alpha: 1.0)
+let vermilion = UIColor(red: 227 / 255.0, green: 66 / 255.0, blue: 52 / 255.0, alpha: 1.0)
+
+// text scalars
+let headerRelativeFontConstant: CGFloat = 0.046
+let subheaderRelativeFontConstant: CGFloat = 0.046 * (2 / 3)
+let textRelativeFontConstant: CGFloat = 0.046 * (1 / 2)
 
 class CalendarViewController: UIViewController {
     // Outlet collection of labels
     @IBOutlet var headerLabels: [UILabel]!
     @IBOutlet var subheaderLabels: [UILabel]!
     @IBOutlet var textLabels: [UILabel]!
-
-    // text scalars
-    let headerRelativeFontConstant: CGFloat = 0.046
-    let subheaderRelativeFontConstant: CGFloat = 0.046 * (2 / 3)
-    let textRelativeFontConstant: CGFloat = 0.046 * (1 / 2)
 
     // distance of arrows from edges
     let arrowOffset = 30.0
@@ -84,8 +85,8 @@ class CalendarViewController: UIViewController {
     var userSelectedEvents: [Event] = []
 
     init(events: [Event]) {
-        self.events = events
         super.init(nibName: nil, bundle: nil)
+        self.events = events
     }
 
     @available(*, unavailable)
@@ -101,8 +102,12 @@ class CalendarViewController: UIViewController {
         subheaderLabels = []
         textLabels = []
 
-        // query all of the events for today
-        // TODO: this
+        // query all of the events
+        NetworkManager.shared.getAllEvents { events in
+            DispatchQueue.main.async {
+                self.events = events
+            }
+        }
 
         // add headerlabels
         headerLabels.append(monthLabel)
@@ -145,10 +150,10 @@ class CalendarViewController: UIViewController {
         }
 
         // setup the button actions and tint
-        leftButton.tintColor = carnelliam
+        leftButton.tintColor = carnellian
         leftButton.addTarget(self, action: #selector(previousMonth), for: .touchUpInside)
 
-        rightButton.tintColor = carnelliam
+        rightButton.tintColor = carnellian
         rightButton.addTarget(self, action: #selector(nextMonth), for: .touchUpInside)
 
         // setup the days of the week labels
@@ -301,20 +306,16 @@ class CalendarViewController: UIViewController {
     // adding to events
     func eventsForUserDay() {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         let userSelectedDateString = dateFormatter.string(from: userSelectedDate)
-        NetworkManager.shared.getAllEventsByDay(date: userSelectedDateString) {
-            eventies in
-            DispatchQueue.main.async {
-                print("events:")
-                print(eventies.count)
-                self.userSelectedEvents = eventies
+
+        userSelectedEvents = []
+        for event in events {
+            let date = String(event.start.prefix(10))
+            if date == userSelectedDateString {
+                userSelectedEvents.append(event)
             }
         }
-        print(userSelectedDateString)
-        print("selected:")
-        print(userSelectedEvents.count)
-        eventCalendarTableView.reloadData()
     }
 
     // button actions
@@ -345,19 +346,17 @@ extension CalendarViewController: UICollectionViewDelegate {
 
         let calendarDay = totalSquares[indexPath.item]
         cell.dayOfTheMonth.text = calendarDay.day
-        if calendarDay.month == CalendarDay.Month.current {
-            cell.dayOfTheMonth.textColor = .black
-        } else {
-            cell.dayOfTheMonth.textColor = .lightGray
-        }
-
-        let calendarDayDate = totalSquares[indexPath.item].date
-        if calendarDayDate == userSelectedDate {
-            cell.backgroundColor = carnelliam
+        if calendarDay.date == userSelectedDate {
+            cell.backgroundColor = carnellian
+            cell.dayOfTheMonth.textColor = .white
         } else {
             cell.backgroundColor = .systemBackground
+            if calendarDay.month == CalendarDay.Month.current {
+                cell.dayOfTheMonth.textColor = .label
+            } else {
+                cell.dayOfTheMonth.textColor = .tertiaryLabel
+            }
         }
-
         return cell
     }
 

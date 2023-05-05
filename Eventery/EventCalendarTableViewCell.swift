@@ -15,6 +15,12 @@ class EventCalendarTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        name.textColor = .label
+        name.font = UIFont(name: "Helvetica", size: 18)
+        
+        time.textColor = carnellian
+        time.font = UIFont(name: "Helvetica-Bold", size: 14)
+        
         name.translatesAutoresizingMaskIntoConstraints = false
         time.translatesAutoresizingMaskIntoConstraints = false
         
@@ -31,8 +37,8 @@ class EventCalendarTableViewCell: UITableViewCell {
         ])
         
         NSLayoutConstraint.activate([
-            time.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            time.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            time.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            time.topAnchor.constraint(equalTo: name.bottomAnchor)
         ])
     }
     

@@ -8,7 +8,6 @@
 import UIKit
 
 class EventsCollectionViewCell: UICollectionViewCell {
-    
     let eventImageView = UIImageView()
     let eventNameLabel = UILabel()
     let eventLocationLabel = UILabel()
@@ -21,7 +20,7 @@ class EventsCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = UIColor(named: "CellColor")
+        contentView.backgroundColor = .secondarySystemBackground
         contentView.layer.cornerRadius = 5
         contentView.clipsToBounds = true
         
@@ -33,19 +32,19 @@ class EventsCollectionViewCell: UICollectionViewCell {
         
         eventNameLabel.text = event.title
         eventNameLabel.font = UIFont(name: "Helvetica-Bold", size: contentView.frame.width * 0.1)
-        eventNameLabel.textColor = .white
+        eventNameLabel.textColor = .label
         eventNameLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(eventNameLabel)
         
         eventLocationLabel.text = event.address
         eventLocationLabel.font = UIFont(name: "Helvetica-Bold", size: contentView.frame.width * 0.06)
-        eventLocationLabel.textColor = .white
+        eventLocationLabel.textColor = .secondaryLabel
         eventLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(eventLocationLabel)
      
         startTimeLabel.text = event.start
         startTimeLabel.font = UIFont(name: "Helvetica-Bold", size: contentView.frame.width * 0.06)
-        startTimeLabel.textColor = .white
+        startTimeLabel.textColor = .secondaryLabel
         startTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(startTimeLabel)
         
@@ -61,7 +60,6 @@ class EventsCollectionViewCell: UICollectionViewCell {
 //        contentView.addSubview(learnMoreButton)
 //
         setupConstraints()
-        
     }
     
     @objc func learnMoreButtonClicked() {
@@ -81,7 +79,7 @@ class EventsCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             eventImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
             eventImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.95),
-            eventImageView.heightAnchor.constraint(equalTo: eventImageView.widthAnchor, multiplier: 3/6),
+            eventImageView.heightAnchor.constraint(equalTo: eventImageView.widthAnchor, multiplier: 3 / 6),
             eventImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
         
@@ -101,11 +99,12 @@ class EventsCollectionViewCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
-//            learnMoreButton.topAnchor.constraint(equalTo: startTimeLabel.bottomAnchor, constant: 5),
+            //            learnMoreButton.topAnchor.constraint(equalTo: startTimeLabel.bottomAnchor, constant: 5),
 //            learnMoreButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

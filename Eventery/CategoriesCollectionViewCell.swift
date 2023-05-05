@@ -8,18 +8,15 @@
 import UIKit
 
 class CategoriesCollectionViewCell: UICollectionViewCell {
-    
     let categoryLabel = UILabel()
     var category = ""
     weak var parent: EventsViewController?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        if(isSelected == true) {
-            
-        }
+        if isSelected == true {}
         tag = 0
-        contentView.backgroundColor = UIColor(named: "ButtonColor")
+        contentView.backgroundColor = carnellian
         contentView.layer.cornerRadius = 3
         contentView.clipsToBounds = true
         categoryLabel.text = category
@@ -43,6 +40,7 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
         categoryLabel.text = category
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
