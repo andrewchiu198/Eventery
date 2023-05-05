@@ -112,15 +112,15 @@ class NetworkManager {
         
         //set body
         var body: [String : Any] = [
-            "title": "Surgery Club Rounds with Dr. Selena Tinga",
-            "address": "166 Hoy Road",
-            "start": "2023-05-03T14:00:00",
-            "end": "2023-05-03T17:00:00",
-            "description": "Dr. Tinga will be presenting an orthopedic case involving an angular limb deformity.",
-            "host": "American Red Cross",
-            "host_email": "arc@cornell.edu",
-            "free": false,
-            "category": "Health"
+            "title": title,
+            "address": address,
+            "start": start,
+            "end": end,
+            "description": description,
+            "host": user,
+            "host_email": userEmail,
+            "free": free,
+            "category": category
         ]
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)

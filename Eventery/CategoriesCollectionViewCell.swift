@@ -11,11 +11,13 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     
     let categoryLabel = UILabel()
     var category = ""
-        
     weak var parent: EventsViewController?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        if(isSelected == true) {
+            
+        }
         tag = 0
         contentView.backgroundColor = UIColor(named: "ButtonColor")
         contentView.layer.cornerRadius = 3
