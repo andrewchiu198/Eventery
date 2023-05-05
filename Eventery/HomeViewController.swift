@@ -19,6 +19,9 @@ class HomeViewController: UITabBarController {
         let formatParameter = URLQueryItem(name: "format", value: "json")
         url.append(queryItems: [formatParameter])
         
+        selectedIndex = 0
+
+        
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "BackgroundColor")
         UITabBar.appearance().barTintColor = .white

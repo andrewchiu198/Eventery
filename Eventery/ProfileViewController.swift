@@ -12,6 +12,7 @@ class ProfileViewController: UIViewController {
 
     let backgroundImage = UIImageView()
     let nameLabel = UILabel()
+    let emailLabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +24,18 @@ class ProfileViewController: UIViewController {
         view.addSubview(backgroundImage)
         
         nameLabel.text = "Name Here"
+        nameLabel.textColor = .label
+        nameLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height/23)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameLabel)
+        
+        emailLabel.text = "Email Here"
+        emailLabel.textColor = .label
+        emailLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height/26)
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emailLabel)
+
+        //Add buttons with delegation
         
         
         
@@ -42,6 +53,16 @@ class ProfileViewController: UIViewController {
             backgroundImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             backgroundImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            emailLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 }

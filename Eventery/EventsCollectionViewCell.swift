@@ -87,17 +87,17 @@ class EventsCollectionViewCell: UICollectionViewCell {
         
         NSLayoutConstraint.activate([
             eventNameLabel.topAnchor.constraint(equalTo: eventImageView.bottomAnchor, constant: 5),
-            eventNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5)
+            eventNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8)
         ])
         
         NSLayoutConstraint.activate([
             eventLocationLabel.topAnchor.constraint(equalTo: eventNameLabel.bottomAnchor, constant: 5),
-            eventLocationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5)
+            eventLocationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8)
         ])
         
         NSLayoutConstraint.activate([
             startTimeLabel.topAnchor.constraint(equalTo: eventLocationLabel.bottomAnchor, constant: 5),
-            startTimeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5)
+            startTimeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8)
         ])
         
         NSLayoutConstraint.activate([
