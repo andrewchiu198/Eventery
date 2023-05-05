@@ -308,8 +308,8 @@ class CalendarViewController: UIViewController {
             events in
             DispatchQueue.main.async {
                 self.userSelectedEvents = events
-//                print("events.count:")
-//                print(events.count)
+                print("events.count:")
+                print(events.count)
             }
         }
         print(userSelectedDateString)
