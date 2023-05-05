@@ -15,7 +15,7 @@ class EventsViewController: UIViewController {
     var eventsCollectionView: UICollectionView!
     var categoryTypes = Categories.categories
     
-    var activatedCategories = ["", "", "", ""]
+    var activatedCategories = ["","","","",""]
     
     let refreshControl = UIRefreshControl()
     
@@ -160,8 +160,9 @@ extension EventsViewController: UICollectionViewDelegate {
                     }
                 }
                 
-                if allEmpty == true {
-                    activatedCategories = ["", "", "", ""]
+                if(allEmpty == true) {
+                    activatedCategories = ["","","","",""]
+
                 }
                 
                 var selection: String
@@ -174,6 +175,8 @@ extension EventsViewController: UICollectionViewDelegate {
                     selection = "Social"
                 case 3:
                     selection = "Art"
+                case 4:
+                    selection = "Other"
                 default:
                     selection = ""
                 }
