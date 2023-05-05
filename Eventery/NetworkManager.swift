@@ -50,6 +50,9 @@ class NetworkManager {
         
         request.setValue(date, forHTTPHeaderField: "day")
         
+        request.url?.append(queryItems: [
+            URLQueryItem(name: "day", value: date)
+        ])
         //note may 3rd 2023
         
 
@@ -112,9 +115,9 @@ class NetworkManager {
         
         //set body
         var body: [String : Any] = [
-            "title": "Surgery Club Rounds with Dr. Selena Tinga",
+            "title": "Surgery Club",
             "address": "166 Hoy Road",
-            "start": "2023-05-03T14:00:00",
+            "start": "2023-05-05T14:00:00",
             "end": "2023-05-03T17:00:00",
             "description": "Dr. Tinga will be presenting an orthopedic case involving an angular limb deformity.",
             "host": "American Red Cross",
@@ -183,10 +186,12 @@ class NetworkManager {
     }
     
     func getAllUsers(completion: @escaping ([User]) -> Void) {
-        var userURL = URL(string: "http://34.85.177.184/api/users/")!
+        
+        let userURL = URL(string: "http://34.85.177.184/api/users/")!
         var request = URLRequest(url: userURL)
         
         request.httpMethod = "GET"
+        
         
         let task = URLSession.shared.dataTask(with: request){ data, response, err in
             
