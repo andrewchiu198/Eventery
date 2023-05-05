@@ -105,6 +105,7 @@ class LearnMoreViewController: UIViewController {
     @objc func deleteAction() {
 
         NetworkManager.shared.deleteEvent(id: self.event.id)
+        HomeViewController.shared.setupVCs()
         navigationController?.popViewController(animated: true)
     }
     
