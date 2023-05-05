@@ -14,7 +14,6 @@ class PostViewController: UIViewController {
     let titleTextField = UITextField()
     let addressTextField = UITextField()
     let startTimeTextField = UITextField()
-    let endTimeTextField = UITextField()
     let descriptionTextView = UITextView()
     let postButton = UIButton()
     let freeButton = UIButton()
@@ -23,16 +22,14 @@ class PostViewController: UIViewController {
     let datePicker = UIDatePicker()
     var selectedCategory: String?
     let errorLabel = UILabel()
-
+    let endButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //adjust the text fields
 
         view.backgroundColor = UIColor(named: "BackgroundColor")
-        
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-//        view.addGestureRecognizer(tap)
         
         backgroundImage.backgroundColor = UIColor(named: "CollectionViewBackground")
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +44,10 @@ class PostViewController: UIViewController {
         freeButton.backgroundColor = .gray
         freeButton.translatesAutoresizingMaskIntoConstraints = false
         freeButton.setTitle("Free", for: .normal)
+        freeButton.isSelected = false
+        freeButton.layer.cornerRadius = 5
+        freeButton.clipsToBounds = true
+        freeButton.addTarget(self, action: #selector(freeButtonClicked), for: .touchUpInside)
         view.addSubview(freeButton)
         
         
@@ -58,7 +59,6 @@ class PostViewController: UIViewController {
         categoriesCollectionView.backgroundColor = UIColor(named: "CollectionViewBackground")
         categoriesCollectionView.clipsToBounds = true
         categoriesCollectionView.flashScrollIndicators()
-        categoriesCollectionView.allowsMultipleSelection = false
         view.addSubview(categoriesCollectionView)
         
         createLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +88,7 @@ class PostViewController: UIViewController {
         addressTextField.clipsToBounds = true
         addressTextField.textColor = .black
         addressTextField.backgroundColor = .white
+        addressTextField.inputAccessoryView = createOtherToolBar()
         addressTextField.attributedPlaceholder = NSAttributedString(
             string: "Address",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
@@ -103,21 +104,10 @@ class PostViewController: UIViewController {
             string: "Start Time: ",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
             )
+        startTimeTextField.inputView = datePicker
+        startTimeTextField.inputAccessoryView = createToolBar()
         startTimeTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(startTimeTextField)
-        
-        endTimeTextField.layer.cornerRadius = 5
-        endTimeTextField.clipsToBounds = true
-        endTimeTextField.textColor = .black
-        endTimeTextField.backgroundColor = .white
-        endTimeTextField.attributedPlaceholder = NSAttributedString(
-            string: "End Time:",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
-            )
-        endTimeTextField.translatesAutoresizingMaskIntoConstraints = false
-        endTimeTextField.inputView = datePicker
-        endTimeTextField.inputAccessoryView = createToolBar()
-        view.addSubview(endTimeTextField)
         
         descriptionTextView.layer.cornerRadius = 5
         descriptionTextView.clipsToBounds = true
@@ -128,6 +118,7 @@ class PostViewController: UIViewController {
         descriptionTextView.text = "Enter Description Here..."
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionTextView)
+        
         
         postButton.clipsToBounds = true
         postButton.backgroundColor = UIColor(named: "ButtonColor")
@@ -142,13 +133,31 @@ class PostViewController: UIViewController {
         
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .dateAndTime
-        startTimeTextField.inputView = datePicker
-        startTimeTextField.inputAccessoryView = createToolBar()
+
         
         setupConstraints()
         
     }
     
+    func createOtherToolBar() -> UIToolbar {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton2 = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(otherDonePressed))
+        toolbar.setItems([doneButton2], animated: true)
+        return toolbar
+    }
+    
+    @objc func freeButtonClicked() {
+        if (freeButton.isSelected == false) {
+            freeButton.isSelected = true
+            freeButton.backgroundColor = .green
+        }
+        else {
+            freeButton.isSelected = false
+            freeButton.backgroundColor = UIColor(named: "ButtonColor")
+        }
+    }
+
     func createToolBar() -> UIToolbar {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
@@ -157,12 +166,13 @@ class PostViewController: UIViewController {
         return toolBar
     }
     
+    @objc func otherDonePressed() {
+        self.view.endEditing(true)
+    }
     @objc func donePressed() {
-        print(datePicker.date)
-        
-        let formattedDate = ""
-        
-        self.startTimeTextField.text = "\(datePicker.date)"
+        let date = "\(datePicker.date)".prefix(19)
+        print(date)
+        self.startTimeTextField.text = "\(date)"
         self.view.endEditing(true)
     }
     
@@ -210,13 +220,6 @@ class PostViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            endTimeTextField.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 10),
-            endTimeTextField.leadingAnchor.constraint(equalTo: startTimeTextField.trailingAnchor, constant: 10),
-            endTimeTextField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
-            endTimeTextField.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05)
-        ])
-        
-        NSLayoutConstraint.activate([
             freeButton.topAnchor.constraint(equalTo: startTimeTextField.bottomAnchor, constant: 10),
             freeButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3),
             freeButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.05),
@@ -241,37 +244,46 @@ class PostViewController: UIViewController {
             postButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor,constant: 15),
             postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+        
     }
     
     @objc func postEvent() {
         //blah blah check if text fields are empty here
         
-        var lastID = 0
+        var lastID = 1
         
         NetworkManager.shared.getAllEvents {
             events in DispatchQueue.main.async {
-                lastID = events[events.count - 1].id
+//                lastID = events[events.count - 1].id
+                lastID = 0
             }
         }
         
         if let titleText = titleTextField.text {
             if let addressText = addressTextField.text {
                 if let descriptionText = descriptionTextView.text {
-                    if let chosenCategory = selectedCategory {
-                        NetworkManager.shared.createEvent(id: lastID, title: titleText, address: addressText, start: "2023-05-03T14:00:00", end: "2023-05-03T14:00:00", user: "udp3", userEmail: "udp3@cornell.edu", description: descriptionText, free: true, category: chosenCategory) {
-                            event in
+                    if let dateText = startTimeTextField.text {
+                        if let chosenCategory = selectedCategory {
+                            var free = false
+                            if(freeButton.isSelected == true) {
+                                free = true
+                            }
+                            NetworkManager.shared.createEvent(id: lastID, title: titleText, address: addressText, start: dateText, end: "0000-00-00 00:00:00", user: "udp3", userEmail: "udp3@cornell.edu", description: descriptionText, free: free, category: chosenCategory) {
+                                event in
+                            }
+                            errorLabel.text = "Success, Uploaded!"
+                            errorLabel.textColor = .green
+                            return
                         }
-                        errorLabel.text = ""
-                        return
                     }
                 }
             }
         }
         
+        errorLabel.textColor = .red
         errorLabel.text = "No Upload, Invalid Formatting"
        
         HomeViewController.shared.setupVCs()
-        //var eventToBePosted = Event(id: 99, title: "", address: "", start: "", end: "", description: "", host: "", host_email: "", free: false, category: "")
     }
 }
 
@@ -315,3 +327,10 @@ extension PostViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width/2.5, height: view.frame.height/27)
     }
 }
+
+extension PostViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("H")
+    }
+}
+

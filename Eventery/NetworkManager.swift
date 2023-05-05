@@ -107,7 +107,7 @@ class NetworkManager {
         
     }
     
-    func createEvent(id: Int? ,title: String, address: String,start: String, end: String, user: String, userEmail: String, description: String, free: Bool, category: String, completion: @escaping (Event) -> Void) {
+    func createEvent(id: Int ,title: String, address: String,start: String, end: String, user: String, userEmail: String, description: String, free: Bool, category: String, completion: @escaping (Event) -> Void) {
         var request = URLRequest(url: url)
         
       request.httpMethod = "POST"
