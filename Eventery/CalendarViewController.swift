@@ -304,13 +304,16 @@ class CalendarViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"
         let userSelectedDateString = dateFormatter.string(from: userSelectedDate)
-        NetworkManager.shared.getAllEventsByDay(date: userSelectedDateString) {
+        NetworkManager.shared.getAllEventsByDay(date: "05-03-2023") {
             events in
             DispatchQueue.main.async {
                 self.userSelectedEvents = events
+                print("events.count:")
+                print(events.count)
             }
         }
         print(userSelectedDateString)
+        print("selected:")
         print(userSelectedEvents.count)
     }
 
