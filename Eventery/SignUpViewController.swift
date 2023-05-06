@@ -8,7 +8,7 @@
 import UIKit
 
 class SignUpViewController: UIViewController {
-    let logoImage = UIImageView(image: UIImage(named: "eventerylogotransp")!)
+    let logoImage = UIImageView(image: UIImage(named: "EventeryLogoTransp")!)
     let signupLabel = UILabel()
     let signupButton = UIButton()
     let nameTextField = UITextField()
