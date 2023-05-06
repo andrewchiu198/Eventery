@@ -217,6 +217,7 @@ class NetworkManager {
     }
     
     func deleteEvent(id: Int) {
+        var url = URL(string: "http://35.194.86.169/api/events/\(id)")!
         var request = URLRequest(url: url)
         
         print("delete request sent")
@@ -224,7 +225,9 @@ class NetworkManager {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         //set header
-        request.setValue("\(id)", forHTTPHeaderField: "event_id")
+        //request.setValue("\(id)", forHTTPHeaderField: "event_id")
+        
+        //request.
         
         //set body
 //        let body: [String: Any] = [

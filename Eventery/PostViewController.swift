@@ -287,7 +287,7 @@ class PostViewController: UIViewController {
                             if(freeButton.isSelected == true) {
                                 free = true
                             }
-                            NetworkManager.shared.createEvent(id: lastID, title: titleText, address: addressText, start: dateText, end: "0000-00-00 00:00:00", user: user.netid, userEmail: user.email, description: descriptionText, free: free, category: chosenCategory) {
+                            NetworkManager.shared.createEvent(id: lastID, title: titleText, address: addressText, start: dateText, end: "1242-12-10 23:12:12", user: user.name, userEmail: user.email, description: descriptionText, free: free, category: chosenCategory) {
                                 event in
                             }
                             errorLabel.text = "Success, Uploaded!"
@@ -303,6 +303,8 @@ class PostViewController: UIViewController {
         errorLabel.text = "No Upload, Invalid Formatting"
        
         HomeViewController.shared.setupVCs()
+        MapViewController.shared.refreshData()
+        MapViewController.shared.addAllEvents()
     }
 }
 
