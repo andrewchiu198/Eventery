@@ -117,9 +117,37 @@ class EventsViewController: UIViewController {
                 self.events = events
                 self.eventsCollectionView.reloadData()
                 // print("reloaded")
+                self.eventsCollectionView.reloadData()
                 self.refreshControl.endRefreshing()
+//                self.filterData()
             }
         }
+        self.resetCategories()
+
+    }
+    
+    func resetCategories() {
+        var cells = [UICollectionViewCell]()
+        // assuming tableView is your self.tableView defined somewhere
+        
+        for i in 0...self.categoriesCollectionView.numberOfSections-1
+        {
+            for j in 0...self.categoriesCollectionView.numberOfItems(inSection: i) - 1
+            {
+                if let cell = self.categoriesCollectionView.cellForItem(at: NSIndexPath(row: j, section: i) as IndexPath) {
+                    
+                    cells.append(cell)
+                }
+            }
+        }
+                
+                for cell in cells {
+                    cell.tag = 0
+                    cell.contentView.backgroundColor = carnellian
+                }
+                
+            
+        activatedCategories = ["","","","",""]
     }
     
     func filterData() {
@@ -171,11 +199,11 @@ extension EventsViewController: UICollectionViewDelegate {
                 case 0:
                     selection = "Sports"
                 case 1:
-                    selection = "Business"
-                case 2:
-                    selection = "Social"
-                case 3:
                     selection = "Art"
+                case 2:
+                    selection = "Business"
+                case 3:
+                    selection = "Social"
                 case 4:
                     selection = "Other"
                 default:
@@ -233,7 +261,7 @@ extension EventsViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: view.frame.width/2.5, height: view.frame.height/27)
         }
         if collectionView.tag == 1 {
-            return CGSize(width: view.frame.width/2.25, height: view.frame.width/2.25)
+            return CGSize(width: view.frame.width/2.25, height: view.frame.width/2.15)
         }
         return CGSize()
     }
