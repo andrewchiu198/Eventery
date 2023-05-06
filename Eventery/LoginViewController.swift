@@ -7,68 +7,68 @@
 
 import UIKit
 
-let config = UIImage.SymbolConfiguration(textStyle: .largeTitle)
-
 class LoginViewController: UIViewController {
-    let titleLabel = UILabel()
-    let logoImage = UIImage()
+    let logoImage = UIImageView(image: UIImage(named: "eventerylogotransp")!)
     
-    let loginButton = UIButton()
-    let loginLabel = UILabel()
-    let signupButton = UIButton()
-    let signupLabel = UILabel()
     let nameTextField = UITextField()
     let passwordTextField = UITextField()
     
-    let loginButtonImage = UIImage(systemName: "person.fill.checkmark", withConfiguration: config)
-    let signupButtonImage = UIImage(systemName: "person.fill.badge.plus", withConfiguration: config)
+    let loginButton = UIButton()
     
-    var users : [User] = [User(id: 809809890, name: "", netid: "", email: "")]
+    let signupButton = UIButton()
+    
+    let padding = 15.0
+    
+    var users: [User] = [User(id: 809809890, name: "", netid: "", email: "")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "SelectedColor")
         
-//        loginButton.setTitle("Login", for: .normal)
-//        loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-//        loginButton.setTitleColor(carnellian, for: .normal)
-        loginButton.tintColor = carnellian
-        loginButton.addImage(image: loginButtonImage!, offset: 0.0)
-        loginButton.backgroundColor = .systemBackground
+        logoImage.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(logoImage)
+        
+        nameTextField.delegate = self
+        nameTextField.placeholder = "Email..."
+        nameTextField.textColor = .black
+        nameTextField.layer.cornerRadius = 10.0
+        nameTextField.autocapitalizationType = .none
+        nameTextField.autocorrectionType = .no
+        nameTextField.backgroundColor = .white
+        nameTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(nameTextField)
+        
+        
+        passwordTextField.delegate = self
+        passwordTextField.isSecureTextEntry = true
+        passwordTextField.textColor = .black
+        passwordTextField.placeholder = "Password..."
+        passwordTextField.layer.cornerRadius = 10.0
+        passwordTextField.autocapitalizationType = .none
+        passwordTextField.autocorrectionType = .no
+        passwordTextField.backgroundColor = .white
+        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(passwordTextField)
+        
+        loginButton.backgroundColor = carnellian
+        loginButton.setTitle(" Login ", for: .normal)
+        loginButton.layer.cornerRadius = 10.0
+        loginButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        loginButton.setTitleColor(.white, for: .normal)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
 
         view.addSubview(loginButton)
         
-//        signupButton.setTitle("Signup", for: .normal)
-        signupButton.tintColor = carnellian
-        signupButton.addImage(image: signupButtonImage!, offset: 0.0)
-        signupButton.backgroundColor = .systemBackground
+        signupButton.backgroundColor = carnellian
+        signupButton.setTitle(" Sign up? ", for: .normal)
+        signupButton.layer.cornerRadius = 10.0
+        signupButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        signupButton.setTitleColor(.white, for: .normal)
         signupButton.translatesAutoresizingMaskIntoConstraints = false
         signupButton.addTarget(self, action: #selector(signUpButtonClicked), for: .touchUpInside)
         view.addSubview(signupButton)
-        
-        loginLabel.text = "Login"
-        loginLabel.font = UIFont(name: "Helvetica-Bold", size: 20)
-        loginLabel.textColor = carnellian
-        loginLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(loginLabel)
-        
-        nameTextField.placeholder = "Email"
-        nameTextField.backgroundColor = .systemBackground
-        nameTextField.autocorrectionType = .no
-        nameTextField.autocapitalizationType = .none
-        nameTextField.translatesAutoresizingMaskIntoConstraints = false
-        nameTextField.inputAccessoryView = createOtherToolBar()
-        view.addSubview(nameTextField)
-        
-        passwordTextField.placeholder = "Password"
-        passwordTextField.backgroundColor = .systemBackground
-        passwordTextField.autocorrectionType = .no
-        passwordTextField.autocapitalizationType = .none
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(passwordTextField)
         
         setupConstraints()
     }
@@ -82,34 +82,34 @@ class LoginViewController: UIViewController {
     }
     
     @objc func otherDonePressed() {
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
     
     @objc func signUpButtonClicked() {
         let vc = SignUpViewController()
         present(vc, animated: true, completion: nil)
     }
+
     @objc func loginButtonClicked() {
         var isLoggedIn = false
         
-        if let username = nameTextField.text{
-            if let password = passwordTextField.text{
+        if let username = nameTextField.text {
+            if let password = passwordTextField.text {
                 print(username)
                 print(password)
                 
-                NetworkManager.shared.postLogin(username: username, password: password){
-                    error in
+                NetworkManager.shared.postLogin(username: username, password: password) {
+                    _ in
                     DispatchQueue.main.async {
                         isLoggedIn = true
-                        //print(error)
-                        NetworkManager.shared.getUser(email: username){
+                        // print(error)
+                        NetworkManager.shared.getUser(email: username) {
                             user in
                             DispatchQueue.main.async {
                                 let vc = HomeViewController(user: user)
                                 vc.modalPresentationStyle = .fullScreen
                                 self.present(vc, animated: true, completion: nil)
                                 print("why")
-                                return
                             }
                         }
                         // isLoggedIn = true
@@ -117,37 +117,47 @@ class LoginViewController: UIViewController {
                 }
             }
         }
-        nameTextField.placeholder = "Email"
-        passwordTextField.placeholder = "Password"
-        
+        nameTextField.placeholder = "Email..."
+        passwordTextField.placeholder = "Password..."
     }
             
-        
-    
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            loginButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
-            loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            logoImage.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            logoImage.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.7),
+            logoImage.heightAnchor.constraint(equalTo: logoImage.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            loginLabel.topAnchor.constraint(equalTo: loginButton.bottomAnchor),
-            loginLabel.centerXAnchor.constraint(equalTo: loginButton.centerXAnchor)
+            nameTextField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            nameTextField.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.5),
+            nameTextField.heightAnchor.constraint(equalTo: nameTextField.widthAnchor, multiplier: 0.18),
+            nameTextField.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            signupButton.bottomAnchor.constraint(equalTo: loginButton.topAnchor, constant: -20),
-            signupButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            passwordTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: padding),
+            passwordTextField.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            passwordTextField.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.5),
+            passwordTextField.heightAnchor.constraint(equalTo: passwordTextField.widthAnchor, multiplier: 0.18)
         ])
         
         NSLayoutConstraint.activate([
-            nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            nameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: padding),
+            loginButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            passwordTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 20),
-            passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            signupButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
+            signupButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 2 * -padding)
         ])
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return false
     }
 }
