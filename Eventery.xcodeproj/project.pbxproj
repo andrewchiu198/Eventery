@@ -32,6 +32,7 @@
 		7BB599DA29FC859400F74598 /* EventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */; };
 		89A7AF392A0592A400FD0B43 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A7AF382A0592A400FD0B43 /* Error.swift */; };
 		89A7AF3B2A05B22F00FD0B43 /* SuccessResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A7AF3A2A05B22F00FD0B43 /* SuccessResponse.swift */; };
+		89A7AF3D2A06FF8900FD0B43 /* SuccessResponseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A7AF3C2A06FF8900FD0B43 /* SuccessResponseUser.swift */; };
 		89BF23D62A022ABE006100B3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF23D52A022ABE006100B3 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +64,7 @@
 		7BB599D929FC859400F74598 /* EventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCollectionViewCell.swift; sourceTree = "<group>"; };
 		89A7AF382A0592A400FD0B43 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		89A7AF3A2A05B22F00FD0B43 /* SuccessResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessResponse.swift; sourceTree = "<group>"; };
+		89A7AF3C2A06FF8900FD0B43 /* SuccessResponseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessResponseUser.swift; sourceTree = "<group>"; };
 		89BF23D52A022ABE006100B3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +115,7 @@
 				89BF23D52A022ABE006100B3 /* NetworkManager.swift */,
 				89A7AF382A0592A400FD0B43 /* Error.swift */,
 				89A7AF3A2A05B22F00FD0B43 /* SuccessResponse.swift */,
+				89A7AF3C2A06FF8900FD0B43 /* SuccessResponseUser.swift */,
 				7BA86CC82A00A4BB0010DF7F /* User.swift */,
 				7BA86CC429FF77620010DF7F /* Event.swift */,
 				7BA86CC029FF5A820010DF7F /* LearnMoreViewController.swift */,
@@ -200,6 +203,7 @@
 				89BF23D62A022ABE006100B3 /* NetworkManager.swift in Sources */,
 				7BB599D429FC771300F74598 /* CalendarViewController.swift in Sources */,
 				3BBA44DA2A01CF5800814F18 /* CalendarCell.swift in Sources */,
+				89A7AF3D2A06FF8900FD0B43 /* SuccessResponseUser.swift in Sources */,
 				7BB599C029FC5EED00F74598 /* HomeViewController.swift in Sources */,
 				7BA86CC129FF5A820010DF7F /* LearnMoreViewController.swift in Sources */,
 				7BB599D029FC67CC00F74598 /* EventsViewController.swift in Sources */,

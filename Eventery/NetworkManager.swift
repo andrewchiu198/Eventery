@@ -147,8 +147,8 @@ class NetworkManager {
     }
     
     
-    func createUser(username: String, password: String, email: String,name: String, completion: @escaping (User) -> Void) {
-        let userURL = URL(string: "http://35.194.86.169/api/users/")!
+    func createUser(username: String, password: String, email: String,name: String, completion: @escaping (SuccessResponseUser) -> Void) {
+        let userURL = URL(string: "http://35.194.86.169/register")!
         var request = URLRequest(url: userURL)
         
       request.httpMethod = "POST"
@@ -156,10 +156,10 @@ class NetworkManager {
         
         //set body
         let body: [String : Any] = [
-            "username": username,
-            "password": password,
             "email": email,
-            "name": name
+            "name": name,
+            "netid": username,
+            "password": password
         ]
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
@@ -170,7 +170,7 @@ class NetworkManager {
                 do {
                     let decoder = JSONDecoder()
                     print(data)
-                    let response = try decoder.decode(User.self, from: data)
+                    let response = try decoder.decode(SuccessResponseUser.self, from: data)
                     completion(response)
                 }catch (let error){
                     print(error.localizedDescription)
@@ -223,21 +223,7 @@ class NetworkManager {
         print("delete request sent")
         request.httpMethod = "DELETE"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        //set header
-        //request.setValue("\(id)", forHTTPHeaderField: "event_id")
-        
-        //request.
-        
-        //set body
-//        let body: [String: Any] = [
-//            "id": id
-//        ]
-        
-        //request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: .fragmentsAllowed)
-        //request.value(forHTTPHeaderField: "udp3")
-        
-        
+                
         let task = URLSession.shared.dataTask(with: request) { data, response, err in
             
             if let data = data {

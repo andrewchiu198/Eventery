@@ -8,7 +8,7 @@
 import UIKit
 
 class SignUpViewController: UIViewController {
-    let logoImage = UIImageView(image: UIImage(named: "EventeryLogoTransp")!)
+    let logoImage = UIImageView(image: UIImage(named: "eventerylogotransp")!)
     let signupLabel = UILabel()
     let signupButton = UIButton()
     let nameTextField = UITextField()
@@ -131,10 +131,13 @@ class SignUpViewController: UIViewController {
                 if let name = nameTextField.text {
                     if let email = emailTextField.text {
                         NetworkManager.shared.createUser(username: username, password: password, email: email, name: name) {
-                            user in
-                            let vc = HomeViewController(user: user)
-                            // let vc = HomeViewController()
-                            self.present(vc, animated: true, completion: nil)
+                            response in
+                            DispatchQueue.main.async {
+                                let user = User(id: response.id, name: response.name, netid: response.netid, email: response.email)
+                                let vc = HomeViewController(user: user)
+                                vc.modalPresentationStyle = .fullScreen
+                                self.present(vc, animated: true, completion: nil)
+                            }
                         }
                     }
                 }
