@@ -94,7 +94,6 @@ class PostViewController: UIViewController {
             string: "Title",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
         )
-        titleTextField.inputAccessoryView = createOtherToolBar()
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleTextField)
         
@@ -108,7 +107,6 @@ class PostViewController: UIViewController {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
         )
         addressTextField.translatesAutoresizingMaskIntoConstraints = false
-        addressTextField.inputAccessoryView = createOtherToolBar()
         view.addSubview(addressTextField)
         
         startTimeTextField.layer.cornerRadius = 5
@@ -130,7 +128,6 @@ class PostViewController: UIViewController {
         descriptionTextView.textColor = .secondaryLabel
         descriptionTextView.isEditable = true
         descriptionTextView.text = "Enter Description Here..."
-        descriptionTextView.inputAccessoryView = createOtherToolBar()
         descriptionTextView.backgroundColor = .secondarySystemBackground
         descriptionTextView.font = UIFont(name: "Helvetica", size: view.frame.height * 0.02)
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
@@ -254,11 +251,11 @@ class PostViewController: UIViewController {
             descriptionTextView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor, constant: 10),
             descriptionTextView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.95),
             descriptionTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            descriptionTextView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
+            descriptionTextView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35)
         ])
         
         NSLayoutConstraint.activate([
-            postButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 5),
+            postButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 10),
             postButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
@@ -348,12 +345,12 @@ extension PostViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension PostViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-    }
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
         return false
     }
+    
 }
 extension PostViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {

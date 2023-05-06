@@ -36,13 +36,13 @@ class ProfileViewController: UIViewController {
         
         nameLabel.text = currentUser.name
         nameLabel.textColor = .label
-        nameLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height/23)
+        nameLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height/30)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameLabel)
         
         emailLabel.text = currentUser.email
         emailLabel.textColor = .label
-        emailLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height/26)
+        emailLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height/35)
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emailLabel)
         

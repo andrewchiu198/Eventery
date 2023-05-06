@@ -16,7 +16,6 @@ class CalendarCell: UICollectionViewCell {
         dayOfTheMonth.layer.cornerRadius = 5
         dayOfTheMonth.clipsToBounds = true
         dayOfTheMonth.textAlignment = .center
-        
         dayOfTheMonth.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(dayOfTheMonth)

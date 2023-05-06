@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    let logoImage = UIImageView(image: UIImage(named: "EventeryLogoTransp")!)
+    let logoImage = UIImageView(image: UIImage(named: "eventerylogotransp")!)
     
     let nameTextField = UITextField()
     let passwordTextField = UITextField()
@@ -29,7 +29,9 @@ class LoginViewController: UIViewController {
         logoImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logoImage)
         
+        nameTextField.delegate = self
         nameTextField.placeholder = "Email..."
+        nameTextField.textColor = .black
         nameTextField.layer.cornerRadius = 10.0
         nameTextField.autocapitalizationType = .none
         nameTextField.autocorrectionType = .no
@@ -37,7 +39,10 @@ class LoginViewController: UIViewController {
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameTextField)
         
+        
+        passwordTextField.delegate = self
         passwordTextField.isSecureTextEntry = true
+        passwordTextField.textColor = .black
         passwordTextField.placeholder = "Password..."
         passwordTextField.layer.cornerRadius = 10.0
         passwordTextField.autocapitalizationType = .none
@@ -147,5 +152,12 @@ class LoginViewController: UIViewController {
             signupButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
             signupButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 2 * -padding)
         ])
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return false
     }
 }
