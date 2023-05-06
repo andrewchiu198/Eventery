@@ -278,7 +278,7 @@ class PostViewController: UIViewController {
                             if(freeButton.isSelected == true) {
                                 free = true
                             }
-                            NetworkManager.shared.createEvent(id: lastID, title: titleText, address: addressText, start: dateText, end: "0000-00-00 00:00:00", user: "udp3", userEmail: "udp3@cornell.edu", description: descriptionText, free: free, category: chosenCategory) {
+                            NetworkManager.shared.createEvent(id: lastID, title: titleText, address: addressText, start: dateText, end: "0000-00-00 00:00:00", user: user.netid, userEmail: user.email, description: descriptionText, free: free, category: chosenCategory) {
                                 event in
                             }
                             errorLabel.text = "Success, Uploaded!"

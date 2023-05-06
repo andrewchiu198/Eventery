@@ -56,11 +56,15 @@ class LoginViewController: UIViewController {
         
         nameTextField.placeholder = "Email"
         nameTextField.backgroundColor = .systemBackground
+        nameTextField.autocorrectionType = .no
+        nameTextField.autocapitalizationType = .none
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameTextField)
         
         passwordTextField.placeholder = "Password"
         passwordTextField.backgroundColor = .systemBackground
+        passwordTextField.autocorrectionType = .no
+        passwordTextField.autocapitalizationType = .none
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(passwordTextField)
         
