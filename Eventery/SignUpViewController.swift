@@ -8,7 +8,7 @@
 import UIKit
 
 class SignUpViewController: UIViewController {
-    let logoImage = UIImageView(image: UIImage(named: "EventeryLogoTransp")!)
+    let logoImage = UIImageView(image: UIImage(named: "eventerylogotransp")!)
     let signupLabel = UILabel()
     let signupButton = UIButton()
     let nameTextField = UITextField()
@@ -32,35 +32,43 @@ class SignUpViewController: UIViewController {
         signupLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(signupLabel)
         
-        nameTextField.placeholder = "Name..."
+        nameTextField.delegate = self
+        nameTextField.placeholder = "Netid"
         nameTextField.layer.cornerRadius = 10.0
         nameTextField.autocapitalizationType = .none
         nameTextField.autocorrectionType = .no
+        nameTextField.textColor = .black
         nameTextField.backgroundColor = .white
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameTextField)
         
+        emailTextField.delegate = self
         emailTextField.placeholder = "Email..."
         emailTextField.layer.cornerRadius = 10.0
+        emailTextField.textColor = .black
         emailTextField.autocapitalizationType = .none
         emailTextField.autocorrectionType = .no
         emailTextField.backgroundColor = .white
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emailTextField)
         
+        usernameTextField.delegate = self
         usernameTextField.placeholder = "Username..."
         usernameTextField.layer.cornerRadius = 10.0
         usernameTextField.autocapitalizationType = .none
+        usernameTextField.textColor = .black
         usernameTextField.autocorrectionType = .no
         usernameTextField.backgroundColor = .white
         usernameTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(usernameTextField)
         
+        passwordTextField.delegate = self
         passwordTextField.placeholder = "Password..."
         passwordTextField.layer.cornerRadius = 10.0
         passwordTextField.autocapitalizationType = .none
         passwordTextField.autocorrectionType = .no
         passwordTextField.backgroundColor = .white
+        passwordTextField.textColor = .black
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(passwordTextField)
         
@@ -130,9 +138,10 @@ class SignUpViewController: UIViewController {
             if let password = passwordTextField.text {
                 if let name = nameTextField.text {
                     if let email = emailTextField.text {
-                        NetworkManager.shared.createUser(username: username, password: password, email: email, name: name) {
+                        NetworkManager.shared.createUser(email: email, name: name, netid: username, password: password) {
                             user in
                             let vc = HomeViewController(user: user)
+                            vc.modalPresentationStyle = .fullScreen
                             // let vc = HomeViewController()
                             self.present(vc, animated: true, completion: nil)
                         }
@@ -151,4 +160,13 @@ class SignUpViewController: UIViewController {
          // Pass the selected object to the new view controller.
      }
      */
+}
+
+extension SignUpViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        return false
+    }
+    
 }
