@@ -65,27 +65,6 @@ class LoginViewController: UIViewController {
         signupButton.addTarget(self, action: #selector(signUpButtonClicked), for: .touchUpInside)
         view.addSubview(signupButton)
         
-        loginLabel.text = "Login"
-        loginLabel.font = UIFont(name: "Helvetica-Bold", size: 20)
-        loginLabel.textColor = carnellian
-        loginLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(loginLabel)
-        
-        nameTextField.placeholder = "Email"
-        nameTextField.backgroundColor = .systemBackground
-        nameTextField.autocorrectionType = .no
-        nameTextField.autocapitalizationType = .none
-        nameTextField.translatesAutoresizingMaskIntoConstraints = false
-        nameTextField.inputAccessoryView = createOtherToolBar()
-        view.addSubview(nameTextField)
-        
-        passwordTextField.placeholder = "Password"
-        passwordTextField.backgroundColor = .systemBackground
-        passwordTextField.autocorrectionType = .no
-        passwordTextField.autocapitalizationType = .none
-        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(passwordTextField)
-        
         setupConstraints()
     }
     
@@ -98,7 +77,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func otherDonePressed() {
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
     
     @objc func signUpButtonClicked() {
