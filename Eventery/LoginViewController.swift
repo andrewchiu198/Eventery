@@ -8,7 +8,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-    let logoImage = UIImageView(image: UIImage(named: "eventerylogotransp")!)
+    let logoImage = UIImageView(image: UIImage(named: "EventeryLogoTransp")!)
     
     let nameTextField = UITextField()
     let passwordTextField = UITextField()
@@ -38,7 +38,6 @@ class LoginViewController: UIViewController {
         nameTextField.backgroundColor = .white
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nameTextField)
-        
         
         passwordTextField.delegate = self
         passwordTextField.isSecureTextEntry = true
