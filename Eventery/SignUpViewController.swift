@@ -33,7 +33,7 @@ class SignUpViewController: UIViewController {
         view.addSubview(signupLabel)
         
         nameTextField.delegate = self
-        nameTextField.placeholder = "Netid"
+        nameTextField.placeholder = "Name..."
         nameTextField.layer.cornerRadius = 10.0
         nameTextField.autocapitalizationType = .none
         nameTextField.autocorrectionType = .no
@@ -138,7 +138,7 @@ class SignUpViewController: UIViewController {
             if let password = passwordTextField.text {
                 if let name = nameTextField.text {
                     if let email = emailTextField.text {
-                        NetworkManager.shared.createUser(email: email, name: name, netid: username, password: password) {
+                        NetworkManager.shared.createUser(username: name, password: password, email: email, name: name) {
                             user in
                             let vc = HomeViewController(user: user)
                             vc.modalPresentationStyle = .fullScreen
