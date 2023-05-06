@@ -133,36 +133,31 @@ class LearnMoreViewController: UIViewController {
             eventImageView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1),
             eventImageView.heightAnchor.constraint(equalTo: eventImageView.widthAnchor, multiplier: 3 / 6),
             eventImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            eventImageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             eventImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
             eventNameLabel.topAnchor.constraint(equalTo: eventImageView.bottomAnchor, constant: 10),
             eventNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            eventNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            eventNameLabel.widthAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width)
+            eventNameLabel.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 1)
         ])
         
         NSLayoutConstraint.activate([
             eventLocationLabel.topAnchor.constraint(equalTo: eventNameLabel.bottomAnchor, constant: 10),
             eventLocationLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            eventLocationLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            eventLocationLabel.widthAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width)
+            eventLocationLabel.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.9)
         ])
         
         NSLayoutConstraint.activate([
             eventTimeLabel.topAnchor.constraint(equalTo: eventLocationLabel.bottomAnchor, constant: 10),
             eventTimeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            eventTimeLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            eventTimeLabel.widthAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width)
+            eventTimeLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.9)
         ])
         
         NSLayoutConstraint.activate([
             eventHostLabel.topAnchor.constraint(equalTo: eventTimeLabel.bottomAnchor, constant: 10),
             eventHostLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            eventHostLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            eventHostLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3)
+            eventHostLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5)
         ])
         
         NSLayoutConstraint.activate([
