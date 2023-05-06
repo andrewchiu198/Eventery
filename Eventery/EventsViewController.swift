@@ -115,6 +115,8 @@ class EventsViewController: UIViewController {
             DispatchQueue.main.async {
                 self.filteredEvents = events
                 self.events = events
+                //self.eventsCollectionView.reloadData()
+                // print("reloaded")
                 self.eventsCollectionView.reloadData()
                 self.refreshControl.endRefreshing()
 //                self.filterData()

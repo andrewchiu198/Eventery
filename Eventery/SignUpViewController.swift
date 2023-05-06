@@ -138,12 +138,14 @@ class SignUpViewController: UIViewController {
             if let password = passwordTextField.text {
                 if let name = nameTextField.text {
                     if let email = emailTextField.text {
-                        NetworkManager.shared.createUser(username: name, password: password, email: email, name: name) {
-                            user in
-                            let vc = HomeViewController(user: user)
-                            vc.modalPresentationStyle = .fullScreen
-                            // let vc = HomeViewController()
-                            self.present(vc, animated: true, completion: nil)
+                        NetworkManager.shared.createUser(username: username, password: password, email: email, name: name) {
+                            response in
+                            DispatchQueue.main.async {
+                                let user = User(id: response.id, name: response.name, netid: response.netid, email: response.email)
+                                let vc = HomeViewController(user: user)
+                                vc.modalPresentationStyle = .fullScreen
+                                self.present(vc, animated: true, completion: nil)
+                            }
                         }
                     }
                 }
