@@ -12,6 +12,7 @@ class EventsCollectionViewCell: UICollectionViewCell {
     let eventNameLabel = UILabel()
     let eventLocationLabel = UILabel()
     let startTimeLabel = UILabel()
+    let freeLabel = UILabel()
 //    let learnMoreButton = UIButton()
     
     var event = Event(id: 0, title: "", address: "", start: "", end: "", description: "", host: "", host_email: "", free: false, category: "")
@@ -26,6 +27,23 @@ class EventsCollectionViewCell: UICollectionViewCell {
         if let e = event.category {
             eventImageView.image = UIImage(named: e + "Event")
         }
+        
+        if(event.free == false) {
+            freeLabel.backgroundColor = .red
+        }
+        else {
+            freeLabel.backgroundColor = .green
+        }
+        freeLabel.translatesAutoresizingMaskIntoConstraints = false
+        freeLabel.layer.cornerRadius = 5
+        freeLabel.clipsToBounds = true
+        freeLabel.textColor = .white
+        freeLabel.font = UIFont(name: "Helvetica-Bold", size: contentView.frame.width * 0.065)
+        freeLabel.textAlignment = .center
+        freeLabel.text = "Free"
+        
+        
+        contentView.addSubview(freeLabel)
         eventImageView.clipsToBounds = true
         eventImageView.layer.cornerRadius = 5
         eventImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,6 +95,13 @@ class EventsCollectionViewCell: UICollectionViewCell {
         eventNameLabel.text = event.title
         eventLocationLabel.text = event.address
         startTimeLabel.text = event.start
+        
+        if(event.free == false) {
+            freeLabel.backgroundColor = .red
+        }
+        else {
+            freeLabel.backgroundColor = .green
+        }
     }
     
     func setupConstraints() {
@@ -105,6 +130,13 @@ class EventsCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             //            learnMoreButton.topAnchor.constraint(equalTo: startTimeLabel.bottomAnchor, constant: 5),
 //            learnMoreButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            freeLabel.topAnchor.constraint(equalTo: startTimeLabel.bottomAnchor, constant: 10),
+            freeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            freeLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier:  0.3),
+            freeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
     

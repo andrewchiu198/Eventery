@@ -15,6 +15,7 @@ class LearnMoreViewController: UIViewController {
     let eventHostLabel = UILabel()
     let descriptionTextView = UITextView()
     let deleteButton = UIButton()
+    let freeLabel = UILabel()
     
     var currentUser: User = User(id: 9089809, name: "udp3", netid: "udp3@cornell.edu", email: "Deepa Pulugurtha")
     
@@ -50,6 +51,23 @@ class LearnMoreViewController: UIViewController {
         eventImageView.clipsToBounds = true
         eventImageView.layer.cornerRadius = 5
         view.addSubview(eventImageView)
+        
+        if(event.free == false) {
+            freeLabel.backgroundColor = .red
+        }
+        else {
+            freeLabel.backgroundColor = .green
+        }
+        freeLabel.translatesAutoresizingMaskIntoConstraints = false
+        freeLabel.layer.cornerRadius = 5
+        freeLabel.clipsToBounds = true
+        freeLabel.textColor = .white
+        freeLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.width * 0.04)
+        freeLabel.textColor = .white
+        freeLabel.textAlignment = .center
+        freeLabel.text = "Free"
+        view.addSubview(freeLabel)
+        
         
         eventNameLabel.text = event.title
         eventNameLabel.font = UIFont(name: "Helvetica-Bold", size: view.frame.height * 0.03)
@@ -100,8 +118,6 @@ class LearnMoreViewController: UIViewController {
         deleteButton.addTarget(self, action: #selector(deleteAction), for: .touchUpInside)
         // deleteButton.contentEdgeInsets = UIEdgeInsets(top: 5.0, left: 10.0, bottom: 5.0, right: 10.0)
         view.addSubview(deleteButton)
-        // TODO: add hyperlink functionality to this button
-
         setupConstraints()
     }
     
@@ -146,7 +162,7 @@ class LearnMoreViewController: UIViewController {
             eventHostLabel.topAnchor.constraint(equalTo: eventTimeLabel.bottomAnchor, constant: 10),
             eventHostLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             eventHostLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            eventHostLabel.widthAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width)
+            eventHostLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.3)
         ])
         
         NSLayoutConstraint.activate([
@@ -154,6 +170,13 @@ class LearnMoreViewController: UIViewController {
             descriptionTextView.bottomAnchor.constraint(equalTo: deleteButton.topAnchor, constant: -10),
             descriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             descriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ])
+        
+        NSLayoutConstraint.activate([
+            freeLabel.topAnchor.constraint(equalTo: eventTimeLabel.bottomAnchor, constant: 10),
+            freeLabel.leadingAnchor.constraint(equalTo: eventHostLabel.trailingAnchor, constant: 20),
+            freeLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.25),
+            freeLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.03)
         ])
         
         NSLayoutConstraint.activate([

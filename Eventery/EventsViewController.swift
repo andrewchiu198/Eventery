@@ -232,7 +232,7 @@ extension EventsViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: view.frame.width/2.5, height: view.frame.height/27)
         }
         if collectionView.tag == 1 {
-            return CGSize(width: view.frame.width/2.25, height: view.frame.width/2.25)
+            return CGSize(width: view.frame.width/2.25, height: view.frame.width/2.15)
         }
         return CGSize()
     }
