@@ -81,7 +81,7 @@ class HomeViewController: UITabBarController {
         }
     }
     
-    func setUser(user: User) {}
+    //func setUser(user: User) {}
     
     fileprivate func createNavController(for rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
         let navController = UINavigationController(rootViewController: rootViewController)

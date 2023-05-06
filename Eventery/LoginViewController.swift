@@ -53,6 +53,7 @@ class LoginViewController: UIViewController {
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.addTarget(self, action: #selector(loginButtonClicked), for: .touchUpInside)
+
         view.addSubview(loginButton)
         
         signupButton.backgroundColor = carnellian
@@ -64,7 +65,40 @@ class LoginViewController: UIViewController {
         signupButton.addTarget(self, action: #selector(signUpButtonClicked), for: .touchUpInside)
         view.addSubview(signupButton)
         
+        loginLabel.text = "Login"
+        loginLabel.font = UIFont(name: "Helvetica-Bold", size: 20)
+        loginLabel.textColor = carnellian
+        loginLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loginLabel)
+        
+        nameTextField.placeholder = "Email"
+        nameTextField.backgroundColor = .systemBackground
+        nameTextField.autocorrectionType = .no
+        nameTextField.autocapitalizationType = .none
+        nameTextField.translatesAutoresizingMaskIntoConstraints = false
+        nameTextField.inputAccessoryView = createOtherToolBar()
+        view.addSubview(nameTextField)
+        
+        passwordTextField.placeholder = "Password"
+        passwordTextField.backgroundColor = .systemBackground
+        passwordTextField.autocorrectionType = .no
+        passwordTextField.autocapitalizationType = .none
+        passwordTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(passwordTextField)
+        
         setupConstraints()
+    }
+    
+    func createOtherToolBar() -> UIToolbar {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton2 = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(otherDonePressed))
+        toolbar.setItems([doneButton2], animated: true)
+        return toolbar
+    }
+    
+    @objc func otherDonePressed() {
+        self.view.endEditing(true)
     }
     
     @objc func signUpButtonClicked() {

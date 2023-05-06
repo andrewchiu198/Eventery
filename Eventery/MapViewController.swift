@@ -12,14 +12,19 @@ import CoreLocation
 class MapViewController: UIViewController {
 
     @IBOutlet private var mapView: MKMapView! = MKMapView()
-    let refreshControl = UIRefreshControl()
     
-    var events: [Event]
+    static let shared = MapViewController()
+    
+    var events: [Event] = []
     
     init(events: [Event]){
         self.events = events
         super.init(nibName: nil, bundle: nil)
                     
+    }
+    
+    init(){
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -76,6 +81,7 @@ class MapViewController: UIViewController {
         
     
     func addAllEvents(){
+        mapView.removeAnnotations(mapView.annotations)
         for event in self.events{
            addEvent(event: event)
         }
@@ -85,7 +91,6 @@ class MapViewController: UIViewController {
     func addEvent(event: Event){
         let arbEvent = getAnnotationsFromLocation(address: event.address)
         arbEvent.title = event.title
-//        arbEvent.coordinate = CLLocationCoordinate2D(latitude: getLatitudeFromLoc(address: event.address), longitude: getLongitudeFromLoc(address: event.address))
         print(arbEvent.coordinate)
         mapView.addAnnotation(arbEvent)
     }
@@ -97,7 +102,7 @@ class MapViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.events = events
                     //self.mapView.reloadData()
-                    self.refreshControl.endRefreshing()
+                    //self.refreshControl.endRefreshing()
                 }
             }
         }
