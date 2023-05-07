@@ -157,6 +157,8 @@ class CalendarViewController: UIViewController {
         rightButton.addTarget(self, action: #selector(nextMonth), for: .touchUpInside)
 
         // setup the days of the week labels
+        sun.text = "Sun"
+        sun.textAlignment = .center
         mon.text = "Mon"
         mon.textAlignment = .center
         tue.text = "Tue"
@@ -169,20 +171,18 @@ class CalendarViewController: UIViewController {
         fri.textAlignment = .center
         sat.text = "Sat"
         sat.textAlignment = .center
-        sun.text = "Sun"
-        sun.textAlignment = .center
 
         // setup the days of the week stack view
         weekdayStackView.axis = .horizontal
         weekdayStackView.distribution = .fillEqually
         weekdayStackView.alignment = .fill
+        weekdayStackView.addArrangedSubview(sun)
         weekdayStackView.addArrangedSubview(mon)
         weekdayStackView.addArrangedSubview(tue)
         weekdayStackView.addArrangedSubview(wed)
         weekdayStackView.addArrangedSubview(thu)
         weekdayStackView.addArrangedSubview(fri)
         weekdayStackView.addArrangedSubview(sat)
-        weekdayStackView.addArrangedSubview(sun)
 
         // set up the calendar collection view and flow layout
         let flowLayout = UICollectionViewFlowLayout()
